@@ -1,0 +1,52 @@
+import React, { useState, useEffect } from "react";
+import axiosInstance from "./../axios";
+import { useLocation } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import { BOOK_URL } from "../utils";
+import Book from "../Components/Book";
+
+const defaultTheme = createTheme();
+
+const Books = () => {
+  const [books, setBooks] = useState([]);
+  const location = useLocation();
+
+  const getUserBooks = async () => {
+    try {
+      const response = await axiosInstance.get(BOOK_URL);
+      setBooks(response.data);
+    } catch (error) {
+      console.log("Error loading data");
+    }
+  };
+
+  useEffect(() => {
+    if (location.state) {
+      console.log(location.state);
+      setBooks(location.state);
+      return;
+    }
+    getUserBooks();
+  }, []);
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <main>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4}>
+            {books.map((card) => (
+              <Book book={card} />
+            ))}
+          </Grid>
+        </Container>
+      </main>
+    </ThemeProvider>
+  );
+};
+
+export default Books;
