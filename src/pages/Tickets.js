@@ -23,11 +23,7 @@ const Tickets = () => {
       console.log("Error loading data");
     }
   };
-
-  const handleAddTicket = () => setIsAddingTicket(true);
-
-  const handleCloseTicketForm = () => setIsAddingTicket(false);
-
+  
   useEffect(() => {
     getUserBooks();
   }, []);
@@ -40,7 +36,7 @@ const Tickets = () => {
             variant="contained"
             color="secondary"
             size="small"
-            onClick={handleAddTicket}
+            onClick={() => setIsAddingTicket(true)}
           >
             Add new Ticket
           </Button>
@@ -51,7 +47,7 @@ const Tickets = () => {
           ))}
         </Grid>
       </Container>
-      <TicketForm open={isAddingTicket} handleClose={handleCloseTicketForm} />
+      <TicketForm open={isAddingTicket} handleClose={() => setIsAddingTicket(false)} />
     </ThemeProvider>
   );
 };
