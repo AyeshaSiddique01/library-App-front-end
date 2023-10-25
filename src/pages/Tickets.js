@@ -15,7 +15,7 @@ const Tickets = () => {
   const [tickets, setTickets] = useState([]);
   const [isAddingTicket, setIsAddingTicket] = useState(false);
 
-  const getUserBooks = async () => {
+  const getUserTickets = async () => {
     try {
       const response = await axiosInstance.get(Ticket_URL);
       setTickets(response.data);
@@ -25,7 +25,7 @@ const Tickets = () => {
   };
   
   useEffect(() => {
-    getUserBooks();
+    getUserTickets();
   }, []);
 
   return (
@@ -43,11 +43,11 @@ const Tickets = () => {
         </Grid>
         <Grid container spacing={4}>
           {tickets.map((card) => (
-            <Ticket request={card} />
+            <Ticket request={card} updateTickets={getUserTickets} />
           ))}
         </Grid>
       </Container>
-      <TicketForm open={isAddingTicket} handleClose={() => setIsAddingTicket(false)} />
+      <TicketForm open={isAddingTicket} handleClose={() => setIsAddingTicket(false)}  updateTickets={getUserTickets} />
     </ThemeProvider>
   );
 };

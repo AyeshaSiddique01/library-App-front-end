@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 
 import { BOOK_REQUEST_URL } from "../utils";
 
-const BookRequest = ({ request }) => {
+const BookRequest = ({ request, updateRequests }) => {
   const handleReturnBook = async () => {
     try {
       const response = await axiosInstance.put(
@@ -21,7 +21,7 @@ const BookRequest = ({ request }) => {
           status: "returned",
         }
       );
-      window.alert("Returned");
+      updateRequests();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -32,7 +32,7 @@ const BookRequest = ({ request }) => {
       const response = await axiosInstance.delete(
         `${BOOK_REQUEST_URL}${request.id}/`
       );
-      window.alert("Ticket deleted");
+      updateRequests();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -147,6 +147,7 @@ const BookRequest = ({ request }) => {
 };
 
 BookRequest.propTypes = {
+  updateRequests: PropTypes.func,
   request: PropTypes.shape({
     id: PropTypes.number.isRequired,
     issued_date: PropTypes.string.isRequired,

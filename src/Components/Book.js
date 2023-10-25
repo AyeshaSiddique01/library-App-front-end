@@ -11,13 +11,13 @@ import Typography from "@mui/material/Typography";
 
 import { BOOK_REQUEST_URL } from "../utils";
 
-const Book = ({ book }) => {
+const Book = ({ book, updateBooks }) => {
   const handleRequestBook = () => {
     try {
       const response = axiosInstance.post(BOOK_REQUEST_URL, {
         book: book.id,
       });
-      window.alert("Request to add book sent");
+      updateBooks();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -83,6 +83,7 @@ const Book = ({ book }) => {
 };
 
 Book.propTypes = {
+  updateBooks: PropTypes.func,
   book: PropTypes.shape({
     id: PropTypes.number,
     image: PropTypes.string,

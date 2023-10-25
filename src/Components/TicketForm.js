@@ -10,7 +10,7 @@ import { Alert, Box, Grid, TextField } from "@mui/material";
 
 import { Ticket_URL } from "../utils";
 
-const TicketForm = ({ open, handleClose }) => {
+const TicketForm = ({ open, handleClose, updateTickets }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -20,7 +20,7 @@ const TicketForm = ({ open, handleClose }) => {
       const response = await axiosInstance.post(Ticket_URL, {
         request_message: data.get("message"),
       });
-      window.alert(response.data["message"]);
+      updateTickets();
     } catch (error) {
       setError(error);
     }
@@ -78,6 +78,7 @@ const TicketForm = ({ open, handleClose }) => {
 };
 
 TicketForm.propTypes = {
+  updateTickets: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
 };

@@ -9,12 +9,12 @@ import CardContent from "@mui/material/CardContent";
 
 import { Ticket_URL } from "../utils";
 
-const Ticket = ({ request }) => {
+const Ticket = ({ request, updateTickets }) => {
   const handleTicket = () => {
     try {
       const response = axiosInstance.delete(
         `${Ticket_URL}${request.id}/`);
-      window.alert("Ticket deleted");
+        updateTickets();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -75,6 +75,7 @@ const Ticket = ({ request }) => {
 };
 
 Ticket.propTypes = {
+  updateTickets: PropTypes.func,
   request: PropTypes.shape({
     id: PropTypes.number,
     request_message: PropTypes.string,

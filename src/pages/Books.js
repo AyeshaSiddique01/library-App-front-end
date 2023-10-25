@@ -40,7 +40,7 @@ const Books = () => {
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {books.map((card) => (
-              <Book book={card} />
+              <Book book={card} updateBooks={getUserBooks} />
             ))}
           </Grid>
         </Container>
