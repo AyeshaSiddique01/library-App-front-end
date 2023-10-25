@@ -56,21 +56,10 @@ const Navbar = () => {
   const logout = () => {
     if (localStorage.getItem("access_token")) {
       localStorage.clear();
-      navigate("/login");
     }
+    navigate("/login");
   };
 
-  const handleSearch = async (e) => {
-    setSearch(e.target.value);
-    try {
-      const response = await axiosInstance.get(
-        `${BOOK_URL}?search=${e.target.value}`
-      );
-      navigate(`/books?search=${e.target.value}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <Typography position="fixed" width="100%">
@@ -91,7 +80,7 @@ const Navbar = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={handleSearch}
+              onChange={(e) => {navigate(`/books?search=${e.target.value}`)}}
             />
           </Search>
           <Button
