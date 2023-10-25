@@ -42,7 +42,7 @@ const Book = ({ book }) => {
               <b>Author</b>
             </Grid>
             <Grid item xs={8}>
-              {book.author.map((author) => author.name + ", ")}
+              {book.author.map((author) => `${author.name}, `)}
             </Grid>
           </Grid>
           <Grid container>
@@ -70,7 +70,7 @@ const Book = ({ book }) => {
                 variant="contained"
                 color="secondary"
                 size="small"
-                disabled={true}
+                disabled
               >
                 Not Available
               </Button>

@@ -64,7 +64,7 @@ const Navbar = () => {
     setSearch(e.target.value);
     try {
       const response = await axiosInstance.get(
-        BOOK_URL + "?search=" + e.target.value
+        `${BOOK_URL}?search=${e.target.value}`
       );
       navigate("/books", { state: response.data });
     } catch (error) {

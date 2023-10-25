@@ -15,7 +15,7 @@ const BookRequest = ({ request }) => {
   const handleReturnBook = async () => {
     try {
       const response = await axiosInstance.put(
-        BOOK_REQUEST_URL + request.id + "/",
+        `${BOOK_REQUEST_URL}${request.id}/`,
         {
           id: request.id,
           status: "returned",
@@ -30,7 +30,7 @@ const BookRequest = ({ request }) => {
   const handleDeleterequest = async () => {
     try {
       const response = await axiosInstance.delete(
-        BOOK_REQUEST_URL + request.id + "/"
+        `${BOOK_REQUEST_URL}${request.id}/`
       );
       window.alert("Ticket deleted");
     } catch (error) {
@@ -90,7 +90,7 @@ const BookRequest = ({ request }) => {
                     variant="contained"
                     color="secondary"
                     size="small"
-                    disabled={true}
+                    disabled
                   >
                     Request Pending
                   </Button>
@@ -122,7 +122,7 @@ const BookRequest = ({ request }) => {
                     variant="contained"
                     color="secondary"
                     size="small"
-                    disabled={true}
+                    disabled
                   >
                     Returned
                   </Button>
