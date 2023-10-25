@@ -66,7 +66,7 @@ const Navbar = () => {
       const response = await axiosInstance.get(
         `${BOOK_URL}?search=${e.target.value}`
       );
-      navigate("/books", { state: response.data });
+      navigate(`/books?search=${e.target.value}`);
     } catch (error) {
       console.log(error);
     }

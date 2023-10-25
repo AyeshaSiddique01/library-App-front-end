@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axiosInstance from "./../axios";
 import { useLocation } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,11 +13,15 @@ const defaultTheme = createTheme();
 
 const Books = () => {
   const [books, setBooks] = useState([]);
-  const location = useLocation();
+  let { search } = useLocation();
+  const query = new URLSearchParams(search);
+  const name = query.get('search');
 
   const getUserBooks = async () => {
     try {
-      const response = await axiosInstance.get(BOOK_URL);
+      let response;
+      if (name === undefined) response = await axiosInstance.get(BOOK_URL);
+      else response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
       setBooks(response.data);
     } catch (error) {
       console.log("Error loading data");
@@ -25,11 +29,6 @@ const Books = () => {
   };
 
   useEffect(() => {
-    if (location.state) {
-      console.log(location.state);
-      setBooks(location.state);
-      return;
-    }
     getUserBooks();
   }, []);
 
