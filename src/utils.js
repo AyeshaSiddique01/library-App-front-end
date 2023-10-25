@@ -6,3 +6,4 @@ export const UPDATE_PASSWORD = `${BASE_URL}/update_password/`;
 export const BOOK_URL = `${BASE_URL}/books/`;
 export const BOOK_REQUEST_URL = `${BASE_URL}/request_book/`;
 export const Ticket_URL = `${BASE_URL}/tickets/`;
+export const Author_URL = `${BASE_URL}/author/`;

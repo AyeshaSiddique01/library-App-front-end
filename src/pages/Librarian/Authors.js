@@ -17,22 +17,8 @@ const Authors = () => {
 
     const getAuthor = async () => {
         try {
-            //   const response = await axiosInstance.get(Author_URL);
-            let data = [
-                {
-                    "id": 1,
-                    "name": "Rylee Fletcher",
-                    "gender": "F",
-                    "email": "toselyr@mailinator.com"
-                },
-                {
-                    "id": 2,
-                    "name": "Ayesha",
-                    "gender": "F",
-                    "email": "ayeshasiddique1306@gmail.com"
-                }
-            ]
-            setAuthor(data);
+            const response = await axiosInstance.get(Author_URL);
+            setAuthor(response.data);
         } catch (error) {
             console.log("Error loading data");
         }
