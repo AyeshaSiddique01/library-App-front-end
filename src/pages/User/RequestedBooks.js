@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "./../axios";
+import axiosInstance from "../../axios";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { BOOK_REQUEST_URL } from "../utils";
-import BookRequest from "../Components/BookRequest";
+import { BOOK_REQUEST_URL } from "../../utils";
+import BookRequest from "../../Components/User/BookRequest";
 
 const defaultTheme = createTheme();
 

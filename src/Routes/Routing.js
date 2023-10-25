@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Footer from "../Components/Footer";
+import Footer from "../Components/User/Footer";
 import ProtectedRoute from "./ProtectedRoutes";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import UpdatePassword from "../pages/UpdatePassword";
-import Home from "../pages/Home";
-import Books from "../pages/Books";
-import RequestedBooks from "../pages/RequestedBooks";
-import Tickets from "../pages/Tickets";
+import Login from "../pages/User/Login";
+import Signup from "../pages/User/Signup";
+import UpdatePassword from "../pages/User/UpdatePassword";
+import Home from "../pages/User/Home";
+import Books from "../pages/User/Books";
+import RequestedBooks from "../pages/User/RequestedBooks";
+import Tickets from "../pages/User/Tickets";
 
 const Routing = () => (
   <Router>

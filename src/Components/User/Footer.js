@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
-import { WEBSITE_URL } from "../utils";
+import { WEBSITE_URL } from "../../utils";
 
 const Footer = () => (
   <Typography

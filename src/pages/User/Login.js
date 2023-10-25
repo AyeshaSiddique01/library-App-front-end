@@ -14,11 +14,11 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { UPDATE_PASSWORD } from "../utils";
+import { LOGIN_URL } from "../../utils";
 
 const defaultTheme = createTheme();
 
-const UpdatePassword = () => {
+const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -26,16 +26,20 @@ const UpdatePassword = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      if (data.get("confirmPassword") !== data.get("password")) {
-        setError("Confirm password and password doesn't match");
-        return;
-      }
-      const response = await axios.post(UPDATE_PASSWORD, {
+      const response = await axios.post(LOGIN_URL, {
         username: data.get("username"),
         password: data.get("password"),
       });
-      navigate("/");
-      return;
+      if (response.status === 200) {
+        localStorage.setItem("access_token", response.data.access);
+        navigate("/");
+        return;
+      }
+      if (response.status === 401) {
+        setError("Unauthorized: Invalid credentials");
+        return;
+      }
+      setError("An error occurred while logging in.");
     } catch (error) {
       setError(error);
     }
@@ -57,7 +61,7 @@ const UpdatePassword = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Update Password
+            Login
           </Typography>
           <Box
             component="form"
@@ -85,16 +89,6 @@ const UpdatePassword = () => {
               id="password"
               autoComplete="current-password"
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              autoComplete="current-password"
-            />
             <Button
               type="submit"
               fullWidth
@@ -102,7 +96,7 @@ const UpdatePassword = () => {
               color="secondary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Update Password
+              Login
             </Button>
             {error && (
               <Alert severity="error" sx={{ mt: 1 }}>
@@ -110,9 +104,14 @@ const UpdatePassword = () => {
               </Alert>
             )}
             <Grid container>
+              <Grid item xs>
+                <Link href="/update_password" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
               <Grid item>
-                <Link href="/login" variant="body2">
-                  {"Remember Password? Login"}
+                <Link href="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
@@ -123,4 +122,4 @@ const UpdatePassword = () => {
   );
 };
 
-export default UpdatePassword;
+export default Login;

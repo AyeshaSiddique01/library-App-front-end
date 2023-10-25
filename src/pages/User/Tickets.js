@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "./../axios";
+import axiosInstance from "../../axios";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Ticket_URL } from "../utils";
-import Ticket from "../Components/Ticket";
-import TicketForm from "../Components/TicketForm";
+import { Ticket_URL } from "../../utils";
+import Ticket from "../../Components/User/Ticket";
+import TicketForm from "../../Components/User/TicketForm";
 
 const defaultTheme = createTheme();
 

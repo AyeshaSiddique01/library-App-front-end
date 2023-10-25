@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -10,15 +13,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from "@mui/material/Alert";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-import { LOGIN_URL } from "../utils";
+import { USER_URL } from "../../utils";
 
 const defaultTheme = createTheme();
 
-const Login = () => {
+const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -26,20 +26,18 @@ const Login = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      const response = await axios.post(LOGIN_URL, {
+      if (data.get("confirmPassword") !== data.get("password")) {
+        setError("Confirm password doesn't match password");
+        return;
+      }
+      const response = await axios.post(USER_URL, {
         username: data.get("username"),
         password: data.get("password"),
+        email: data.get("email"),
       });
-      if (response.status === 200) {
-        localStorage.setItem("access_token", response.data.access);
-        navigate("/");
-        return;
-      }
-      if (response.status === 401) {
-        setError("Unauthorized: Invalid credentials");
-        return;
-      }
-      setError("An error occurred while logging in.");
+      localStorage.setItem("access_token", response.data.access_token);
+      navigate("/");
+      return;
     } catch (error) {
       setError(error);
     }
@@ -61,7 +59,7 @@ const Login = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Signup
           </Typography>
           <Box
             component="form"
@@ -83,10 +81,30 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
+              autoComplete="current-password"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
               autoComplete="current-password"
             />
             <Button
@@ -96,7 +114,7 @@ const Login = () => {
               color="secondary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Login
+              Signup
             </Button>
             {error && (
               <Alert severity="error" sx={{ mt: 1 }}>
@@ -104,14 +122,9 @@ const Login = () => {
               </Alert>
             )}
             <Grid container>
-              <Grid item xs>
-                <Link href="/update_password" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/login" variant="body2">
+                  {"Already have an account? Login"}
                 </Link>
               </Grid>
             </Grid>
@@ -122,4 +135,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

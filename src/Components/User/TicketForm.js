@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axiosInstance from "./../axios";
+import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -8,7 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { Alert, Box, Grid, TextField } from "@mui/material";
 
-import { Ticket_URL } from "../utils";
+import { Ticket_URL } from "../../utils";
 
 const TicketForm = ({ open, handleClose, updateTickets }) => {
   const [error, setError] = useState("");

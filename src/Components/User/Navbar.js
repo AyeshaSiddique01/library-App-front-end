@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "./../axios";
+import axiosInstance from "../../axios";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button, Typography } from "@mui/material";
 
 import NavbarIcon from "./NavbarIcon";
-import { BOOK_URL } from "../utils";
+import { BOOK_URL } from "../../utils";
 
 
 const Search = styled("div")(({ theme }) => ({

@@ -1,5 +1,5 @@
 import React from "react";
-import axiosInstance from "./../axios";
+import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,7 +7,7 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import { Ticket_URL } from "../utils";
+import { Ticket_URL } from "../../utils";
 
 const Ticket = ({ request, updateTickets }) => {
   const handleTicket = () => {

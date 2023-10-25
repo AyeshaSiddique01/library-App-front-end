@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Alert from "@mui/material/Alert";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,12 +10,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Alert from "@mui/material/Alert";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import { USER_URL } from "../utils";
+import { UPDATE_PASSWORD } from "../../utils";
 
 const defaultTheme = createTheme();
 
-const Signup = () => {
+const UpdatePassword = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -27,15 +27,13 @@ const Signup = () => {
     const data = new FormData(event.currentTarget);
     try {
       if (data.get("confirmPassword") !== data.get("password")) {
-        setError("Confirm password doesn't match password");
+        setError("Confirm password and password doesn't match");
         return;
       }
-      const response = await axios.post(USER_URL, {
+      const response = await axios.post(UPDATE_PASSWORD, {
         username: data.get("username"),
         password: data.get("password"),
-        email: data.get("email"),
       });
-      localStorage.setItem("access_token", response.data.access_token);
       navigate("/");
       return;
     } catch (error) {
@@ -59,7 +57,7 @@ const Signup = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Signup
+            Update Password
           </Typography>
           <Box
             component="form"
@@ -75,16 +73,6 @@ const Signup = () => {
               label="Username"
               name="username"
               autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
               autoFocus
             />
             <TextField
@@ -114,7 +102,7 @@ const Signup = () => {
               color="secondary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Signup
+              Update Password
             </Button>
             {error && (
               <Alert severity="error" sx={{ mt: 1 }}>
@@ -124,7 +112,7 @@ const Signup = () => {
             <Grid container>
               <Grid item>
                 <Link href="/login" variant="body2">
-                  {"Already have an account? Login"}
+                  {"Remember Password? Login"}
                 </Link>
               </Grid>
             </Grid>
@@ -135,4 +123,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default UpdatePassword;

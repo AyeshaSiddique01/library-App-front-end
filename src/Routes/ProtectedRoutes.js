@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/User/Navbar";
 import { Typography } from "@mui/material";
 
 const ProtectedRoute = ({ children, isProtected }) => {

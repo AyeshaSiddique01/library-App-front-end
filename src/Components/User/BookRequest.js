@@ -1,5 +1,5 @@
 import React from "react";
-import axiosInstance from "./../axios";
+import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -9,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import { BOOK_REQUEST_URL } from "../utils";
+import { BOOK_REQUEST_URL } from "../../utils";
 
 const BookRequest = ({ request, updateRequests }) => {
   const handleReturnBook = async () => {
