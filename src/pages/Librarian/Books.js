@@ -1,11 +1,11 @@
-import React, { useState, useEffect} from "react";
-// import axiosInstance from "../../axios";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../axios";
 import { useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// import { BOOK_URL } from "../../utils";
+import { BOOK_URL } from "../../utils";
 import Book from "../../Components/Librarian/Book";
 import { Button } from "@mui/material";
 import BookForm from "../../Components/Librarian/BookForm";
@@ -14,46 +14,17 @@ const defaultTheme = createTheme();
 
 const LibrarianBooks = () => {
   const [books, setBooks] = useState([]);
-  // let { search } = useLocation();
-  // const query = new URLSearchParams(search);
-  // const name = query.get('search');
+  let { search } = useLocation();
+  const query = new URLSearchParams(search);
+  const name = query.get("search");
   const [isAddingBook, setIsAddingBook] = useState(false);
 
   const getBooks = async () => {
     try {
-      // let response;
-      // if (name === undefined) response = await axiosInstance.get(BOOK_URL);
-      // else response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
-      // setBooks(response.data);
-      let data = [
-        {
-          "id": 1,
-          "name": "Harry Potter",
-          "image": "http://127.0.0.1:8000/media/upload/default.png",
-          "publisher": "Bloomsbury",
-          "inventory": 32,
-          "author": [{
-            "id":1,
-            "name": "Ayesha",
-            "gender": "F",
-            "email": "ayeshasiddique1306@gmail.com"
-          }]
-        },
-        {
-          "id": 2,
-          "name": "IDK",
-          "image": "http://127.0.0.1:8000/media/books/luna.jpeg",
-          "publisher": "Bloomsbury",
-          "inventory": 0,
-          "author": [{
-            "id":1,
-            "name": "Ayesha",
-            "gender": "F",
-            "email": "ayeshasiddique1306@gmail.com"
-          }]
-        }
-      ]
-      setBooks(data);
+      let response;
+      if (name === undefined) response = await axiosInstance.get(BOOK_URL);
+      else response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
+      setBooks(response.data);
     } catch (error) {
       console.log("Error loading data");
     }
@@ -82,7 +53,11 @@ const LibrarianBooks = () => {
           ))}
         </Grid>
       </Container>
-      <BookForm open={isAddingBook} handleClose={() => setIsAddingBook(false)} updateBook={getBooks} />
+      <BookForm
+        open={isAddingBook}
+        handleClose={() => setIsAddingBook(false)}
+        updateBook={getBooks}
+      />
     </ThemeProvider>
   );
 };
