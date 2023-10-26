@@ -1,23 +1,22 @@
-import React, { useState, useEffect, ef } from "react";
-import axiosInstance from "../../axios";
+import React, { useState, useEffect} from "react";
+// import axiosInstance from "../../axios";
 import { useLocation } from "react-router-dom";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { BOOK_URL } from "../../utils";
+// import { BOOK_URL } from "../../utils";
 import Book from "../../Components/Librarian/Book";
 import { Button } from "@mui/material";
 import BookForm from "../../Components/Librarian/BookForm";
 
 const defaultTheme = createTheme();
 
-const Books = () => {
+const LibrarianBooks = () => {
   const [books, setBooks] = useState([]);
-  let { search } = useLocation();
-  const query = new URLSearchParams(search);
-  const name = query.get('search');
+  // let { search } = useLocation();
+  // const query = new URLSearchParams(search);
+  // const name = query.get('search');
   const [isAddingBook, setIsAddingBook] = useState(false);
 
   const getBooks = async () => {
@@ -74,7 +73,7 @@ const Books = () => {
             size="small"
             onClick={() => setIsAddingBook(true)}
           >
-            Add new Author
+            Add new Book
           </Button>
         </Grid>
         <Grid container spacing={4}>
@@ -88,4 +87,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default LibrarianBooks;

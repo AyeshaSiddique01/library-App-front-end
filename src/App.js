@@ -1,9 +1,9 @@
 import React from "react";
 
 import Routing from "./Routes/Routing";
-import Books from "./pages/Librarian/Books";
+import LibrarianBooks from "./pages/Librarian/Books";
 import "./App.css";
 
-const App = () => <Books />;
+const App = () => <LibrarianBooks />;
 
 export default App;

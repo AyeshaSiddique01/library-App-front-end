@@ -16,12 +16,13 @@ const Book = ({ book, updateBooks }) => {
     const [isUpdateBook, setIsUpdateBook] = useState(false);
 
     const handleDeleteBook = () => {
-        try {
-            const response = axiosInstance.delete(`${BOOK_URL}${book.id}/`);
-            updateBooks();
-        } catch (error) {
-            console.log("error: ", error);
-        }
+        console.log("delete book");
+        // try {
+        //     const response = axiosInstance.delete(`${BOOK_URL}${book.id}/`);
+        //     updateBooks();
+        // } catch (error) {
+        //     console.log("error: ", error);
+        // }
     };
 
     return (
@@ -43,7 +44,7 @@ const Book = ({ book, updateBooks }) => {
                             <b>Book</b>
                         </Grid>
                         <Grid item xs={8}>
-                            {book.Book.map((Book) => `${Book.name}, `)}
+                            {book.author.map((Book) => `${Book.name}, `)}
                         </Grid>
                     </Grid>
                     <Grid container>
@@ -91,7 +92,7 @@ Book.propTypes = {
         inventory: PropTypes.number,
         name: PropTypes.string,
         publisher: PropTypes.string,
-        Author: PropTypes.shape({
+        author: PropTypes.shape({
             email: PropTypes.string,
             gender: PropTypes.string,
             id: PropTypes.number,

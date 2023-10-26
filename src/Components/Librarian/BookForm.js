@@ -18,24 +18,24 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         try {
-            let response;
-            if (toUpdate)
-                response = await axiosInstance.put(`${BOOK_URL}${toUpdate.id}/`, {
-                    "id": toUpdate.id,
-                    "name": data.name,
-                    "image": data.image,
-                    "publisher": data.publisher,
-                    "inventory": data.inventory,
-                    "author": data.author
-                });
-            else
-                response = await axiosInstance.post(BOOK_URL, {
-                    "name": data.name,
-                    "image": data.image,
-                    "publisher": data.publisher,
-                    "inventory": data.inventory,
-                    "author": data.author
-                });
+            // let response;
+            // if (toUpdate)
+            //     response = await axiosInstance.put(`${BOOK_URL}${toUpdate.id}/`, {
+            //         "id": toUpdate.id,
+            //         "name": data.name,
+            //         "image": data.image,
+            //         "publisher": data.publisher,
+            //         "inventory": data.inventory,
+            //         "author": data.author
+            //     });
+            // else
+            //     response = await axiosInstance.post(BOOK_URL, {
+            //         "name": data.name,
+            //         "image": data.image,
+            //         "publisher": data.publisher,
+            //         "inventory": data.inventory,
+            //         "author": data.author
+            //     });
             handleClose();
             updateBook();
         } catch (error) {
