@@ -1,9 +1,9 @@
 import React from "react";
 
 import Routing from "./Routes/Routing";
-import Tickets from "./pages/Librarian/Tickets";
+import Librarians from "./pages/Admin/Librarians";
 import "./App.css";
 
-const App = () => <Tickets />;
+const App = () => <Librarians />;
 
 export default App;
