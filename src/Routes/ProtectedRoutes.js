@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 import Navbar from "../Components/User/Navbar";
-import { Typography } from "@mui/material";
 
 const ProtectedRoute = ({ children, isProtected }) => {
   const ACCESS_TOKEN = localStorage.getItem("access_token");

@@ -1,15 +1,16 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Footer from "../Components/User/Footer";
-import ProtectedRoute from "./ProtectedRoutes";
-import Login from "../pages/User/Login";
-import Signup from "../pages/User/Signup";
-import UpdatePassword from "../pages/User/UpdatePassword";
-import Home from "../pages/User/Home";
-import Books from "../pages/User/Books";
-import RequestedBooks from "../pages/User/RequestedBooks";
-import Tickets from "../pages/User/Tickets";
+const Footer = lazy(() => import("../Components/User/Footer"));
+const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
+const Login = lazy(() => import("../pages/User/Login"));
+const Signup = lazy(() => import("../pages/User/Signup"));
+const UpdatePassword = lazy(() => import("../pages/User/UpdatePassword"));
+
+const Home = lazy(() => import("../pages/User/Home"));
+const Books = lazy(() => import("../pages/User/Books"));
+const RequestedBooks = lazy(() => import("../pages/User/RequestedBooks"));
+const Tickets = lazy(() => import("../pages/User/Tickets"));
 
 const Routing = () => (
   <Router>
@@ -18,7 +19,9 @@ const Routing = () => (
         path="/"
         element={
           <ProtectedRoute>
-            <Home />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Home />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -26,7 +29,9 @@ const Routing = () => (
         path="/signup"
         element={
           <ProtectedRoute isProtected={false}>
-            <Signup />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Signup />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -34,7 +39,9 @@ const Routing = () => (
         path="/login"
         element={
           <ProtectedRoute isProtected={false}>
-            <Login />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Login />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -42,7 +49,9 @@ const Routing = () => (
         path="/update_password"
         element={
           <ProtectedRoute isProtected={false}>
-            <UpdatePassword />
+            <Suspense fallback={<div>Loading...</div>}>
+              <UpdatePassword />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -50,7 +59,9 @@ const Routing = () => (
         path="/books"
         element={
           <ProtectedRoute>
-            <Books />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Books />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -58,7 +69,9 @@ const Routing = () => (
         path="/requested_books"
         element={
           <ProtectedRoute>
-            <RequestedBooks />
+            <Suspense fallback={<div>Loading...</div>}>
+              <RequestedBooks />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -66,12 +79,16 @@ const Routing = () => (
         path="/tickets"
         element={
           <ProtectedRoute>
-            <Tickets />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Tickets />
+            </Suspense>
           </ProtectedRoute>
         }
       />
     </Routes>
-    <Footer sx={{ mt: 8, mb: 4 }} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Footer sx={{ mt: 8, mb: 4 }} />
+    </Suspense>
   </Router>
 );
 

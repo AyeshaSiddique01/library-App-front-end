@@ -1,9 +1,8 @@
 import React from "react";
 
 import Routing from "./Routes/Routing";
-import Librarians from "./pages/Admin/Librarians";
 import "./App.css";
 
-const App = () => <Librarians />;
+const App = () => <Routing />;
 
 export default App;
