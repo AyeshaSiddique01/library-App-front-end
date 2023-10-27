@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { BOOK_URL } from "../../utils";
-import Book from "../../Components/User/Book";
+import Book from "../../Components/Common/Book";
 
 const defaultTheme = createTheme();
 
@@ -39,7 +39,11 @@ const Books = () => {
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {books.map((card) => (
-              <Book book={card} updateBooks={getUserBooks} />
+              <Book
+                book={card}
+                updateBooks={getUserBooks}
+                isLibrarian={false}
+              />
             ))}
           </Grid>
         </Container>

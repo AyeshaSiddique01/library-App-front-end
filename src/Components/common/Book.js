@@ -9,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import { BOOK_URL } from "../../utils";
+import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils";
 import BookForm from "./BookForm";
 
 const Book = ({ book, updateBooks, isLibrarian }) => {
@@ -18,6 +18,17 @@ const Book = ({ book, updateBooks, isLibrarian }) => {
   const handleDeleteBook = () => {
     try {
       const response = axiosInstance.delete(`${BOOK_URL}${book.id}/`);
+      updateBooks();
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+  
+  const handleRequestBook = () => {
+    try {
+      const response = axiosInstance.post(BOOK_REQUEST_URL, {
+        book: book.id,
+      });
       updateBooks();
     } catch (error) {
       console.log("error: ", error);
@@ -56,32 +67,58 @@ const Book = ({ book, updateBooks, isLibrarian }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          <Grid container justifyContent="flex-end">
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              onClick={() => setIsUpdateBook(true)}
-            >
-              Update
-            </Button>
-            <BookForm
-              open={isUpdateBook}
-              handleClose={() => setIsUpdateBook(false)}
-              updateBook={updateBooks}
-              toUpdate={book}
-            />
-          </Grid>
-          <Grid>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              onClick={handleDeleteBook}
-            >
-              Delete
-            </Button>
-          </Grid>
+          {isLibrarian ? (
+            <>
+              <Grid container justifyContent="flex-end">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  onClick={() => setIsUpdateBook(true)}
+                >
+                  Update
+                </Button>
+                <BookForm
+                  open={isUpdateBook}
+                  handleClose={() => setIsUpdateBook(false)}
+                  updateBook={updateBooks}
+                  toUpdate={book}
+                />
+              </Grid>
+              <Grid>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  onClick={handleDeleteBook}
+                >
+                  Delete
+                </Button>
+              </Grid>
+            </>
+          ) : (
+            <Grid container justifyContent="flex-end">
+              {book.inventory > 0 ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  onClick={handleRequestBook}
+                >
+                  Request
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  disabled
+                >
+                  Not Available
+                </Button>
+              )}
+            </Grid>
+          )}
         </CardActions>
       </Card>
     </Grid>

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import CircularIndeterminate from "../Components/common/Spinner";
+import CircularIndeterminate from "../Components/Common/Spinner";
 const Footer = lazy(() => import("../Components/User/Footer"));
 const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
 const Login = lazy(() => import("../pages/User/Login"));

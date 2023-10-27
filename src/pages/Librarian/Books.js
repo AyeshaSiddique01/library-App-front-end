@@ -6,9 +6,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { BOOK_URL } from "../../utils";
-import Book from "../../Components/Librarian/Book";
+import Book from "../../Components/Common/Book";
 import { Button } from "@mui/material";
-import BookForm from "../../Components/Librarian/BookForm";
+import BookForm from "../../Components/Common/BookForm";
 
 const defaultTheme = createTheme();
 
@@ -49,7 +49,7 @@ const LibrarianBooks = () => {
         </Grid>
         <Grid container spacing={4}>
           {books.map((card) => (
-            <Book book={card} updateBooks={getBooks} />
+            <Book book={card} updateBooks={getBooks} isLibrarian={true} />
           ))}
         </Grid>
       </Container>
