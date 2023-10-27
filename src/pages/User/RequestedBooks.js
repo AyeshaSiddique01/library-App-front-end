@@ -33,7 +33,10 @@ const RequestedBooks = () => {
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {bookRequests.map((card) => (
-              <BookRequest request={card} updateRequests={getUserBookRequests} />
+              <BookRequest
+                request={card}
+                updateRequests={getUserBookRequests}
+              />
             ))}
           </Grid>
         </Container>

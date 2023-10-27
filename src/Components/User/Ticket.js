@@ -12,9 +12,8 @@ import { Ticket_URL } from "../../utils";
 const Ticket = ({ request, updateTickets }) => {
   const handleTicket = () => {
     try {
-      const response = axiosInstance.delete(
-        `${Ticket_URL}${request.id}/`);
-        updateTickets();
+      const response = axiosInstance.delete(`${Ticket_URL}${request.id}/`);
+      updateTickets();
     } catch (error) {
       console.log("error: ", error);
     }

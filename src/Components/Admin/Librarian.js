@@ -33,20 +33,12 @@ const Librarian = ({ request, updateLibrarians }) => {
       >
         <CardContent sx={{ flexGrow: 1 }}>
           <Grid container>
-            <Grid item xs={5}>
-              <b>Librarian username</b>
-            </Grid>
-            <Grid item xs={7}>
-              {request.username}
-            </Grid>
+            <Grid item xs={5}><b>Librarian username</b></Grid>
+            <Grid item xs={7}>{request.username}</Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={5}>
-              <b>Librarian email</b>
-            </Grid>
-            <Grid item xs={7}>
-              {request.email}
-            </Grid>
+            <Grid item xs={5}><b>Librarian email</b></Grid>
+            <Grid item xs={7}>{request.email}</Grid>
           </Grid>
         </CardContent>
         <CardActions>

@@ -10,7 +10,7 @@ import TicketForm from "./TicketForm";
 
 const Ticket = ({ request, updateTickets }) => {
   const [isUpdateStatus, setIsUpdateStatus] = useState(false);
-  
+
   return (
     <Grid item key={request.id} xs={12} sm={6} md={4}>
       <Card
@@ -56,12 +56,19 @@ const Ticket = ({ request, updateTickets }) => {
                 color="error"
                 size="small"
                 onClick={() => setIsUpdateStatus(true)}
-              >Add response</Button>
+              >
+                Add response
+              </Button>
             </Grid>
           </CardActions>
         )}
       </Card>
-      <TicketForm open={isUpdateStatus} handleClose={() => setIsUpdateStatus(false)} updateTickets={updateTickets} ticketId={request.id} />
+      <TicketForm
+        open={isUpdateStatus}
+        handleClose={() => setIsUpdateStatus(false)}
+        updateTickets={updateTickets}
+        ticketId={request.id}
+      />
     </Grid>
   );
 };

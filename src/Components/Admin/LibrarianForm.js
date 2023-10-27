@@ -39,7 +39,9 @@ const LibrarianForm = ({ open, handleClose, updateLibrarian, toUpdate }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>Add New Librarian</DialogTitle>
+      <DialogTitle>
+        {toUpdate ? "Update Librarian" : "Add new Librarian"}
+      </DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField

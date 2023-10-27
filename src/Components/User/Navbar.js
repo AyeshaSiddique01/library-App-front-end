@@ -7,7 +7,6 @@ import { Button, Typography } from "@mui/material";
 
 import NavbarIcon from "./NavbarIcon";
 
-
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -57,7 +56,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-
   return (
     <Typography position="fixed" width="100%">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -77,7 +75,9 @@ const Navbar = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={(e) => {navigate(`/books?search=${e.target.value}`)}}
+              onChange={(e) => {
+                navigate(`/books?search=${e.target.value}`);
+              }}
             />
           </Search>
           <Button

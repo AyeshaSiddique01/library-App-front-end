@@ -42,7 +42,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>Add New Book</DialogTitle>
+      <DialogTitle>{toUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField

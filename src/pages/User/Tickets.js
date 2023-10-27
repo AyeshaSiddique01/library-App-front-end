@@ -23,7 +23,7 @@ const Tickets = () => {
       console.log("Error loading data");
     }
   };
-  
+
   useEffect(() => {
     getUserTickets();
   }, []);
@@ -47,7 +47,11 @@ const Tickets = () => {
           ))}
         </Grid>
       </Container>
-      <TicketForm open={isAddingTicket} handleClose={() => setIsAddingTicket(false)}  updateTickets={getUserTickets} />
+      <TicketForm
+        open={isAddingTicket}
+        handleClose={() => setIsAddingTicket(false)}
+        updateTickets={getUserTickets}
+      />
     </ThemeProvider>
   );
 };

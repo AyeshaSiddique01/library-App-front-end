@@ -15,7 +15,7 @@ const Books = () => {
   const [books, setBooks] = useState([]);
   let { search } = useLocation();
   const query = new URLSearchParams(search);
-  const name = query.get('search');
+  const name = query.get("search");
 
   const getUserBooks = async () => {
     try {

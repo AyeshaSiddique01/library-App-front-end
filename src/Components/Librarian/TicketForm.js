@@ -38,7 +38,7 @@ const TicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>Add your response</DialogTitle>
+      <DialogTitle>Update Ticket</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField
