@@ -7,8 +7,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { BOOK_REQUEST_URL } from "../../utils";
 import BookRequest from "../../Components/Librarian/BookRequest";
-import { dark } from "@mui/material/styles/createPalette";
-
 const defaultTheme = createTheme();
 
 const RequestedBooks = () => {
@@ -18,7 +16,6 @@ const RequestedBooks = () => {
     try {
       const response = await axiosInstance.get(BOOK_REQUEST_URL);
       setBookRequests(response.data);
-      setBookRequests(data);
     } catch (error) {
       console.log("Error loading data");
     }
