@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+import CircularIndeterminate from "../Components/common/Spinner";
 const Footer = lazy(() => import("../Components/User/Footer"));
 const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
 const Login = lazy(() => import("../pages/User/Login"));
@@ -18,75 +19,75 @@ const Routing = () => (
       <Route
         path="/"
         element={
-          <ProtectedRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute>
               <Home />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
       <Route
         path="/signup"
         element={
-          <ProtectedRoute isProtected={false}>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute isProtected={false}>
               <Signup />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
       <Route
         path="/login"
         element={
-          <ProtectedRoute isProtected={false}>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute isProtected={false}>
               <Login />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
       <Route
         path="/update_password"
         element={
-          <ProtectedRoute isProtected={false}>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute isProtected={false}>
               <UpdatePassword />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
       <Route
         path="/books"
         element={
-          <ProtectedRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute>
               <Books />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
       <Route
         path="/requested_books"
         element={
-          <ProtectedRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute>
               <RequestedBooks />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
       <Route
         path="/tickets"
         element={
-          <ProtectedRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute>
               <Tickets />
-            </Suspense>
-          </ProtectedRoute>
+            </ProtectedRoute>
+          </Suspense>
         }
       />
     </Routes>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<CircularIndeterminate />}>
       <Footer sx={{ mt: 8, mb: 4 }} />
     </Suspense>
   </Router>
