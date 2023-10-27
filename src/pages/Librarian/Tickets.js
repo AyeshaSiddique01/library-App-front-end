@@ -14,32 +14,8 @@ const Tickets = () => {
 
   const getTickets = async () => {
     try {
-        let data = [
-            {
-                "id": 1,
-                "request_message": "I want c++ book",
-                "response_message": "Added",
-                "status": "accepted",
-                "user": 3
-            },
-            {
-                "id": 2,
-                "request_message": "I want python book",
-                "response_message": "",
-                "status": "pending",
-                "user": 3
-            },
-            {
-                "id": 3,
-                "request_message": "I want english novels",
-                "response_message": "Not available",
-                "status": "rejected",
-                "user": 3
-            }
-        ];
-        setTickets(data)
-    //   const response = await axiosInstance.get(Ticket_URL);
-    //   setTickets(response.data);
+      const response = await axiosInstance.get(Ticket_URL);
+      setTickets(response.data);
     } catch (error) {
       console.log("Error loading data");
     }
