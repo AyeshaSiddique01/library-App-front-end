@@ -1,5 +1,4 @@
-import React from "react";
-import axiosInstance from "../../axios";
+import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,9 +6,13 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
+import axiosInstance from "../../axios";
+import UpdateTicketForm from "./UpdateTicketForm";
 import { Ticket_URL } from "../../utils";
 
-const Ticket = ({ request, updateTickets }) => {
+const Ticket = ({ request, updateTickets, isLibrarian }) => {
+  const [isUpdateStatus, setIsUpdateStatus] = useState(false);
+
   const handleTicket = () => {
     try {
       const response = axiosInstance.delete(`${Ticket_URL}${request.id}/`);
@@ -57,23 +60,43 @@ const Ticket = ({ request, updateTickets }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          <Grid container justifyContent="flex-end">
-            <Button
-              variant="contained"
-              color="error"
-              size="small"
-              onClick={handleTicket}
-            >
-              Delete
-            </Button>
-          </Grid>
+          {request.status === "pending" && isLibrarian ? (
+            <Grid container justifyContent="flex-end">
+              <Button
+                variant="contained"
+                color="error"
+                size="small"
+                onClick={() => setIsUpdateStatus(true)}
+              >
+                Add response
+              </Button>
+            </Grid>
+          ) : (
+            <Grid container justifyContent="flex-end">
+              <Button
+                variant="contained"
+                color="error"
+                size="small"
+                onClick={handleTicket}
+              >
+                Delete
+              </Button>
+            </Grid>
+          )}
         </CardActions>
       </Card>
+      <UpdateTicketForm
+        open={isUpdateStatus}
+        handleClose={() => setIsUpdateStatus(false)}
+        updateTickets={updateTickets}
+        ticketId={request.id}
+      />
     </Grid>
   );
 };
 
 Ticket.propTypes = {
+  isLibrarian: PropTypes.bool,
   updateTickets: PropTypes.func,
   request: PropTypes.shape({
     id: PropTypes.number,

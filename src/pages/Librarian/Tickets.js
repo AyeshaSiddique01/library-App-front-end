@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { Ticket_URL } from "../../utils";
-import Ticket from "../../Components/Librarian/Ticket";
+import Ticket from "../../Components/Common/Ticket";
 
 const defaultTheme = createTheme();
 
@@ -14,8 +14,25 @@ const Tickets = () => {
 
   const getTickets = async () => {
     try {
-      const response = await axiosInstance.get(Ticket_URL);
-      setTickets(response.data);
+      let data = [
+        {
+            "id": 1,
+            "request_message": "I want python cookbook",
+            "response_message": null,
+            "status": "pending",
+            "user": 5
+        },
+        {
+          "id": 2,
+          "request_message": "I want python cookbook",
+          "response_message": null,
+          "status": "pending",
+          "user": 5
+      }
+    ]
+    setTickets(data)
+      // const response = await axiosInstance.get(Ticket_URL);
+      // setTickets(response.data);
     } catch (error) {
       console.log("Error loading data");
     }
@@ -30,7 +47,7 @@ const Tickets = () => {
       <Container sx={{ py: 8 }} maxWidth="lg">
         <Grid container spacing={4}>
           {tickets.map((card) => (
-            <Ticket request={card} updateTickets={getTickets} />
+            <Ticket request={card} updateTickets={getTickets} isLibrarian={true}/>
           ))}
         </Grid>
       </Container>
