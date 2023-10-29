@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { BOOK_REQUEST_URL } from "../../utils";
-import BookRequest from "../../Components/User/BookRequest";
+import BookRequest from "../../Components/Common/BookRequest";
 
 const defaultTheme = createTheme();
 
@@ -36,6 +36,7 @@ const RequestedBooks = () => {
               <BookRequest
                 request={card}
                 updateRequests={getUserBookRequests}
+                isLibraian={false}
               />
             ))}
           </Grid>
