@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 const CircularIndeterminate = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', justifyContent:"space-evenly"}}>
       <CircularProgress />
     </Box>
   );

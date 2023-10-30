@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Button, Typography } from "@mui/material";
 
 import NavbarIcon from "./NavbarIcon";
+import { UserContext } from "../../context";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,6 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const userRole = useContext(UserContext);
 
   const logout = () => {
     if (localStorage.getItem("access_token")) {
@@ -64,9 +66,19 @@ const Navbar = () => {
             Library management system
           </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <NavbarIcon link="/books" name="Books" />
-            <NavbarIcon link="/requested_books" name="Requested Books" />
-            <NavbarIcon link="/tickets" name="Tickets" />
+            {(userRole === "user" || userRole === "librarian") && (
+              <>
+                <NavbarIcon link="/books" name="Books" />
+                <NavbarIcon link="/requested_books" name="Requested Books" />
+                <NavbarIcon link="/tickets" name="Tickets" />
+                {userRole === "librarian" && (
+                  <NavbarIcon link="/authors" name="Authors" />
+                )}
+              </>
+            )}
+            {userRole === "admin" && (
+              <NavbarIcon link="/librarians" name="Librarians" />
+            )}
           </ul>
           <Search>
             <SearchIconWrapper>
