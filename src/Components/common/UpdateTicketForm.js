@@ -17,7 +17,7 @@ import {
 
 import { Ticket_URL } from "../../utils";
 
-const TicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
+const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -99,11 +99,11 @@ const TicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
   );
 };
 
-TicketForm.propTypes = {
+UpdateTicketForm.propTypes = {
   updateTickets: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   ticketId: PropTypes.number,
 };
 
-export default TicketForm;
+export default UpdateTicketForm;

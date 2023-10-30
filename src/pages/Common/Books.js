@@ -14,6 +14,7 @@ const defaultTheme = createTheme();
 
 const LibrarianBooks = () => {
   const [books, setBooks] = useState([]);
+  const [userRole, setUserRole] = useState("");
   let { search } = useLocation();
   const query = new URLSearchParams(search);
   const name = query.get("search");
@@ -30,34 +31,52 @@ const LibrarianBooks = () => {
     }
   };
 
+  const getUserRole = async () => {
+    try {
+      const response = await axiosInstance.get(`${BOOK_URL}?search=${name}`); // get user role
+      setUserRole(response.data);
+    } catch (error) {
+      console.log("Error loading role of user");
+    }
+  };
+
   useEffect(() => {
     getBooks();
+    getUserRole();
   }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container sx={{ py: 8 }} maxWidth="lg">
-        <Grid container justifyContent="flex-end" marginBottom="2%">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => setIsAddingBook(true)}
-          >
-            Add new Book
-          </Button>
-        </Grid>
+        {userRole === "librarian" && (
+          <>
+            <Grid container justifyContent="flex-end" marginBottom="2%">
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={() => setIsAddingBook(true)}
+              >
+                Add new Book
+              </Button>
+            </Grid>
+            <BookForm
+              open={isAddingBook}
+              handleClose={() => setIsAddingBook(false)}
+              updateBook={getBooks}
+            />
+          </>
+        )}
         <Grid container spacing={4}>
           {books.map((card) => (
-            <Book book={card} updateBooks={getBooks} isLibrarian={true} />
+            <Book
+              book={card}
+              updateBooks={getBooks}
+              isLibrarian={userRole === "librarian" ? true : false}
+            />
           ))}
         </Grid>
       </Container>
-      <BookForm
-        open={isAddingBook}
-        handleClose={() => setIsAddingBook(false)}
-        updateBook={getBooks}
-      />
     </ThemeProvider>
   );
 };

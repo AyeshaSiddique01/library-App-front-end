@@ -1,7 +1,7 @@
 import React from "react";
 
-import Books from "./Books";
-import RequestedBooks from "./RequestedBooks";
+import Books from "../Common/Books";
+import RequestedBooks from "../Common/RequestedBooks";
 
 const Home = () => (
   <>

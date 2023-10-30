@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 
 import { BOOK_REQUEST_URL } from "../../utils";
 
-const BookRequest = ({ request, updateRequests, isLibraian }) => {
+const BookRequest = ({ request, updateRequests, isLibrarian }) => {
   const handleUpdateStatus = async (req_status) => {
     try {
       const response = await axiosInstance.put(
@@ -53,6 +53,10 @@ const BookRequest = ({ request, updateRequests, isLibraian }) => {
     }
   };
 
+  useEffect(() => {
+    console.log(isLibrarian);
+  });
+
   return (
     <Grid item key={request.id} xs={12} sm={6} md={4}>
       <Card
@@ -79,7 +83,7 @@ const BookRequest = ({ request, updateRequests, isLibraian }) => {
               {request.requested_date}
             </Grid>
           </Grid>
-          {!isLibraian && (
+          {!isLibrarian && (
             <>
               <Grid container>
                 <Grid item xs={7}>
@@ -101,7 +105,7 @@ const BookRequest = ({ request, updateRequests, isLibraian }) => {
           )}
         </CardContent>
         <CardActions>
-          {isLibraian ? (
+          {isLibrarian ? (
             <Grid container justifyContent="flex-end">
               <Grid container spacing={1} justifyContent={"flex-end"}>
                 <Grid item sx={6}>
@@ -195,7 +199,7 @@ const BookRequest = ({ request, updateRequests, isLibraian }) => {
 };
 
 BookRequest.propTypes = {
-  isLibraian: PropTypes.bool,
+  isLibrarian: PropTypes.bool,
   updateRequests: PropTypes.func,
   request: PropTypes.shape({
     id: PropTypes.number.isRequired,

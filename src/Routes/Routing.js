@@ -2,16 +2,16 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import CircularIndeterminate from "../Components/Common/Spinner";
-const Footer = lazy(() => import("../Components/User/Footer"));
+const Footer = lazy(() => import("../Components/Common/Footer"));
 const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
-const Login = lazy(() => import("../pages/User/Login"));
+const Login = lazy(() => import("../pages/Common/Login"));
 const Signup = lazy(() => import("../pages/User/Signup"));
-const UpdatePassword = lazy(() => import("../pages/User/UpdatePassword"));
+const UpdatePassword = lazy(() => import("../pages/Common/UpdatePassword"));
 
 const Home = lazy(() => import("../pages/User/Home"));
-const Books = lazy(() => import("../pages/User/Books"));
-const RequestedBooks = lazy(() => import("../pages/User/RequestedBooks"));
-const Tickets = lazy(() => import("../pages/User/Tickets"));
+const Books = lazy(() => import("../pages/Common/Books"));
+const RequestedBooks = lazy(() => import("../pages/Common/RequestedBooks"));
+const Tickets = lazy(() => import("../pages/Common/Tickets"));
 
 const Routing = () => (
   <Router>

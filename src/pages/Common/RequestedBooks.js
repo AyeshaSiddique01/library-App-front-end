@@ -5,13 +5,14 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { BOOK_REQUEST_URL } from "../../utils";
+import { BOOK_REQUEST_URL, BOOK_URL } from "../../utils";
 import BookRequest from "../../Components/Common/BookRequest";
 
 const defaultTheme = createTheme();
 
 const RequestedBooks = () => {
   const [bookRequests, setBookRequests] = useState([]);
+  const [userRole, setUserRole] = useState("");
 
   const getUserBookRequests = async () => {
     try {
@@ -22,8 +23,18 @@ const RequestedBooks = () => {
     }
   };
 
+  const getUserRole = async () => {
+    try {
+      const response = await axiosInstance.get(`${BOOK_URL}`); // get user role
+      setUserRole(response.data);
+    } catch (error) {
+      console.log("Error loading role of user");
+    }
+  };
+
   useEffect(() => {
     getUserBookRequests();
+    getUserRole();
   }, []);
 
   return (
@@ -36,7 +47,7 @@ const RequestedBooks = () => {
               <BookRequest
                 request={card}
                 updateRequests={getUserBookRequests}
-                isLibraian={false}
+                isLibrarian={userRole === "librarian" ? true : false}
               />
             ))}
           </Grid>
