@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { BOOK_URL } from "../../utils";
+import { BOOK_URL } from "../../utils/Constants";
 import Book from "../../Components/Common/Book";
 import { Button } from "@mui/material";
 import BookForm from "../../Components/Common/BookForm";

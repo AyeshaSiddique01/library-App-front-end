@@ -9,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import { BOOK_REQUEST_URL } from "../../utils";
+import { BOOK_REQUEST_URL } from "../../utils/Constants";
 
 const BookRequest = ({ request, updateRequests, isLibrarian }) => {
   const handleUpdateStatus = async (req_status) => {

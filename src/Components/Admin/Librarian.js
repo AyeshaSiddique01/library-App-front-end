@@ -7,7 +7,7 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import { LIBRRAIAN_URL } from "../../utils";
+import { LIBRRAIAN_URL } from "../../utils/Constants";
 import LibrarianForm from "./LibrarianForm";
 
 const Librarian = ({ request, updateLibrarians }) => {

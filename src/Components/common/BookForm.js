@@ -8,7 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { Alert, Box, Grid, Input, InputLabel, TextField } from "@mui/material";
 
-import { BOOK_URL } from "../../utils";
+import { BOOK_URL } from "../../utils/Constants";
 
 const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
   const [error, setError] = useState("");

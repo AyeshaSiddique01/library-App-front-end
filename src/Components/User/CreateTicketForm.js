@@ -8,7 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { Alert, Box, Grid, TextField } from "@mui/material";
 
-import { Ticket_URL } from "../../utils";
+import { Ticket_URL } from "../../utils/Constants";
 
 const TicketForm = ({ open, handleClose, updateTickets }) => {
   const [error, setError] = useState("");

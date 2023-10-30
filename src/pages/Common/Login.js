@@ -14,7 +14,7 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { LOGIN_URL } from "../../utils";
+import { LOGIN_URL } from "../../utils/Constants";
 
 const defaultTheme = createTheme();
 

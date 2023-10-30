@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Ticket_URL, BOOK_URL } from "../../utils";
+import { Ticket_URL, BOOK_URL } from "../../utils/Constants";
 import Ticket from "../../Components/Common/Ticket";
 import TicketForm from "../../Components/User/CreateTicketForm";
 import { Button } from "@mui/material";

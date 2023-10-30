@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { BOOK_REQUEST_URL, BOOK_URL } from "../../utils";
+import { BOOK_REQUEST_URL, BOOK_URL } from "../../utils/Constants";
 import BookRequest from "../../Components/Common/BookRequest";
 
 const defaultTheme = createTheme();

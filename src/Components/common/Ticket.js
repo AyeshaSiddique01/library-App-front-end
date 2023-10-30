@@ -8,7 +8,7 @@ import CardContent from "@mui/material/CardContent";
 
 import axiosInstance from "../../axios";
 import UpdateTicketForm from "./UpdateTicketForm";
-import { Ticket_URL } from "../../utils";
+import { Ticket_URL } from "../../utils/Constants";
 
 const Ticket = ({ request, updateTickets, isLibrarian }) => {
   const [isUpdateStatus, setIsUpdateStatus] = useState(false);

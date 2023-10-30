@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { Author_URL } from "../../utils";
+import { Author_URL } from "../../utils/Constants";
 
 const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
   const [error, setError] = useState("");

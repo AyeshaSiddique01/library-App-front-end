@@ -9,7 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils";
+import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils/Constants";
 import BookForm from "./BookForm";
 
 const Book = ({ book, updateBooks, isLibrarian }) => {

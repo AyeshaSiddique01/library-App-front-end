@@ -7,7 +7,7 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import { Author_URL } from "../../utils";
+import { Author_URL } from "../../utils/Constants";
 import AuthorForm from "./AuthorForm";
 
 const Author = ({ request, updateAuthors }) => {

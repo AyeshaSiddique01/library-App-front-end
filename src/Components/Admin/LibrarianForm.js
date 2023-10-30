@@ -8,7 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { Alert, Box, Grid, TextField } from "@mui/material";
 
-import { LIBRRAIAN_URL } from "../../utils";
+import { LIBRRAIAN_URL } from "../../utils/Constants";
 
 const LibrarianForm = ({ open, handleClose, updateLibrarian, toUpdate }) => {
   const [error, setError] = useState("");

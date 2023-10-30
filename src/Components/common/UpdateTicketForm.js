@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { Ticket_URL } from "../../utils";
+import { Ticket_URL } from "../../utils/Constants";
 
 const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
   const [error, setError] = useState("");

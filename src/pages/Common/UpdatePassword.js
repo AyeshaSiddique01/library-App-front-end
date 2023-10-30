@@ -14,7 +14,7 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { UPDATE_PASSWORD } from "../../utils";
+import { UPDATE_PASSWORD } from "../../utils/Constants";
 
 const defaultTheme = createTheme();
 
