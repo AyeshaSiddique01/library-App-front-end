@@ -1,3 +1,4 @@
+import axiosInstance from "../axios";
 import { GET_USER_ROLE } from "./Constants";
 
 export const getUserRole = () => {

@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../../axios";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Ticket_URL, BOOK_URL } from "../../utils/Constants";
+import { Ticket_URL } from "../../utils/Constants";
 import Ticket from "../../Components/Common/Ticket";
 import TicketForm from "../../Components/User/CreateTicketForm";
 import { Button } from "@mui/material";
+import { UserContext } from "../../context";
 
 const defaultTheme = createTheme();
 
 const Tickets = () => {
   const [tickets, setTickets] = useState([]);
-  const [userRole, setUserRole] = useState("");
+  const userRole = useContext(UserContext);
   const [isAddingTicket, setIsAddingTicket] = useState(false);
 
   const getTickets = async () => {
@@ -25,18 +26,8 @@ const Tickets = () => {
     }
   };
 
-  const getUserRole = async () => {
-    try {
-      const response = await axiosInstance.get(`${BOOK_URL}`); // get user role
-      setUserRole(response.data);
-    } catch (error) {
-      console.log("Error loading role of user");
-    }
-  };
-
   useEffect(() => {
     getTickets();
-    getUserRole();
   }, []);
 
   return (

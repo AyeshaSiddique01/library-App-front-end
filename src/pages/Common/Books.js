@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../../axios";
 import { useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
@@ -9,12 +9,13 @@ import { BOOK_URL } from "../../utils/Constants";
 import Book from "../../Components/Common/Book";
 import { Button } from "@mui/material";
 import BookForm from "../../Components/Common/BookForm";
+import { UserContext } from "../../context";
 
 const defaultTheme = createTheme();
 
 const LibrarianBooks = () => {
   const [books, setBooks] = useState([]);
-  const [userRole, setUserRole] = useState("");
+  const userRole = useContext(UserContext);
   let { search } = useLocation();
   const query = new URLSearchParams(search);
   const name = query.get("search");
@@ -31,18 +32,8 @@ const LibrarianBooks = () => {
     }
   };
 
-  const getUserRole = async () => {
-    try {
-      const response = await axiosInstance.get(`${BOOK_URL}?search=${name}`); // get user role
-      setUserRole(response.data);
-    } catch (error) {
-      console.log("Error loading role of user");
-    }
-  };
-
   useEffect(() => {
     getBooks();
-    getUserRole();
   }, []);
 
   return (

@@ -1,8 +1,12 @@
 import React from "react";
 
 import Routing from "./Routes/Routing";
-import "./App.css";
+import { UserProvider } from "./context";
 
-const App = () => <Routing />;
+const App = () => (
+  <UserProvider>
+    <Routing />
+  </UserProvider>
+);
 
 export default App;
