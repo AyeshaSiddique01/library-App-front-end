@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -54,8 +54,8 @@ const Navbar = () => {
   const logout = () => {
     if (localStorage.getItem("access_token")) {
       localStorage.clear();
+      navigate("/login");
     }
-    navigate("/login");
   };
 
   return (
@@ -66,17 +66,17 @@ const Navbar = () => {
             Library management system
           </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {(userRole === "user" || userRole === "librarian") && (
+            {(userRole.includes("user") || userRole.includes("librarian")) && (
               <>
                 <NavbarIcon link="/books" name="Books" />
                 <NavbarIcon link="/requested_books" name="Requested Books" />
                 <NavbarIcon link="/tickets" name="Tickets" />
-                {userRole === "librarian" && (
+                {userRole.includes("librarian") && (
                   <NavbarIcon link="/authors" name="Authors" />
                 )}
               </>
             )}
-            {userRole === "admin" && (
+            {userRole.includes("admin") && (
               <NavbarIcon link="/librarians" name="Librarians" />
             )}
           </ul>

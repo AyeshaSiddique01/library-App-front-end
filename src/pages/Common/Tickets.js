@@ -33,7 +33,7 @@ const Tickets = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container sx={{ py: 8 }} maxWidth="lg">
-        {userRole === "user" && (
+        {userRole.includes("user") && (
           <Grid container justifyContent="flex-end" marginBottom="2%">
             <Button
               variant="contained"
@@ -55,7 +55,7 @@ const Tickets = () => {
             <Ticket
               request={card}
               updateTickets={getTickets}
-              isLibrarian={userRole === "librarian" ? true : false}
+              isLibrarian={userRole.includes("librarian") ? true : false}
             />
           ))}
         </Grid>

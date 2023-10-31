@@ -39,7 +39,7 @@ const LibrarianBooks = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container sx={{ py: 8 }} maxWidth="lg">
-        {userRole === "librarian" && (
+        {userRole.includes("librarian") && (
           <>
             <Grid container justifyContent="flex-end" marginBottom="2%">
               <Button
@@ -63,7 +63,7 @@ const LibrarianBooks = () => {
             <Book
               book={card}
               updateBooks={getBooks}
-              isLibrarian={userRole === "librarian" ? true : false}
+              isLibrarian={userRole.includes("librarian") ? true : false}
             />
           ))}
         </Grid>
