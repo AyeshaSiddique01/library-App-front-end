@@ -64,12 +64,16 @@ const Navbar = () => {
         <div className="container-fluid">
           <a
             className="navbar-brand"
-            href={userRole.includes("admin") ? " " : "/"}
+            href={
+              userRole.includes("admin") && !userRole.includes("librarian")
+                ? " "
+                : "/"
+            }
           >
             Library management system
           </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {!userRole.includes("admin") && (
+            {(userRole.includes("librarian") || userRole.includes("user")) && (
               <>
                 <NavbarIcon link="/books" name="Books" />
                 <NavbarIcon link="/requested_books" name="Requested Books" />

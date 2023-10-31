@@ -17,29 +17,8 @@ const RequestedBooks = () => {
 
   const getUserBookRequests = async () => {
     try {
-      // const response = await axiosInstance.get(BOOK_REQUEST_URL);
-      // setBookRequests(response.data);
-      let data = [
-        {
-          id: 1,
-          status: "returned",
-          requested_date: "2023-10-02",
-          issued_date: "2023-10-02",
-          returned_date: "2023-10-02",
-          book: 1,
-          user: 3,
-        },
-        {
-          id: 2,
-          status: "returned",
-          requested_date: "2023-10-02",
-          issued_date: "2023-10-02",
-          returned_date: "2023-10-02",
-          book: 1,
-          user: 3,
-        },
-      ];
-      setBookRequests(data);
+      const response = await axiosInstance.get(BOOK_REQUEST_URL);
+      setBookRequests(response.data);
     } catch (error) {
       console.log("Error loading data");
     }

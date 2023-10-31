@@ -21,6 +21,7 @@ const TicketForm = ({ open, handleClose, updateTickets }) => {
         request_message: data.get("message"),
       });
       updateTickets();
+      handleClose();
     } catch (error) {
       setError(error);
     }
