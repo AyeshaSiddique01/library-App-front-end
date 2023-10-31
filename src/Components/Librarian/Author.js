@@ -7,15 +7,15 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import { Author_URL } from "../../utils/Constants";
+import { AUTHOR_URL } from "../../utils/Constants";
 import AuthorForm from "./AuthorForm";
 
 const Author = ({ request, updateAuthors }) => {
-  const [isUpdateAuthor, setIsUpdateAuthor] = useState(false);
+  const [isUpdateAuthorModalOpen, setIsUpdateAuthorModalOpen] = useState(false);
 
   const handleDeleteAuthor = () => {
     try {
-      const response = axiosInstance.delete(`${Author_URL}${request.id}/`);
+      const response = axiosInstance.delete(`${AUTHOR_URL}${request.id}/`);
       updateAuthors();
     } catch (error) {
       console.log("error: ", error);
@@ -63,13 +63,13 @@ const Author = ({ request, updateAuthors }) => {
               variant="contained"
               color="error"
               size="small"
-              onClick={() => setIsUpdateAuthor(true)}
+              onClick={() => setIsUpdateAuthorModalOpen(true)}
             >
               Update
             </Button>
             <AuthorForm
-              open={isUpdateAuthor}
-              handleClose={() => setIsUpdateAuthor(false)}
+              open={isUpdateAuthorModalOpen}
+              handleClose={() => setIsUpdateAuthorModalOpen(false)}
               updateAuthor={updateAuthors}
               toUpdate={request}
             />

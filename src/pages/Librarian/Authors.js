@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Author_URL } from "../../utils/Constants";
+import { AUTHOR_URL } from "../../utils/Constants";
 import Author from "../../Components/Librarian/Author";
 import AuthorForm from "../../Components/Librarian/AuthorForm";
 
@@ -13,11 +13,11 @@ const defaultTheme = createTheme();
 
 const Authors = () => {
   const [author, setAuthor] = useState([]);
-  const [isAddingAuthor, setIsAddingAuthor] = useState(false);
+  const [isAddingAuthorModalOpen, setIsAddingAuthorModalOpen] = useState(false);
 
   const getAuthor = async () => {
     try {
-      // const response = await axiosInstance.get(Author_URL);
+      // const response = await axiosInstance.get(AUTHOR_URL);
       // setAuthor(response.data);
       let data = [
         {
@@ -51,7 +51,7 @@ const Authors = () => {
             variant="contained"
             color="secondary"
             size="small"
-            onClick={() => setIsAddingAuthor(true)}
+            onClick={() => setIsAddingAuthorModalOpen(true)}
           >
             Add new Author
           </Button>
@@ -63,8 +63,8 @@ const Authors = () => {
         </Grid>
       </Container>
       <AuthorForm
-        open={isAddingAuthor}
-        handleClose={() => setIsAddingAuthor(false)}
+        open={isAddingAuthorModalOpen}
+        handleClose={() => setIsAddingAuthorModalOpen(false)}
         updateAuthor={getAuthor}
       />
     </ThemeProvider>

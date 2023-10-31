@@ -53,10 +53,6 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(isLibrarian);
-  });
-
   return (
     <Grid item key={request.id} xs={12} sm={6} md={4}>
       <Card
@@ -83,26 +79,22 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
               {request.requested_date}
             </Grid>
           </Grid>
-          {/* {!isLibrarian && (
-            <> */}
-              <Grid container>
-                <Grid item xs={7}>
-                  <b>Issued Date</b>
-                </Grid>
-                <Grid item xs={5}>
-                  {request.issued_date}
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs={7}>
-                  <b>Returned Date</b>
-                </Grid>
-                <Grid item xs={5}>
-                  {request.returned_date}
-                </Grid>
-              </Grid>
-            {/* </>
-          )} */}
+          <Grid container>
+            <Grid item xs={7}>
+              <b>Issued Date</b>
+            </Grid>
+            <Grid item xs={5}>
+              {request.issued_date}
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={7}>
+              <b>Returned Date</b>
+            </Grid>
+            <Grid item xs={5}>
+              {request.returned_date}
+            </Grid>
+          </Grid>
         </CardContent>
         <CardActions>
           {isLibrarian ? (

@@ -13,7 +13,7 @@ const defaultTheme = createTheme();
 
 const Librarians = () => {
   const [librarians, setLibrarians] = useState([]);
-  const [isUpdateLibrarian, setIsUpdateLibrarian] = useState(false);
+  const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] = useState(false);
 
   const getLibrarians = async () => {
     try {
@@ -55,7 +55,7 @@ const Librarians = () => {
             variant="contained"
             color="secondary"
             size="small"
-            onClick={() => setIsUpdateLibrarian(true)}
+            onClick={() => setIsUpdateLibrarianModalOpen(true)}
           >
             Add new Librarian
           </Button>
@@ -67,8 +67,8 @@ const Librarians = () => {
         </Grid>
       </Container>
       <LibrarianForm
-        open={isUpdateLibrarian}
-        handleClose={() => setIsUpdateLibrarian(false)}
+        open={isUpdateLibrarianModalOpen}
+        handleClose={() => setIsUpdateLibrarianModalOpen(false)}
         updateLibrarians={getLibrarians}
       />
     </ThemeProvider>

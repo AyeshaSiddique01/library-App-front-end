@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { Author_URL } from "../../utils/Constants";
+import { AUTHOR_URL } from "../../utils/Constants";
 
 const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
   const [error, setError] = useState("");
@@ -26,14 +26,14 @@ const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
     try {
       let response;
       if (toUpdate)
-        response = await axiosInstance.put(`${Author_URL}${toUpdate.id}/`, {
+        response = await axiosInstance.put(`${AUTHOR_URL}${toUpdate.id}/`, {
           id: toUpdate.id,
           name: data.name,
           gender: data.gender,
           email: data.gmail,
         });
       else
-        response = await axiosInstance.post(Author_URL, {
+        response = await axiosInstance.post(AUTHOR_URL, {
           name: data.name,
           gender: data.gender,
           email: data.gmail,

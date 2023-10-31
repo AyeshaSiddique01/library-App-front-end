@@ -13,7 +13,7 @@ import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils/Constants";
 import BookForm from "./BookForm";
 
 const Book = ({ book, updateBooks, isLibrarian }) => {
-  const [isUpdateBook, setIsUpdateBook] = useState(false);
+  const [isUpdateBookModalOpen, setIsUpdateBookModalOpen] = useState(false);
 
   const handleDeleteBook = () => {
     try {
@@ -74,13 +74,13 @@ const Book = ({ book, updateBooks, isLibrarian }) => {
                   variant="contained"
                   color="secondary"
                   size="small"
-                  onClick={() => setIsUpdateBook(true)}
+                  onClick={() => setIsUpdateBookModalOpen(true)}
                 >
                   Update
                 </Button>
                 <BookForm
-                  open={isUpdateBook}
-                  handleClose={() => setIsUpdateBook(false)}
+                  open={isUpdateBookModalOpen}
+                  handleClose={() => setIsUpdateBookModalOpen(false)}
                   updateBook={updateBooks}
                   toUpdate={book}
                 />

@@ -18,18 +18,19 @@ const LibrarianForm = ({ open, handleClose, updateLibrarian, toUpdate }) => {
     const data = new FormData(event.currentTarget);
     try {
       let response;
-      if (toUpdate)
+      if (toUpdate) {
         response = await axiosInstance.put(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
           id: toUpdate.id,
           username: data.username,
           email: data.gmail,
         });
-      else
+      } else {
         response = await axiosInstance.post(LIBRRAIAN_URL, {
           username: data.username,
           email: data.gmail,
           password: data.password,
         });
+      }
       handleClose();
       updateLibrarian();
     } catch (error) {

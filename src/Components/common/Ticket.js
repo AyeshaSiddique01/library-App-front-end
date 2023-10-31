@@ -11,7 +11,7 @@ import UpdateTicketForm from "./UpdateTicketForm";
 import { Ticket_URL } from "../../utils/Constants";
 
 const Ticket = ({ request, updateTickets, isLibrarian }) => {
-  const [isUpdateStatus, setIsUpdateStatus] = useState(false);
+  const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
 
   const handleTicket = () => {
     try {
@@ -66,7 +66,7 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
                 variant="contained"
                 color="error"
                 size="small"
-                onClick={() => setIsUpdateStatus(true)}
+                onClick={() => setIsUpdateStatusModalOpen(true)}
               >
                 Add response
               </Button>
@@ -86,8 +86,8 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
         </CardActions>
       </Card>
       <UpdateTicketForm
-        open={isUpdateStatus}
-        handleClose={() => setIsUpdateStatus(false)}
+        open={isUpdateStatusModalOpen}
+        handleClose={() => setIsUpdateStatusModalOpen(false)}
         updateTickets={updateTickets}
         ticketId={request.id}
       />

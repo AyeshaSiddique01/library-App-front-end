@@ -11,7 +11,7 @@ import { LIBRRAIAN_URL } from "../../utils/Constants";
 import LibrarianForm from "./LibrarianForm";
 
 const Librarian = ({ request, updateLibrarians }) => {
-  const [isUpdateLibrarian, setIsUpdateLibrarian] = useState(false);
+  const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] = useState(false);
 
   const handleDeleteLibrarian = () => {
     try {
@@ -47,13 +47,13 @@ const Librarian = ({ request, updateLibrarians }) => {
               variant="contained"
               color="error"
               size="small"
-              onClick={() => setIsUpdateLibrarian(true)}
+              onClick={() => setIsUpdateLibrarianModalOpen(true)}
             >
               Update
             </Button>
             <LibrarianForm
-              open={isUpdateLibrarian}
-              handleClose={() => setIsUpdateLibrarian(false)}
+              open={isUpdateLibrarianModalOpen}
+              handleClose={() => setIsUpdateLibrarianModalOpen(false)}
               updateLibrarian={updateLibrarians}
               toUpdate={request}
             />

@@ -15,7 +15,7 @@ const defaultTheme = createTheme();
 const Tickets = () => {
   const [tickets, setTickets] = useState([]);
   const userRole = useContext(UserContext);
-  const [isAddingTicket, setIsAddingTicket] = useState(false);
+  const [isAddingTicketModalOpen, setIsAddingTicketModalOpen] = useState(false);
 
   const getTickets = async () => {
     try {
@@ -56,13 +56,13 @@ const Tickets = () => {
               variant="contained"
               color="secondary"
               size="small"
-              onClick={() => setIsAddingTicket(true)}
+              onClick={() => setIsAddingTicketModalOpen(true)}
             >
               Add new Ticket
             </Button>
             <TicketForm
-              open={isAddingTicket}
-              handleClose={() => setIsAddingTicket(false)}
+              open={isAddingTicketModalOpen}
+              handleClose={() => setIsAddingTicketModalOpen(false)}
               updateTickets={getTickets}
             />
           </Grid>

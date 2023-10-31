@@ -64,7 +64,7 @@ const Navbar = () => {
         <div className="container-fluid">
           <a
             className="navbar-brand"
-            href={userRole.includes("admin") ? "" : "/"}
+            href={userRole.includes("admin") ? " " : "/"}
           >
             Library management system
           </a>
