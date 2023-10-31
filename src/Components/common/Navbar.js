@@ -62,11 +62,14 @@ const Navbar = () => {
     <Typography position="fixed" width="100%">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <a
+            className="navbar-brand"
+            href={userRole.includes("admin") ? "" : "/"}
+          >
             Library management system
           </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {(userRole.includes("user") || userRole.includes("librarian")) && (
+            {!userRole.includes("admin") && (
               <>
                 <NavbarIcon link="/books" name="Books" />
                 <NavbarIcon link="/requested_books" name="Requested Books" />
@@ -80,18 +83,20 @@ const Navbar = () => {
               <NavbarIcon link="/librarians" name="Librarians" />
             )}
           </ul>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              onChange={(e) => {
-                navigate(`/books?search=${e.target.value}`);
-              }}
-            />
-          </Search>
+          {!userRole.includes("admin") && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                onChange={(e) => {
+                  navigate(`/books?search=${e.target.value}`);
+                }}
+              />
+            </Search>
+          )}
           <Button
             variant="contained"
             color="success"
