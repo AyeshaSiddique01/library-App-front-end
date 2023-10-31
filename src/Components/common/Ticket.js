@@ -8,14 +8,14 @@ import CardContent from "@mui/material/CardContent";
 
 import axiosInstance from "../../axios";
 import UpdateTicketForm from "./UpdateTicketForm";
-import { Ticket_URL } from "../../utils/Constants";
+import { TICKET_URL } from "../../utils/Constants";
 
 const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
   const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
 
   const handleTicket = () => {
     try {
-      const response = axiosInstance.delete(`${Ticket_URL}${ticket.id}/`);
+      const response = axiosInstance.delete(`${TICKET_URL}${ticket.id}/`);
       updateTickets();
     } catch (error) {
       console.log("error: ", error);

@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Ticket_URL } from "../../utils/Constants";
+import { TICKET_URL } from "../../utils/Constants";
 import Ticket from "../../Components/Common/Ticket";
 import TicketForm from "../../Components/User/CreateTicketForm";
 import { Button } from "@mui/material";
@@ -19,7 +19,7 @@ const Tickets = () => {
 
   const getTickets = async () => {
     try {
-      // const response = await axiosInstance.get(Ticket_URL);
+      // const response = await axiosInstance.get(TICKET_URL);
       // setTickets(response.data);
       let data = [
         {

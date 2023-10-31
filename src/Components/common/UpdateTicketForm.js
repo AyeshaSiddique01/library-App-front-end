@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { Ticket_URL } from "../../utils/Constants";
+import { TICKET_URL } from "../../utils/Constants";
 
 const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
   const [error, setError] = useState("");
@@ -24,7 +24,7 @@ const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      const response = await axiosInstance.put(`${Ticket_URL}${ticketId}/`, {
+      const response = await axiosInstance.put(`${TICKET_URL}${ticketId}/`, {
         id: ticketId,
         status: data.status,
         response_message: data.response_message,

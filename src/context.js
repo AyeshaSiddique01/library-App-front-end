@@ -6,20 +6,18 @@ import { getUserRole } from "./utils/utils";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userRole, setUserRole] = useState([])
+  const [userRole, setUserRole] = useState([]);
 
   const fetchUserRole = () => {
     const roles = getUserRole();
     setUserRole(roles);
-  }
+  };
   useEffect(() => {
     fetchUserRole();
   });
 
   return (
-    <UserContext.Provider value={userRole}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={userRole}>{children}</UserContext.Provider>
   );
 };
 
