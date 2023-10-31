@@ -25,19 +25,19 @@ const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate }) => {
     const data = new FormData(event.currentTarget);
     try {
       let response;
-      if (authorToUpdate)
+      if (authorToUpdate){
         response = await axiosInstance.put(`${AUTHOR_URL}${authorToUpdate.id}/`, {
           id: authorToUpdate.id,
           name: data.name,
           gender: data.gender,
           email: data.gmail,
-        });
-      else
+        });}
+      else{
         response = await axiosInstance.post(AUTHOR_URL, {
           name: data.name,
           gender: data.gender,
           email: data.gmail,
-        });
+        });}
       handleClose();
       updateAuthor();
     } catch (error) {

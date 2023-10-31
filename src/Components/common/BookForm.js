@@ -18,7 +18,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
     const data = new FormData(event.currentTarget);
     try {
       let response;
-      if (bookToUpdate)
+      if (bookToUpdate) {
         response = await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
           id: bookToUpdate.id,
           name: data.name,
@@ -26,13 +26,14 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
           publisher: data.publisher,
           inventory: data.inventory,
         });
-      else
+      } else {
         response = await axiosInstance.post(BOOK_URL, {
           name: data.name,
           image: data.image,
           publisher: data.publisher,
           inventory: data.inventory,
         });
+      }
       handleClose();
       updateBooksData();
     } catch (error) {
