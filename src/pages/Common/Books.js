@@ -23,10 +23,29 @@ const LibrarianBooks = () => {
 
   const getBooks = async () => {
     try {
-      let response;
-      if (name === undefined) response = await axiosInstance.get(BOOK_URL);
-      else response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
-      setBooks(response.data);
+      // let response;
+      // if (name === undefined) response = await axiosInstance.get(BOOK_URL);
+      // else response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
+      // setBooks(response.data);
+      let data = [
+        {
+          id: 1,
+          name: "Harry Potter",
+          image: "http://127.0.0.1:8000/media/upload/default.png",
+          publisher: "Bloomsbury",
+          inventory: 32,
+          author: [1],
+        },
+        {
+          id: 2,
+          name: "IDK",
+          image: "http://127.0.0.1:8000/media/books/luna.jpeg",
+          publisher: "Bloomsbury",
+          inventory: 0,
+          author: [1],
+        },
+      ];
+      setBooks(data);
     } catch (error) {
       console.log("Error loading data");
     }

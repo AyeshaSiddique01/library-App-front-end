@@ -83,8 +83,8 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
               {request.requested_date}
             </Grid>
           </Grid>
-          {!isLibrarian && (
-            <>
+          {/* {!isLibrarian && (
+            <> */}
               <Grid container>
                 <Grid item xs={7}>
                   <b>Issued Date</b>
@@ -101,8 +101,8 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
                   {request.returned_date}
                 </Grid>
               </Grid>
-            </>
-          )}
+            {/* </>
+          )} */}
         </CardContent>
         <CardActions>
           {isLibrarian ? (
