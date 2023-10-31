@@ -10,20 +10,20 @@ import CardContent from "@mui/material/CardContent";
 import { LIBRRAIAN_URL } from "../../utils/Constants";
 import LibrarianForm from "./LibrarianForm";
 
-const Librarian = ({ request, updateLibrarians }) => {
+const Librarian = ({ librarianInfo, updateLibrariansData }) => {
   const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] = useState(false);
 
   const handleDeleteLibrarian = () => {
     try {
-      const response = axiosInstance.delete(`${LIBRRAIAN_URL}${request.id}/`);
-      updateLibrarians();
+      const response = axiosInstance.delete(`${LIBRRAIAN_URL}${librarianInfo.id}/`);
+      updateLibrariansData();
     } catch (error) {
       console.log("error: ", error);
     }
   };
 
   return (
-    <Grid item key={request.id} lg={6}>
+    <Grid item key={librarianInfo.id} lg={6}>
       <Card
         sx={{
           height: "100%",
@@ -34,11 +34,11 @@ const Librarian = ({ request, updateLibrarians }) => {
         <CardContent sx={{ flexGrow: 1 }}>
           <Grid container>
             <Grid item xs={5}><b>Librarian username</b></Grid>
-            <Grid item xs={7}>{request.username}</Grid>
+            <Grid item xs={7}>{librarianInfo.username}</Grid>
           </Grid>
           <Grid container>
             <Grid item xs={5}><b>Librarian email</b></Grid>
-            <Grid item xs={7}>{request.email}</Grid>
+            <Grid item xs={7}>{librarianInfo.email}</Grid>
           </Grid>
         </CardContent>
         <CardActions>
@@ -54,8 +54,8 @@ const Librarian = ({ request, updateLibrarians }) => {
             <LibrarianForm
               open={isUpdateLibrarianModalOpen}
               handleClose={() => setIsUpdateLibrarianModalOpen(false)}
-              updateLibrarian={updateLibrarians}
-              toUpdate={request}
+              updateLibrarian={updateLibrariansData}
+              toUpdate={librarianInfo}
             />
           </Grid>
           <Grid>
@@ -75,8 +75,8 @@ const Librarian = ({ request, updateLibrarians }) => {
 };
 
 Librarian.propTypes = {
-  updateLibrarians: PropTypes.func,
-  request: PropTypes.shape({
+  updateLibrariansData: PropTypes.func,
+  librarianInfo: PropTypes.shape({
     id: PropTypes.number,
     username: PropTypes.string,
     email: PropTypes.string,

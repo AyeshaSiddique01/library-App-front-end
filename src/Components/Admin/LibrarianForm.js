@@ -10,7 +10,7 @@ import { Alert, Box, Grid, TextField } from "@mui/material";
 
 import { LIBRRAIAN_URL } from "../../utils/Constants";
 
-const LibrarianForm = ({ open, handleClose, updateLibrarian, toUpdate }) => {
+const LibrarianForm = ({ open, handleClose, updateLibrariansData, toUpdate }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -32,7 +32,7 @@ const LibrarianForm = ({ open, handleClose, updateLibrarian, toUpdate }) => {
         });
       }
       handleClose();
-      updateLibrarian();
+      updateLibrariansData();
     } catch (error) {
       setError(error);
     }
@@ -116,7 +116,7 @@ const LibrarianForm = ({ open, handleClose, updateLibrarian, toUpdate }) => {
 };
 
 LibrarianForm.propTypes = {
-  updateLibrarian: PropTypes.func,
+  updateLibrariansData: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   toUpdate: PropTypes.shape({

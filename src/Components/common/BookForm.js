@@ -10,7 +10,7 @@ import { Alert, Box, Grid, Input, InputLabel, TextField } from "@mui/material";
 
 import { BOOK_URL } from "../../utils/Constants";
 
-const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
+const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -18,9 +18,9 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
     const data = new FormData(event.currentTarget);
     try {
       let response;
-      if (toUpdate)
-        response = await axiosInstance.put(`${BOOK_URL}${toUpdate.id}/`, {
-          id: toUpdate.id,
+      if (bookToUpdate)
+        response = await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
+          id: bookToUpdate.id,
           name: data.name,
           image: data.image,
           publisher: data.publisher,
@@ -34,7 +34,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
           inventory: data.inventory,
         });
       handleClose();
-      updateBook();
+      updateBooksData();
     } catch (error) {
       setError(error);
     }
@@ -42,7 +42,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>{toUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
+      <DialogTitle>{bookToUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField
@@ -53,7 +53,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
             label="Name"
             name="name"
             autoComplete="name"
-            defaultValue={toUpdate ? toUpdate.name : ""}
+            defaultValue={bookToUpdate ? bookToUpdate.name : ""}
             autoFocus
           />
           <InputLabel variant="standard" htmlFor="uncontrolled-native">
@@ -77,7 +77,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
             label="publisher"
             name="publisher"
             autoComplete="publisher"
-            defaultValue={toUpdate ? toUpdate.publisher : ""}
+            defaultValue={bookToUpdate ? bookToUpdate.publisher : ""}
             autoFocus
           />
           <TextField
@@ -88,7 +88,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
             label="inventory"
             name="inventory"
             autoComplete="inventory"
-            defaultValue={toUpdate ? toUpdate.inventory : ""}
+            defaultValue={bookToUpdate ? bookToUpdate.inventory : ""}
             autoFocus
           />
         </DialogContent>
@@ -101,7 +101,7 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
                 variant="contained"
                 color="secondary"
               >
-                {toUpdate ? "Update" : "Add"}
+                {bookToUpdate ? "Update" : "Add"}
               </Button>
             </Grid>
             <Grid item sx={6}>
@@ -128,10 +128,10 @@ const BookForm = ({ open, handleClose, updateBook, toUpdate }) => {
 };
 
 BookForm.propTypes = {
-  updateBook: PropTypes.func,
+  updateBooksData: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
-  toUpdate: PropTypes.shape({
+  bookToUpdate: PropTypes.shape({
     id: PropTypes.number,
     image: PropTypes.string,
     inventory: PropTypes.number,

@@ -61,15 +61,15 @@ const Librarians = () => {
           </Button>
         </Grid>
         <Grid container spacing={4}>
-          {librarians.map((card) => (
-            <Librarian request={card} updateLibrarians={getLibrarians} />
+          {librarians.map((l) => (
+            <Librarian librarianInfo={l} updateLibrariansData={getLibrarians} />
           ))}
         </Grid>
       </Container>
       <LibrarianForm
         open={isUpdateLibrarianModalOpen}
         handleClose={() => setIsUpdateLibrarianModalOpen(false)}
-        updateLibrarians={getLibrarians}
+        updateLibrariansData={getLibrarians}
       />
     </ThemeProvider>
   );

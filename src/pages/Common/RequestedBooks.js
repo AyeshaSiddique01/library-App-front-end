@@ -58,7 +58,7 @@ const RequestedBooks = () => {
             {bookRequests.map((card) => (
               <BookRequest
                 request={card}
-                updateRequests={getUserBookRequests}
+                updateRequestsData={getUserBookRequests}
                 isLibrarian={userRole.includes("librarian") ? true : false}
               />
             ))}

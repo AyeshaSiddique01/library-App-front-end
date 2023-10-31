@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
@@ -11,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 import { BOOK_REQUEST_URL } from "../../utils/Constants";
 
-const BookRequest = ({ request, updateRequests, isLibrarian }) => {
+const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
   const handleUpdateStatus = async (req_status) => {
     try {
       const response = await axiosInstance.put(
@@ -21,7 +20,7 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
           status: req_status,
         }
       );
-      updateRequests();
+      updateRequestsData();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -36,7 +35,7 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
           status: "returned",
         }
       );
-      updateRequests();
+      updateRequestsData();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -47,7 +46,7 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
       const response = await axiosInstance.delete(
         `${BOOK_REQUEST_URL}${request.id}/`
       );
-      updateRequests();
+      updateRequestsData();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -192,7 +191,7 @@ const BookRequest = ({ request, updateRequests, isLibrarian }) => {
 
 BookRequest.propTypes = {
   isLibrarian: PropTypes.bool,
-  updateRequests: PropTypes.func,
+  updateRequestsData: PropTypes.func,
   request: PropTypes.shape({
     id: PropTypes.number.isRequired,
     issued_date: PropTypes.string.isRequired,

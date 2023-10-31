@@ -34,7 +34,20 @@ const LibrarianBooks = () => {
           image: "http://127.0.0.1:8000/media/upload/default.png",
           publisher: "Bloomsbury",
           inventory: 32,
-          author: [1],
+          author: [
+            {
+              id: 1,
+              name: "Rylee Fletcher",
+              gender: "F",
+              email: "toselyr@mailinator.com",
+            },
+            {
+              id: 2,
+              name: "Ayesha",
+              gender: "F",
+              email: "ayeshasiddique1306@gmail.com",
+            },
+          ],
         },
         {
           id: 2,
@@ -42,7 +55,14 @@ const LibrarianBooks = () => {
           image: "http://127.0.0.1:8000/media/books/luna.jpeg",
           publisher: "Bloomsbury",
           inventory: 0,
-          author: [1],
+          author: [
+            {
+              id: 1,
+              name: "Rylee Fletcher",
+              gender: "F",
+              email: "toselyr@mailinator.com",
+            },
+          ],
         },
       ];
       setBooks(data);
@@ -73,7 +93,7 @@ const LibrarianBooks = () => {
             <BookForm
               open={isAddingBookModalOpen}
               handleClose={() => setIsAddingBookModalOpen(false)}
-              updateBook={getBooks}
+              updateBooksData={getBooks}
             />
           </>
         )}
@@ -81,7 +101,7 @@ const LibrarianBooks = () => {
           {books.map((card) => (
             <Book
               book={card}
-              updateBooks={getBooks}
+              updateBooksData={getBooks}
               isLibrarian={userRole.includes("librarian") ? true : false}
             />
           ))}

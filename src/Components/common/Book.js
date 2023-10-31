@@ -12,13 +12,13 @@ import Typography from "@mui/material/Typography";
 import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils/Constants";
 import BookForm from "./BookForm";
 
-const Book = ({ book, updateBooks, isLibrarian }) => {
+const Book = ({ book, updateBooksData, isLibrarian }) => {
   const [isUpdateBookModalOpen, setIsUpdateBookModalOpen] = useState(false);
 
   const handleDeleteBook = () => {
     try {
       const response = axiosInstance.delete(`${BOOK_URL}${book.id}/`);
-      updateBooks();
+      updateBooksData();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -29,7 +29,7 @@ const Book = ({ book, updateBooks, isLibrarian }) => {
       const response = axiosInstance.post(BOOK_REQUEST_URL, {
         book: book.id,
       });
-      updateBooks();
+      updateBooksData();
     } catch (error) {
       console.log("error: ", error);
     }
@@ -81,8 +81,8 @@ const Book = ({ book, updateBooks, isLibrarian }) => {
                 <BookForm
                   open={isUpdateBookModalOpen}
                   handleClose={() => setIsUpdateBookModalOpen(false)}
-                  updateBook={updateBooks}
-                  toUpdate={book}
+                  updateBooksData={updateBooksData}
+                  bookToUpdate={book}
                 />
               </Grid>
               <Grid>
@@ -127,7 +127,7 @@ const Book = ({ book, updateBooks, isLibrarian }) => {
 
 Book.propTypes = {
   isLibrarian: PropTypes.bool,
-  updateBooks: PropTypes.func,
+  updateBooksData: PropTypes.func,
   book: PropTypes.shape({
     id: PropTypes.number,
     image: PropTypes.string,

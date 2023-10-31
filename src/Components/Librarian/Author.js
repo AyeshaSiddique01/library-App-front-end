@@ -10,12 +10,12 @@ import CardContent from "@mui/material/CardContent";
 import { AUTHOR_URL } from "../../utils/Constants";
 import AuthorForm from "./AuthorForm";
 
-const Author = ({ request, updateAuthors }) => {
+const Author = ({ author, updateAuthors }) => {
   const [isUpdateAuthorModalOpen, setIsUpdateAuthorModalOpen] = useState(false);
 
   const handleDeleteAuthor = () => {
     try {
-      const response = axiosInstance.delete(`${AUTHOR_URL}${request.id}/`);
+      const response = axiosInstance.delete(`${AUTHOR_URL}${author.id}/`);
       updateAuthors();
     } catch (error) {
       console.log("error: ", error);
@@ -23,7 +23,7 @@ const Author = ({ request, updateAuthors }) => {
   };
 
   return (
-    <Grid item key={request.id} lg={6}>
+    <Grid item key={author.id} lg={6}>
       <Card
         sx={{
           height: "100%",
@@ -37,7 +37,7 @@ const Author = ({ request, updateAuthors }) => {
               <b>Author name</b>
             </Grid>
             <Grid item xs={7}>
-              {request.name}
+              {author.name}
             </Grid>
           </Grid>
           <Grid container>
@@ -45,7 +45,7 @@ const Author = ({ request, updateAuthors }) => {
               <b>Author email</b>
             </Grid>
             <Grid item xs={7}>
-              {request.email}
+              {author.email}
             </Grid>
           </Grid>
           <Grid container>
@@ -53,7 +53,7 @@ const Author = ({ request, updateAuthors }) => {
               <b>Gender</b>
             </Grid>
             <Grid item xs={7}>
-              {request.gender === "F" ? "Female" : "Male"}
+              {author.gender === "F" ? "Female" : "Male"}
             </Grid>
           </Grid>
         </CardContent>
@@ -71,7 +71,7 @@ const Author = ({ request, updateAuthors }) => {
               open={isUpdateAuthorModalOpen}
               handleClose={() => setIsUpdateAuthorModalOpen(false)}
               updateAuthor={updateAuthors}
-              toUpdate={request}
+              authorToUpdate={author}
             />
           </Grid>
           <Grid>
@@ -92,7 +92,7 @@ const Author = ({ request, updateAuthors }) => {
 
 Author.propTypes = {
   updateAuthors: PropTypes.func,
-  request: PropTypes.shape({
+  author: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     email: PropTypes.string,

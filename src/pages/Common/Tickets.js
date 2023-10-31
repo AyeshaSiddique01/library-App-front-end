@@ -70,7 +70,7 @@ const Tickets = () => {
         <Grid container spacing={4}>
           {tickets.map((card) => (
             <Ticket
-              request={card}
+              ticket={card}
               updateTickets={getTickets}
               isLibrarian={userRole.includes("librarian") ? true : false}
             />

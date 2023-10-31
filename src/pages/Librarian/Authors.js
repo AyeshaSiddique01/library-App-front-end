@@ -58,7 +58,7 @@ const Authors = () => {
         </Grid>
         <Grid container spacing={4}>
           {author.map((card) => (
-            <Author request={card} updateAuthor={getAuthor} />
+            <Author author={card} updateAuthor={getAuthor} />
           ))}
         </Grid>
       </Container>

@@ -10,12 +10,12 @@ import axiosInstance from "../../axios";
 import UpdateTicketForm from "./UpdateTicketForm";
 import { Ticket_URL } from "../../utils/Constants";
 
-const Ticket = ({ request, updateTickets, isLibrarian }) => {
+const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
   const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
 
   const handleTicket = () => {
     try {
-      const response = axiosInstance.delete(`${Ticket_URL}${request.id}/`);
+      const response = axiosInstance.delete(`${Ticket_URL}${ticket.id}/`);
       updateTickets();
     } catch (error) {
       console.log("error: ", error);
@@ -23,7 +23,7 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
   };
 
   return (
-    <Grid item key={request.id} xs={12} sm={6} md={4}>
+    <Grid item key={ticket.id} xs={12} sm={6} md={4}>
       <Card
         sx={{
           height: "100%",
@@ -37,16 +37,16 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
               <b>Ticket message</b>
             </Grid>
             <Grid item xs={7}>
-              {request.request_message}
+              {ticket.request_message}
             </Grid>
           </Grid>
-          {request.response_message && (
+          {ticket.response_message && (
             <Grid container>
               <Grid item xs={5}>
                 <b>Ticket response</b>
               </Grid>
               <Grid item xs={7}>
-                {request.response_message}
+                {ticket.response_message}
               </Grid>
             </Grid>
           )}
@@ -55,12 +55,12 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
               <b>Status</b>
             </Grid>
             <Grid item xs={7}>
-              {request.status}
+              {ticket.status}
             </Grid>
           </Grid>
         </CardContent>
         <CardActions>
-          {request.status === "pending" && isLibrarian ? (
+          {ticket.status === "pending" && isLibrarian ? (
             <Grid container justifyContent="flex-end">
               <Button
                 variant="contained"
@@ -89,7 +89,7 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
         open={isUpdateStatusModalOpen}
         handleClose={() => setIsUpdateStatusModalOpen(false)}
         updateTickets={updateTickets}
-        ticketId={request.id}
+        ticketId={ticket.id}
       />
     </Grid>
   );
@@ -98,7 +98,7 @@ const Ticket = ({ request, updateTickets, isLibrarian }) => {
 Ticket.propTypes = {
   isLibrarian: PropTypes.bool,
   updateTickets: PropTypes.func,
-  request: PropTypes.shape({
+  ticket: PropTypes.shape({
     id: PropTypes.number,
     request_message: PropTypes.string,
     response_message: PropTypes.string,

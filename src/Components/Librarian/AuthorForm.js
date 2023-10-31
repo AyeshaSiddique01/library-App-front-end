@@ -17,7 +17,7 @@ import {
 
 import { AUTHOR_URL } from "../../utils/Constants";
 
-const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
+const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -25,9 +25,9 @@ const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
     const data = new FormData(event.currentTarget);
     try {
       let response;
-      if (toUpdate)
-        response = await axiosInstance.put(`${AUTHOR_URL}${toUpdate.id}/`, {
-          id: toUpdate.id,
+      if (authorToUpdate)
+        response = await axiosInstance.put(`${AUTHOR_URL}${authorToUpdate.id}/`, {
+          id: authorToUpdate.id,
           name: data.name,
           gender: data.gender,
           email: data.gmail,
@@ -47,7 +47,7 @@ const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>{toUpdate ? "Update Author" : "Add new Author"}</DialogTitle>
+      <DialogTitle>{authorToUpdate ? "Update Author" : "Add new Author"}</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField
@@ -58,7 +58,7 @@ const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
             label="Author name"
             name="name"
             autoComplete="name"
-            defaultValue={toUpdate ? toUpdate.name : ""}
+            defaultValue={authorToUpdate ? authorToUpdate.name : ""}
             autoFocus
           />
           <TextField
@@ -69,14 +69,14 @@ const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
             label="Author email"
             name="email"
             autoComplete="email"
-            defaultValue={toUpdate ? toUpdate.email : ""}
+            defaultValue={authorToUpdate ? authorToUpdate.email : ""}
             autoFocus
           />
           <InputLabel variant="standard" htmlFor="uncontrolled-native">
             Gender
           </InputLabel>
           <NativeSelect
-            defaultValue={toUpdate ? toUpdate.gender : ""}
+            defaultValue={authorToUpdate ? authorToUpdate.gender : ""}
             inputProps={{
               name: "gender",
               id: "uncontrolled-native",
@@ -95,7 +95,7 @@ const AuthorForm = ({ open, handleClose, updateAuthor, toUpdate }) => {
                 variant="contained"
                 color="secondary"
               >
-                {toUpdate ? "Update" : "Add"}
+                {authorToUpdate ? "Update" : "Add"}
               </Button>
             </Grid>
             <Grid item sx={6}>
@@ -125,7 +125,7 @@ AuthorForm.propTypes = {
   updateAuthor: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
-  toUpdate: PropTypes.shape({
+  authorToUpdate: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     email: PropTypes.string,
