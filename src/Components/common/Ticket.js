@@ -15,7 +15,7 @@ const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
 
   const handleTicket = () => {
     try {
-      const response = axiosInstance.delete(`${TICKET_URL}${ticket.id}/`);
+      axiosInstance.delete(`${TICKET_URL}${ticket.id}/`);
       updateTickets();
     } catch (error) {
       console.log("error: ", error);

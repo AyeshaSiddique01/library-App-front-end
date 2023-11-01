@@ -15,7 +15,7 @@ const Author = ({ author, updateAuthors }) => {
 
   const handleDeleteAuthor = () => {
     try {
-      const response = axiosInstance.delete(`${AUTHOR_URL}${author.id}/`);
+      axiosInstance.delete(`${AUTHOR_URL}${author.id}/`);
       updateAuthors();
     } catch (error) {
       console.log("error: ", error);

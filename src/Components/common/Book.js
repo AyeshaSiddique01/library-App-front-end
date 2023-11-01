@@ -17,18 +17,16 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
 
   const handleDeleteBook = () => {
     try {
-      const response = axiosInstance.delete(`${BOOK_URL}${book.id}/`);
+      axiosInstance.delete(`${BOOK_URL}${book.id}/`);
       updateBooksData();
     } catch (error) {
       console.log("error: ", error);
     }
   };
-  
+
   const handleRequestBook = () => {
     try {
-      const response = axiosInstance.post(BOOK_REQUEST_URL, {
-        book: book.id,
-      });
+      axiosInstance.post(BOOK_REQUEST_URL, { book: book.id });
       updateBooksData();
     } catch (error) {
       console.log("error: ", error);

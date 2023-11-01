@@ -10,25 +10,29 @@ import { Alert, Box, Grid, TextField } from "@mui/material";
 
 import { LIBRRAIAN_URL } from "../../utils/Constants";
 
-const LibrarianForm = ({ open, handleClose, updateLibrariansData, toUpdate }) => {
+const LibrarianForm = ({
+  open,
+  handleClose,
+  updateLibrariansData,
+  toUpdate,
+}) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      let response;
       if (toUpdate) {
-        response = await axiosInstance.put(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
+        await axiosInstance.put(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
           id: toUpdate.id,
-          username: data.username,
-          email: data.gmail,
+          username: data.get("username"),
+          email: data.get("email"),
         });
       } else {
-        response = await axiosInstance.post(LIBRRAIAN_URL, {
-          username: data.username,
-          email: data.gmail,
-          password: data.password,
+        await axiosInstance.post(LIBRRAIAN_URL, {
+          username: data.get("username"),
+          email: data.get("email"),
+          password: data.get("password"),
         });
       }
       handleClose();
@@ -53,6 +57,7 @@ const LibrarianForm = ({ open, handleClose, updateLibrariansData, toUpdate }) =>
             label="Librarian username"
             name="username"
             autoComplete="username"
+            type="text"
             defaultValue={toUpdate ? toUpdate.username : ""}
             autoFocus
           />
@@ -64,6 +69,7 @@ const LibrarianForm = ({ open, handleClose, updateLibrariansData, toUpdate }) =>
             label="Librarian email"
             name="email"
             autoComplete="email"
+            type="email"
             defaultValue={toUpdate ? toUpdate.email : ""}
             autoFocus
           />

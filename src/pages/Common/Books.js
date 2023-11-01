@@ -24,8 +24,8 @@ const LibrarianBooks = () => {
   const getBooks = async () => {
     try {
       let response;
-      if (name === undefined) response = await axiosInstance.get(BOOK_URL);
-      else response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
+      if (name) response = await axiosInstance.get(`${BOOK_URL}?search=${name}`);
+      else response = await axiosInstance.get(BOOK_URL);
       setBooks(response.data);
     } catch (error) {
       console.log("Error loading data");

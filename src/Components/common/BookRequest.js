@@ -13,13 +13,10 @@ import { BOOK_REQUEST_URL } from "../../utils/Constants";
 const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
   const handleUpdateStatus = async (req_status) => {
     try {
-      const response = await axiosInstance.put(
-        `${BOOK_REQUEST_URL}${request.id}/`,
-        {
-          id: request.id,
-          status: req_status,
-        }
-      );
+      await axiosInstance.patch(`${BOOK_REQUEST_URL}${request.id}/`, {
+        id: request.id,
+        status: req_status,
+      });
       updateRequestsData();
     } catch (error) {
       console.log("error: ", error);
@@ -28,7 +25,7 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
 
   const handleReturnBook = async () => {
     try {
-      const response = await axiosInstance.put(
+      await axiosInstance.patch(
         `${BOOK_REQUEST_URL}${request.id}/`,
         {
           id: request.id,
@@ -43,7 +40,7 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
 
   const handleDeleterequest = async () => {
     try {
-      const response = await axiosInstance.delete(
+      await axiosInstance.delete(
         `${BOOK_REQUEST_URL}${request.id}/`
       );
       updateRequestsData();
@@ -104,7 +101,7 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
                     variant="contained"
                     color="secondary"
                     size="small"
-                    onClick={() => handleUpdateStatus("accepted")}
+                    onClick={() => handleUpdateStatus("issued")}
                     disabled={request.status === "pending" ? false : true}
                   >
                     Accept

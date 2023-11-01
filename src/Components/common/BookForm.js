@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
@@ -6,32 +6,44 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import { Alert, Box, Grid, Input, InputLabel, TextField } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Grid,
+  Input,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TextField,
+} from "@mui/material";
 
-import { BOOK_URL } from "../../utils/Constants";
+import { AUTHOR_URL, BOOK_URL } from "../../utils/Constants";
 
 const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
   const [error, setError] = useState("");
+  const [authors, setAuthors] = useState([]);
+  const [authorsId, setAuthorsId] = React.useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      let response;
       if (bookToUpdate) {
-        response = await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
+        await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
           id: bookToUpdate.id,
-          name: data.name,
-          image: data.image,
-          publisher: data.publisher,
-          inventory: data.inventory,
+          name: data.get("name"),
+          image: data.get("image"),
+          publisher: data.get("publisher"),
+          inventory: data.get("inventory"),
         });
       } else {
-        response = await axiosInstance.post(BOOK_URL, {
-          name: data.name,
-          image: data.image,
-          publisher: data.publisher,
-          inventory: data.inventory,
+        await axiosInstance.post(BOOK_URL, {
+          name: data.get("name"),
+          image: data.get("image"),
+          publisher: data.get("publisher"),
+          inventory: data.get("inventory"),
+          author: authorsId,
         });
       }
       handleClose();
@@ -40,6 +52,19 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
       setError(error);
     }
   };
+
+  const getAuthor = async () => {
+    try {
+      const response = await axiosInstance.get(AUTHOR_URL);
+      setAuthors(response.data);
+    } catch (error) {
+      console.log("Error loading data");
+    }
+  };
+
+  useEffect(() => {
+    getAuthor();
+  }, []);
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
@@ -50,8 +75,8 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             margin="normal"
             required
             fullWidth
-            id="name"
             label="Name"
+            id="name"
             name="name"
             autoComplete="name"
             defaultValue={bookToUpdate ? bookToUpdate.name : ""}
@@ -92,6 +117,22 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             defaultValue={bookToUpdate ? bookToUpdate.inventory : ""}
             autoFocus
           />
+          <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+          <Select
+            name="authors"
+            labelId="demo-multiple-name-label"
+            id="demo-multiple-name"
+            multiple
+            value={authorsId}
+            onChange={(event) => setAuthorsId(event.target.value)}
+            input={<OutlinedInput label="Author Name" />}
+          >
+            {authors.map((a) => (
+              <MenuItem key={a.id} value={a.id}>
+                {a.name}
+              </MenuItem>
+            ))}
+          </Select>
         </DialogContent>
         <DialogActions>
           <Grid container justifyContent="flex-end" spacing={1}>

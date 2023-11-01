@@ -17,7 +17,7 @@ const TicketForm = ({ open, handleClose, updateTickets }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      const response = await axiosInstance.post(TICKET_URL, {
+      await axiosInstance.post(TICKET_URL, {
         request_message: data.get("message"),
       });
       updateTickets();

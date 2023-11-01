@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { getUserRole } from "./utils/utils";
+import { getUserRole } from "./utils";
 
 export const UserContext = createContext();
 
@@ -12,9 +12,10 @@ export const UserProvider = ({ children }) => {
     const roles = getUserRole();
     setUserRole(roles);
   };
+
   useEffect(() => {
     fetchUserRole();
-  });
+  }, []);
 
   return (
     <UserContext.Provider value={userRole}>{children}</UserContext.Provider>

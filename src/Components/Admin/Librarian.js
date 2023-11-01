@@ -11,11 +11,12 @@ import { LIBRRAIAN_URL } from "../../utils/Constants";
 import LibrarianForm from "./LibrarianForm";
 
 const Librarian = ({ librarianInfo, updateLibrariansData }) => {
-  const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] = useState(false);
+  const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] =
+    useState(false);
 
   const handleDeleteLibrarian = () => {
     try {
-      const response = axiosInstance.delete(`${LIBRRAIAN_URL}${librarianInfo.id}/`);
+      axiosInstance.delete(`${LIBRRAIAN_URL}${librarianInfo.id}/`);
       updateLibrariansData();
     } catch (error) {
       console.log("error: ", error);
@@ -33,12 +34,20 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
       >
         <CardContent sx={{ flexGrow: 1 }}>
           <Grid container>
-            <Grid item xs={5}><b>Librarian username</b></Grid>
-            <Grid item xs={7}>{librarianInfo.username}</Grid>
+            <Grid item xs={5}>
+              <b>Librarian username</b>
+            </Grid>
+            <Grid item xs={7}>
+              {librarianInfo.username}
+            </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={5}><b>Librarian email</b></Grid>
-            <Grid item xs={7}>{librarianInfo.email}</Grid>
+            <Grid item xs={5}>
+              <b>Librarian email</b>
+            </Grid>
+            <Grid item xs={7}>
+              {librarianInfo.email}
+            </Grid>
           </Grid>
         </CardContent>
         <CardActions>

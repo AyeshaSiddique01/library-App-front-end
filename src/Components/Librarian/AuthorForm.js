@@ -24,20 +24,20 @@ const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      let response;
-      if (authorToUpdate){
-        response = await axiosInstance.put(`${AUTHOR_URL}${authorToUpdate.id}/`, {
+      if (authorToUpdate) {
+        await axiosInstance.put(`${AUTHOR_URL}${authorToUpdate.id}/`, {
           id: authorToUpdate.id,
-          name: data.name,
-          gender: data.gender,
-          email: data.gmail,
-        });}
-      else{
-        response = await axiosInstance.post(AUTHOR_URL, {
-          name: data.name,
-          gender: data.gender,
-          email: data.gmail,
-        });}
+          name: data.get("name"),
+          gender: data.get("gender"),
+          email: data.get("email"),
+        });
+      } else {
+        await axiosInstance.post(AUTHOR_URL, {
+          name: data.get("name"),
+          gender: data.get("gender"),
+          email: data.get("email"),
+        });
+      }
       handleClose();
       updateAuthor();
     } catch (error) {
@@ -47,7 +47,9 @@ const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>{authorToUpdate ? "Update Author" : "Add new Author"}</DialogTitle>
+      <DialogTitle>
+        {authorToUpdate ? "Update Author" : "Add new Author"}
+      </DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField
