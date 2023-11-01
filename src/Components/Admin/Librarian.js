@@ -65,6 +65,7 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
               handleClose={() => setIsUpdateLibrarianModalOpen(false)}
               updateLibrarian={updateLibrariansData}
               toUpdate={librarianInfo}
+              isUpdate={true}
             />
           </Grid>
           <Grid>

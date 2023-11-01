@@ -20,7 +20,7 @@ import {
 
 import { AUTHOR_URL, BOOK_URL } from "../../utils/Constants";
 
-const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
+const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }) => {
   const [error, setError] = useState("");
   const [authors, setAuthors] = useState([]);
   const [authorsId, setAuthorsId] = React.useState([]);
@@ -31,7 +31,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
     const data = new FormData(event.currentTarget);
     console.log(fileInputRef.current.files);
     try {
-      if (bookToUpdate) {
+      if (isUpdate) {
         await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
           id: bookToUpdate.id,
           name: data.get("name"),
@@ -70,7 +70,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>{bookToUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
+      <DialogTitle>{isUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField
@@ -81,7 +81,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             id="name"
             name="name"
             autoComplete="name"
-            defaultValue={bookToUpdate ? bookToUpdate.name : ""}
+            defaultValue={isUpdate ? bookToUpdate.name : ""}
             autoFocus
           />
           <InputLabel variant="standard" htmlFor="uncontrolled-native">
@@ -106,7 +106,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             label="publisher"
             name="publisher"
             autoComplete="publisher"
-            defaultValue={bookToUpdate ? bookToUpdate.publisher : ""}
+            defaultValue={isUpdate ? bookToUpdate.publisher : ""}
             autoFocus
 
           />
@@ -118,7 +118,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             label="inventory"
             name="inventory"
             autoComplete="inventory"
-            defaultValue={bookToUpdate ? bookToUpdate.inventory : ""}
+            defaultValue={isUpdate ? bookToUpdate.inventory : ""}
             autoFocus
           />
           <InputLabel id="demo-multiple-name-label">Author Name</InputLabel>
@@ -147,7 +147,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
                 variant="contained"
                 color="secondary"
               >
-                {bookToUpdate ? "Update" : "Add"}
+                {isUpdate ? "Update" : "Add"}
               </Button>
             </Grid>
             <Grid item sx={6}>
@@ -177,6 +177,7 @@ BookForm.propTypes = {
   updateBooksData: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
+  isUpdate: PropTypes.bool,
   bookToUpdate: PropTypes.shape({
     id: PropTypes.number,
     image: PropTypes.string,

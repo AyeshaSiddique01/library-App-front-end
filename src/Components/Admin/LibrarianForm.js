@@ -15,6 +15,7 @@ const LibrarianForm = ({
   handleClose,
   updateLibrariansData,
   toUpdate,
+  isUpdate
 }) => {
   const [error, setError] = useState("");
 
@@ -22,7 +23,7 @@ const LibrarianForm = ({
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      if (toUpdate) {
+      if (isUpdate) {
         await axiosInstance.patch(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
           id: toUpdate.id,
           username: data.get("username"),
@@ -45,7 +46,7 @@ const LibrarianForm = ({
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>
-        {toUpdate ? "Update Librarian" : "Add new Librarian"}
+        {isUpdate ? "Update Librarian" : "Add new Librarian"}
       </DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
@@ -58,7 +59,7 @@ const LibrarianForm = ({
             name="username"
             autoComplete="username"
             type="text"
-            defaultValue={toUpdate ? toUpdate.username : ""}
+            defaultValue={isUpdate ? toUpdate.username : ""}
             autoFocus
           />
           <TextField
@@ -70,10 +71,10 @@ const LibrarianForm = ({
             name="email"
             autoComplete="email"
             type="email"
-            defaultValue={toUpdate ? toUpdate.email : ""}
+            defaultValue={isUpdate ? toUpdate.email : ""}
             autoFocus
           />
-          {!toUpdate && (
+          {!isUpdate && (
             <TextField
               margin="normal"
               required
@@ -95,7 +96,7 @@ const LibrarianForm = ({
                 variant="contained"
                 color="secondary"
               >
-                {toUpdate ? "Update" : "Add"}
+                {isUpdate ? "Update" : "Add"}
               </Button>
             </Grid>
             <Grid item sx={6}>
@@ -125,6 +126,7 @@ LibrarianForm.propTypes = {
   updateLibrariansData: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
+  isUpdate: PropTypes.bool,
   toUpdate: PropTypes.shape({
     id: PropTypes.number,
     username: PropTypes.string,

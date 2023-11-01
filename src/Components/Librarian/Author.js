@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axiosInstance from "../../axios";
-import { PropTypes, any } from "prop-types";
+import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -72,6 +72,7 @@ const Author = ({ author, updateAuthors }) => {
               handleClose={() => setIsUpdateAuthorModalOpen(false)}
               updateAuthor={updateAuthors}
               authorToUpdate={author}
+              isUpdate={true}
             />
           </Grid>
           <Grid>

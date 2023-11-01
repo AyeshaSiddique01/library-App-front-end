@@ -81,6 +81,7 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
                   handleClose={() => setIsUpdateBookModalOpen(false)}
                   updateBooksData={updateBooksData}
                   bookToUpdate={book}
+                  isUpdate={true}
                 />
               </Grid>
               <Grid>
