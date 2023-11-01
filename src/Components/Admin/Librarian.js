@@ -14,9 +14,9 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
   const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] =
     useState(false);
 
-  const handleDeleteLibrarian = () => {
+  const handleDeleteLibrarian = async () => {
     try {
-      axiosInstance.delete(`${LIBRRAIAN_URL}${librarianInfo.id}/`);
+      await axiosInstance.delete(`${LIBRRAIAN_URL}${librarianInfo.id}/`);
       updateLibrariansData();
     } catch (error) {
       console.log("error: ", error);

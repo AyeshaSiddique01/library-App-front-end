@@ -15,18 +15,18 @@ import BookForm from "./BookForm";
 const Book = ({ book, updateBooksData, isLibrarian }) => {
   const [isUpdateBookModalOpen, setIsUpdateBookModalOpen] = useState(false);
 
-  const handleDeleteBook = () => {
+  const handleDeleteBook = async () => {
     try {
-      axiosInstance.delete(`${BOOK_URL}${book.id}/`);
+      await axiosInstance.delete(`${BOOK_URL}${book.id}/`);
       updateBooksData();
     } catch (error) {
       console.log("error: ", error);
     }
   };
 
-  const handleRequestBook = () => {
+  const handleRequestBook = async () => {
     try {
-      axiosInstance.post(BOOK_REQUEST_URL, { book: book.id });
+      await axiosInstance.post(BOOK_REQUEST_URL, { book: book.id });
       updateBooksData();
     } catch (error) {
       console.log("error: ", error);

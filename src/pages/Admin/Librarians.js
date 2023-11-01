@@ -13,7 +13,8 @@ const defaultTheme = createTheme();
 
 const Librarians = () => {
   const [librarians, setLibrarians] = useState([]);
-  const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] = useState(false);
+  const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] =
+    useState(false);
 
   const getLibrarians = async () => {
     try {

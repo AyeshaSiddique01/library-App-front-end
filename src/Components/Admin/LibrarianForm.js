@@ -23,7 +23,7 @@ const LibrarianForm = ({
     const data = new FormData(event.currentTarget);
     try {
       if (toUpdate) {
-        await axiosInstance.put(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
+        await axiosInstance.patch(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
           id: toUpdate.id,
           username: data.get("username"),
           email: data.get("email"),

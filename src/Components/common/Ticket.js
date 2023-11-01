@@ -13,9 +13,9 @@ import { TICKET_URL } from "../../utils/Constants";
 const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
   const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
 
-  const handleTicket = () => {
+  const handleTicket = async() => {
     try {
-      axiosInstance.delete(`${TICKET_URL}${ticket.id}/`);
+      await axiosInstance.delete(`${TICKET_URL}${ticket.id}/`);
       updateTickets();
     } catch (error) {
       console.log("error: ", error);
@@ -103,7 +103,7 @@ Ticket.propTypes = {
     request_message: PropTypes.string,
     response_message: PropTypes.string,
     status: PropTypes.string,
-    user: PropTypes.string,
+    user: PropTypes.number,
   }),
 };
 

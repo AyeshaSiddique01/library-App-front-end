@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
@@ -24,23 +24,25 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
   const [error, setError] = useState("");
   const [authors, setAuthors] = useState([]);
   const [authorsId, setAuthorsId] = React.useState([]);
+  const fileInputRef = useRef(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(fileInputRef.current.files);
     try {
       if (bookToUpdate) {
         await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
           id: bookToUpdate.id,
           name: data.get("name"),
-          image: data.get("image"),
+          image: fileInputRef.current.files[0],
           publisher: data.get("publisher"),
           inventory: data.get("inventory"),
         });
       } else {
         await axiosInstance.post(BOOK_URL, {
           name: data.get("name"),
-          image: data.get("image"),
+          image: fileInputRef.current.files[0],
           publisher: data.get("publisher"),
           inventory: data.get("inventory"),
           author: authorsId,
@@ -89,6 +91,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             margin="normal"
             required
             fullWidth
+            inputRef={fileInputRef}
             id="image"
             label="image"
             name="image"
@@ -105,6 +108,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             autoComplete="publisher"
             defaultValue={bookToUpdate ? bookToUpdate.publisher : ""}
             autoFocus
+
           />
           <TextField
             margin="normal"
@@ -117,7 +121,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate }) => {
             defaultValue={bookToUpdate ? bookToUpdate.inventory : ""}
             autoFocus
           />
-          <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+          <InputLabel id="demo-multiple-name-label">Author Name</InputLabel>
           <Select
             name="authors"
             labelId="demo-multiple-name-label"

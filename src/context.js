@@ -8,8 +8,8 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userRole, setUserRole] = useState([]);
 
-  const fetchUserRole = () => {
-    const roles = getUserRole();
+  const fetchUserRole = async () => {
+    const roles = await getUserRole();
     setUserRole(roles);
   };
 

@@ -30,7 +30,7 @@ const UpdatePassword = () => {
         setError("Confirm password and password doesn't match");
         return;
       }
-      const response = await axios.post(UPDATE_PASSWORD, {
+      await axios.post(UPDATE_PASSWORD, {
         username: data.get("username"),
         password: data.get("password"),
       });

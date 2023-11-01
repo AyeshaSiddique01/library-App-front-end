@@ -8,4 +8,4 @@ export const BOOK_REQUEST_URL = `${BASE_URL}/request_book/`;
 export const TICKET_URL = `${BASE_URL}/tickets/`;
 export const AUTHOR_URL = `${BASE_URL}/author/`;
 export const LIBRRAIAN_URL = `${BASE_URL}/librarian/`;
-export const GET_USER_ROLE = `${BASE_URL}/librarian/`;
+export const GET_USER_ROLE = `${BASE_URL}/get_user_role/`;

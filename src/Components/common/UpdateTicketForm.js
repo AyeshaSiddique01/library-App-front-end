@@ -24,7 +24,7 @@ const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      await axiosInstance.put(`${TICKET_URL}${ticketId}/`, {
+      await axiosInstance.patch(`${TICKET_URL}${ticketId}/`, {
         id: ticketId,
         status: data.get("status"),
         response_message: data.get("response_message"),

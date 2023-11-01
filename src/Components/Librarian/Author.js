@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axiosInstance from "../../axios";
-import { PropTypes } from "prop-types";
+import { PropTypes, any } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,9 +13,9 @@ import AuthorForm from "./AuthorForm";
 const Author = ({ author, updateAuthors }) => {
   const [isUpdateAuthorModalOpen, setIsUpdateAuthorModalOpen] = useState(false);
 
-  const handleDeleteAuthor = () => {
+  const handleDeleteAuthor = async () => {
     try {
-      axiosInstance.delete(`${AUTHOR_URL}${author.id}/`);
+      await axiosInstance.delete(`${AUTHOR_URL}${author.id}/`);
       updateAuthors();
     } catch (error) {
       console.log("error: ", error);
