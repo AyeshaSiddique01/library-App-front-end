@@ -63,7 +63,7 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
             <LibrarianForm
               isOpen={isUpdateLibrarianModalOpen}
               handleClose={() => setIsUpdateLibrarianModalOpen(false)}
-              updateLibrarian={updateLibrariansData}
+              updateLibrariansData={updateLibrariansData}
               toUpdate={librarianInfo}
               isUpdate
             />

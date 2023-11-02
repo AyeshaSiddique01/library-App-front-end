@@ -15,7 +15,7 @@ const LibrarianForm = ({
   handleClose,
   updateLibrariansData,
   toUpdate,
-  isUpdate
+  isUpdate,
 }) => {
   const [error, setError] = useState("");
 
@@ -23,18 +23,19 @@ const LibrarianForm = ({
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
+      let request_data = {
+        username: data.get("username"),
+        email: data.get("email"),
+      };
       if (isUpdate) {
-        await axiosInstance.patch(`${LIBRRAIAN_URL}${toUpdate.id}/`, {
-          id: toUpdate.id,
-          username: data.get("username"),
-          email: data.get("email"),
-        });
+        request_data["id"] = toUpdate.id;
+        await axiosInstance.patch(
+          `${LIBRRAIAN_URL}${toUpdate.id}/`,
+          request_data
+        );
       } else {
-        await axiosInstance.post(LIBRRAIAN_URL, {
-          username: data.get("username"),
-          email: data.get("email"),
-          password: data.get("password"),
-        });
+        request_data["password"] = data.get("password");
+        await axiosInstance.post(LIBRRAIAN_URL, request_data);
       }
       handleClose();
       updateLibrariansData();

@@ -17,26 +17,32 @@ import {
 
 import { AUTHOR_URL } from "../../utils/Constants";
 
-const AuthorForm = ({ isOpen, handleClose, updateAuthors, authorToUpdate, isUpdate }) => {
+const AuthorForm = ({
+  isOpen,
+  handleClose,
+  updateAuthors,
+  authorToUpdate,
+  isUpdate,
+}) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
+      let request_data = {
+        name: data.get("name"),
+        gender: data.get("gender"),
+        email: data.get("email"),
+      };
       if (isUpdate) {
-        await axiosInstance.patch(`${AUTHOR_URL}${authorToUpdate.id}/`, {
-          id: authorToUpdate.id,
-          name: data.get("name"),
-          gender: data.get("gender"),
-          email: data.get("email"),
-        });
+        request_data["id"] = authorToUpdate.id;
+        await axiosInstance.patch(
+          `${AUTHOR_URL}${authorToUpdate.id}/`,
+          request_data
+        );
       } else {
-        await axiosInstance.post(AUTHOR_URL, {
-          name: data.get("name"),
-          gender: data.get("gender"),
-          email: data.get("email"),
-        });
+        await axiosInstance.post(AUTHOR_URL, request_data);
       }
       updateAuthors();
       handleClose();
@@ -47,9 +53,7 @@ const AuthorForm = ({ isOpen, handleClose, updateAuthors, authorToUpdate, isUpda
 
   return (
     <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>
-        {isUpdate ? "Update Author" : "Add new Author"}
-      </DialogTitle>
+      <DialogTitle>{isUpdate ? "Update Author" : "Add new Author"}</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField

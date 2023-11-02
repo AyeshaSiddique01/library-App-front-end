@@ -20,7 +20,13 @@ import {
 
 import { AUTHOR_URL, BOOK_URL } from "../../utils/Constants";
 
-const BookForm = ({ isOpen, handleClose, updateBooksData, bookToUpdate, isUpdate }) => {
+const BookForm = ({
+  isOpen,
+  handleClose,
+  updateBooksData,
+  bookToUpdate,
+  isUpdate,
+}) => {
   const [error, setError] = useState("");
   const [authors, setAuthors] = useState([]);
   const [authorsId, setAuthorsId] = React.useState([]);
@@ -29,24 +35,18 @@ const BookForm = ({ isOpen, handleClose, updateBooksData, bookToUpdate, isUpdate
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log(fileInputRef.current.files);
     try {
+      let request_data = {
+        name: data.get("name"),
+        publisher: data.get("publisher"),
+        inventory: data.get("inventory"),
+      };
       if (isUpdate) {
-        await axiosInstance.patch(`${BOOK_URL}${bookToUpdate.id}/`, {
-          id: bookToUpdate.id,
-          name: data.get("name"),
-          // image: fileInputRef.current.files[0],
-          publisher: data.get("publisher"),
-          inventory: data.get("inventory"),
-        });
+        request_data["id"] = bookToUpdate.id
+        await axiosInstance.patch(`${BOOK_URL}${bookToUpdate.id}/`, request_data);
       } else {
-        await axiosInstance.post(BOOK_URL, {
-          name: data.get("name"),
-          // image: fileInputRef.current.files[0],
-          publisher: data.get("publisher"),
-          inventory: data.get("inventory"),
-          author: authorsId,
-        });
+        request_data["author"] = authorsId
+        await axiosInstance.post(BOOK_URL, request_data);
       }
       updateBooksData();
       handleClose();
@@ -108,7 +108,6 @@ const BookForm = ({ isOpen, handleClose, updateBooksData, bookToUpdate, isUpdate
             autoComplete="publisher"
             defaultValue={isUpdate ? bookToUpdate.publisher : ""}
             autoFocus
-
           />
           <TextField
             margin="normal"
