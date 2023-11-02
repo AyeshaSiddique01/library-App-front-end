@@ -43,8 +43,8 @@ const Librarians = () => {
           </Button>
         </Grid>
         <Grid container spacing={4}>
-          {librarians.map((l) => (
-            <Librarian librarianInfo={l} updateLibrariansData={getLibrarians} />
+          {librarians.map((librarian) => (
+            <Librarian librarianInfo={librarian} updateLibrariansData={getLibrarians} />
           ))}
         </Grid>
       </Container>

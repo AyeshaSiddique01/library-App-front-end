@@ -34,9 +34,9 @@ const RequestedBooks = () => {
       <main>
         <Container sx={{ py: 8 }} maxWidth="lg">
           <Grid container spacing={4}>
-            {bookRequests.map((card) => (
+            {bookRequests.map((bookRequest) => (
               <BookRequest
-                request={card}
+                request={bookRequest}
                 updateRequestsData={getUserBookRequests}
                 isLibrarian={userRole.includes("librarian") ? true : false}
               />

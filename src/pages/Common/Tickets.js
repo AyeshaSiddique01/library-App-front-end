@@ -51,9 +51,9 @@ const Tickets = () => {
           </Grid>
         )}
         <Grid container spacing={4}>
-          {tickets.map((card) => (
+          {tickets.map((ticket) => (
             <Ticket
-              ticket={card}
+              ticket={ticket}
               updateTickets={getTickets}
               isLibrarian={userRole.includes("librarian") ? true : false}
             />

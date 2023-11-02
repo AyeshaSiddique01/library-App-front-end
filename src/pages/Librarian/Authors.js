@@ -42,8 +42,8 @@ const Authors = () => {
           </Button>
         </Grid>
         <Grid container spacing={4}>
-          {author.map((card) => (
-            <Author author={card} updateAuthors={getAuthor} />
+          {author.map((author) => (
+            <Author author={author} updateAuthors={getAuthor} />
           ))}
         </Grid>
       </Container>
