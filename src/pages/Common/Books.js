@@ -16,7 +16,7 @@ const defaultTheme = createTheme();
 const LibrarianBooks = () => {
   const [books, setBooks] = useState([]);
   const { userRole } = useContext(UserContext);
-  let { search } = useLocation();
+  const { search } = useLocation();
   const query = new URLSearchParams(search);
   const name = query.get("search");
   const [isAddBookModalOpen, setisAddBookModalOpen] = useState(false);
@@ -64,7 +64,7 @@ const LibrarianBooks = () => {
             <Book
               book={book}
               updateBooksData={getBooks}
-              isLibrarian={userRole.includes("librarian") ? true : false}
+              isLibrarian={userRole.includes("librarian")}
             />
           ))}
         </Grid>

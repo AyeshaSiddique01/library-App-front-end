@@ -55,7 +55,7 @@ const Tickets = () => {
             <Ticket
               ticket={ticket}
               updateTickets={getTickets}
-              isLibrarian={userRole.includes("librarian") ? true : false}
+              isLibrarian={userRole.includes("librarian")}
             />
           ))}
         </Grid>

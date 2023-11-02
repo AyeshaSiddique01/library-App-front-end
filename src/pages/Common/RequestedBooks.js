@@ -38,7 +38,7 @@ const RequestedBooks = () => {
               <BookRequest
                 request={bookRequest}
                 updateRequestsData={getUserBookRequests}
-                isLibrarian={userRole.includes("librarian") ? true : false}
+                isLibrarian={userRole.includes("librarian")}
               />
             ))}
           </Grid>
