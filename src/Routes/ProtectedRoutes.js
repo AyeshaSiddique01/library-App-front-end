@@ -5,10 +5,10 @@ import { Typography } from "@mui/material";
 
 import Navbar from "../Components/Common/Navbar";
 
-const ProtectedRoute = ({ children, isProtected = true }) => {
+const ProtectedRoute = ({ children, isProtected }) => {
   const ACCESS_TOKEN = localStorage.getItem("access_token");
 
-  if (isProtected === false) {
+  if (!isProtected) {
     if (ACCESS_TOKEN) return <Navigate to="/" replace />;
     return <Typography minHeight="85vh">{children}</Typography>;
   }
@@ -24,7 +24,10 @@ const ProtectedRoute = ({ children, isProtected = true }) => {
 
 ProtectedRoute.propTypes = {
   children: PropTypes.element,
-  isProtected: PropTypes.bool,
+};
+
+ProtectedRoute.defaultProps = {
+  isProtected: true,
 };
 
 export default ProtectedRoute;
