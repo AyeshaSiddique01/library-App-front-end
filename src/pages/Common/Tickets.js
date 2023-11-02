@@ -44,7 +44,7 @@ const Tickets = () => {
               Add new Ticket
             </Button>
             <TicketForm
-              open={isAddingTicketModalOpen}
+              isOpen={isAddingTicketModalOpen}
               handleClose={() => setIsAddingTicketModalOpen(false)}
               updateTickets={getTickets}
             />

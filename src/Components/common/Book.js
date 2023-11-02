@@ -77,11 +77,11 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
                   Update
                 </Button>
                 <BookForm
-                  open={isUpdateBookModalOpen}
+                  isOpen={isUpdateBookModalOpen}
                   handleClose={() => setIsUpdateBookModalOpen(false)}
                   updateBooksData={updateBooksData}
                   bookToUpdate={book}
-                  isUpdate={true}
+                  isUpdate
                 />
               </Grid>
               <Grid>

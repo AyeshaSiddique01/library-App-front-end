@@ -20,7 +20,7 @@ import {
 
 import { AUTHOR_URL, BOOK_URL } from "../../utils/Constants";
 
-const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }) => {
+const BookForm = ({ isOpen, handleClose, updateBooksData, bookToUpdate, isUpdate }) => {
   const [error, setError] = useState("");
   const [authors, setAuthors] = useState([]);
   const [authorsId, setAuthorsId] = React.useState([]);
@@ -69,7 +69,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }
   }, []);
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>{isUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
@@ -175,7 +175,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }
 
 BookForm.propTypes = {
   updateBooksData: PropTypes.func,
-  open: PropTypes.bool,
+  isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,
   bookToUpdate: PropTypes.shape({

@@ -68,11 +68,11 @@ const Author = ({ author, updateAuthors }) => {
               Update
             </Button>
             <AuthorForm
-              open={isUpdateAuthorModalOpen}
+              isOpen={isUpdateAuthorModalOpen}
               handleClose={() => setIsUpdateAuthorModalOpen(false)}
               updateAuthors={updateAuthors}
               authorToUpdate={author}
-              isUpdate={true}
+              isUpdate
             />
           </Grid>
           <Grid>

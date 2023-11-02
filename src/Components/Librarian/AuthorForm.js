@@ -17,7 +17,7 @@ import {
 
 import { AUTHOR_URL } from "../../utils/Constants";
 
-const AuthorForm = ({ open, handleClose, updateAuthors, authorToUpdate, isUpdate }) => {
+const AuthorForm = ({ isOpen, handleClose, updateAuthors, authorToUpdate, isUpdate }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -46,7 +46,7 @@ const AuthorForm = ({ open, handleClose, updateAuthors, authorToUpdate, isUpdate
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>
         {isUpdate ? "Update Author" : "Add new Author"}
       </DialogTitle>
@@ -125,7 +125,7 @@ const AuthorForm = ({ open, handleClose, updateAuthors, authorToUpdate, isUpdate
 
 AuthorForm.propTypes = {
   updateAuthors: PropTypes.func,
-  open: PropTypes.bool,
+  isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,
   authorToUpdate: PropTypes.shape({

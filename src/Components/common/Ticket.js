@@ -86,7 +86,7 @@ const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
         </CardActions>
       </Card>
       <UpdateTicketForm
-        open={isUpdateStatusModalOpen}
+        isOpen={isUpdateStatusModalOpen}
         handleClose={() => setIsUpdateStatusModalOpen(false)}
         updateTickets={updateTickets}
         ticketId={ticket.id}

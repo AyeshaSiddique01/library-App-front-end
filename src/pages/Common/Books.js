@@ -53,7 +53,7 @@ const LibrarianBooks = () => {
               </Button>
             </Grid>
             <BookForm
-              open={isAddingBookModalOpen}
+              isOpen={isAddingBookModalOpen}
               handleClose={() => setIsAddingBookModalOpen(false)}
               updateBooksData={getBooks}
             />

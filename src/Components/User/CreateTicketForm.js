@@ -10,7 +10,7 @@ import { Alert, Box, Grid, TextField } from "@mui/material";
 
 import { TICKET_URL } from "../../utils/Constants";
 
-const TicketForm = ({ open, handleClose, updateTickets }) => {
+const TicketForm = ({ isOpen, handleClose, updateTickets }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -28,7 +28,7 @@ const TicketForm = ({ open, handleClose, updateTickets }) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>Add new Ticket</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
@@ -80,7 +80,7 @@ const TicketForm = ({ open, handleClose, updateTickets }) => {
 
 TicketForm.propTypes = {
   updateTickets: PropTypes.func,
-  open: PropTypes.bool,
+  isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
 };
 

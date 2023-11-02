@@ -48,7 +48,7 @@ const Authors = () => {
         </Grid>
       </Container>
       <AuthorForm
-        open={isAddingAuthorModalOpen}
+        isOpen={isAddingAuthorModalOpen}
         handleClose={() => setIsAddingAuthorModalOpen(false)}
         updateAuthors={getAuthor}
       />

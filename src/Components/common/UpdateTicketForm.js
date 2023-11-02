@@ -17,7 +17,7 @@ import {
 
 import { TICKET_URL } from "../../utils/Constants";
 
-const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
+const UpdateTicketForm = ({ isOpen, handleClose, updateTickets, ticketId }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -37,7 +37,7 @@ const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>Update Ticket Status</DialogTitle>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <DialogContent>
@@ -101,7 +101,7 @@ const UpdateTicketForm = ({ open, handleClose, updateTickets, ticketId }) => {
 
 UpdateTicketForm.propTypes = {
   updateTickets: PropTypes.func,
-  open: PropTypes.bool,
+  isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   ticketId: PropTypes.number,
 };

@@ -11,7 +11,7 @@ import { Alert, Box, Grid, TextField } from "@mui/material";
 import { LIBRRAIAN_URL } from "../../utils/Constants";
 
 const LibrarianForm = ({
-  open,
+  isOpen,
   handleClose,
   updateLibrariansData,
   toUpdate,
@@ -44,7 +44,7 @@ const LibrarianForm = ({
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>
         {isUpdate ? "Update Librarian" : "Add new Librarian"}
       </DialogTitle>
@@ -124,7 +124,7 @@ const LibrarianForm = ({
 
 LibrarianForm.propTypes = {
   updateLibrariansData: PropTypes.func,
-  open: PropTypes.bool,
+  isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,
   toUpdate: PropTypes.shape({

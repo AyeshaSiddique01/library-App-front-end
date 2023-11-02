@@ -49,7 +49,7 @@ const Librarians = () => {
         </Grid>
       </Container>
       <LibrarianForm
-        open={isUpdateLibrarianModalOpen}
+        isOpen={isUpdateLibrarianModalOpen}
         handleClose={() => setIsUpdateLibrarianModalOpen(false)}
         updateLibrariansData={getLibrarians}
       />

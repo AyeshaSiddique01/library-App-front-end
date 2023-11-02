@@ -61,11 +61,11 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
               Update
             </Button>
             <LibrarianForm
-              open={isUpdateLibrarianModalOpen}
+              isOpen={isUpdateLibrarianModalOpen}
               handleClose={() => setIsUpdateLibrarianModalOpen(false)}
               updateLibrarian={updateLibrariansData}
               toUpdate={librarianInfo}
-              isUpdate={true}
+              isUpdate
             />
           </Grid>
           <Grid>
