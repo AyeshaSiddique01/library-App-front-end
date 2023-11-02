@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -6,21 +7,12 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import axiosInstance from "../../axios";
 import UpdateTicketForm from "./UpdateTicketForm";
-import { TICKET_URL } from "../../utils/Constants";
+import { deleteTicket } from "../../slices/ticketSlice";
 
 const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
   const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
-
-  const handleTicket = async() => {
-    try {
-      await axiosInstance.delete(`${TICKET_URL}${ticket.id}/`);
-      updateTickets();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+  const dispatch = useDispatch();
 
   return (
     <Grid item key={ticket.id} xs={12} sm={6} md={4}>
@@ -60,7 +52,7 @@ const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          {ticket.status === "pending" && isLibrarian ? (
+          {(ticket.status === "pending" && isLibrarian) ? (
             <Grid container justifyContent="flex-end">
               <Button
                 variant="contained"
@@ -71,13 +63,13 @@ const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
                 Add response
               </Button>
             </Grid>
-          ) : (
+          ) : !isLibrarian && (
             <Grid container justifyContent="flex-end">
               <Button
                 variant="contained"
                 color="error"
                 size="small"
-                onClick={handleTicket}
+                onClick={() => dispatch(deleteTicket(ticket.id))}
               >
                 Delete
               </Button>

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axiosInstance from "../../axios";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { LIBRRAIAN_URL } from "../../utils/Constants";
 import Librarian from "../../Components/Admin/Librarian";
 import LibrarianForm from "../../Components/Admin/LibrarianForm";
 import { Button } from "@mui/material";
@@ -12,22 +11,9 @@ import { Button } from "@mui/material";
 const defaultTheme = createTheme();
 
 const Librarians = () => {
-  const [librarians, setLibrarians] = useState([]);
+  const librarians = useSelector((state) => state.librarian.librarians);
   const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] =
     useState(false);
-
-  const getLibrarians = async () => {
-    try {
-      const response = await axiosInstance.get(LIBRRAIAN_URL);
-      setLibrarians(response.data);
-    } catch (error) {
-      console.log("Error loading data");
-    }
-  };
-
-  useEffect(() => {
-    getLibrarians();
-  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -44,14 +30,13 @@ const Librarians = () => {
         </Grid>
         <Grid container spacing={4}>
           {librarians.map((librarian) => (
-            <Librarian librarianInfo={librarian} updateLibrariansData={getLibrarians} />
+            <Librarian librarianInfo={librarian} />
           ))}
         </Grid>
       </Container>
       <LibrarianForm
         isOpen={isUpdateLibrarianModalOpen}
         handleClose={() => setIsUpdateLibrarianModalOpen(false)}
-        updateLibrariansData={getLibrarians}
       />
     </ThemeProvider>
   );

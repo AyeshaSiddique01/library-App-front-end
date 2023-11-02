@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axiosInstance from "../../axios";
+import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,21 +7,13 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import { LIBRRAIAN_URL } from "../../utils/Constants";
+import { deleteLibrarian } from "../../slices/librarianSlice";
 import LibrarianForm from "./LibrarianForm";
 
-const Librarian = ({ librarianInfo, updateLibrariansData }) => {
+const Librarian = ({ librarianInfo }) => {
   const [isUpdateLibrarianModalOpen, setIsUpdateLibrarianModalOpen] =
     useState(false);
-
-  const handleDeleteLibrarian = async () => {
-    try {
-      await axiosInstance.delete(`${LIBRRAIAN_URL}${librarianInfo.id}/`);
-      updateLibrariansData();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+  const dispatch = useDispatch();
 
   return (
     <Grid item key={librarianInfo.id} lg={6}>
@@ -63,7 +55,6 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
             <LibrarianForm
               isOpen={isUpdateLibrarianModalOpen}
               handleClose={() => setIsUpdateLibrarianModalOpen(false)}
-              updateLibrariansData={updateLibrariansData}
               toUpdate={librarianInfo}
               isUpdate
             />
@@ -73,7 +64,7 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
               variant="contained"
               color="error"
               size="small"
-              onClick={handleDeleteLibrarian}
+              onClick={() => dispatch(deleteLibrarian(librarianInfo.id))}
             >
               Delete
             </Button>
@@ -85,7 +76,6 @@ const Librarian = ({ librarianInfo, updateLibrariansData }) => {
 };
 
 Librarian.propTypes = {
-  updateLibrariansData: PropTypes.func,
   librarianInfo: PropTypes.shape({
     id: PropTypes.number,
     username: PropTypes.string,

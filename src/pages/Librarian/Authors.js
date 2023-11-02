@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
@@ -11,7 +11,7 @@ import AuthorForm from "../../Components/Librarian/AuthorForm";
 const defaultTheme = createTheme();
 
 const Authors = () => {
-  const authors = useSelector((state) => state.author.value)
+  const authors = useSelector((state) => state.author.authors);
   const [isAddAuthorModalOpen, setisAddAuthorModalOpen] = useState(false);
 
   return (

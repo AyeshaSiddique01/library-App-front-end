@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import axiosInstance from "../../axios";
+import React, { useState, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 
-import { TICKET_URL } from "../../utils/Constants";
 import Ticket from "../../Components/Common/Ticket";
 import TicketForm from "../../Components/User/CreateTicketForm";
 import { Button } from "@mui/material";
@@ -13,22 +12,9 @@ import { UserContext } from "../../context";
 const defaultTheme = createTheme();
 
 const Tickets = () => {
-  const [tickets, setTickets] = useState([]);
+  const tickets = useSelector((state) => state.ticket.tickets)
   const {userRole} = useContext(UserContext);
   const [isAddTicketModalOpen, setisAddTicketModalOpen] = useState(false);
-
-  const getTickets = async () => {
-    try {
-      const response = await axiosInstance.get(TICKET_URL);
-      setTickets(response.data);
-    } catch (error) {
-      console.log("Error loading data");
-    }
-  };
-
-  useEffect(() => {
-    getTickets();
-  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -46,7 +32,6 @@ const Tickets = () => {
             <TicketForm
               isOpen={isAddTicketModalOpen}
               handleClose={() => setisAddTicketModalOpen(false)}
-              updateTickets={getTickets}
             />
           </Grid>
         )}
@@ -54,7 +39,6 @@ const Tickets = () => {
           {tickets.map((ticket) => (
             <Ticket
               ticket={ticket}
-              updateTickets={getTickets}
               isLibrarian={userRole.includes("librarian")}
             />
           ))}

@@ -1,47 +1,33 @@
-import React, { useState } from "react";
-import axiosInstance from "../../axios";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import { Alert, Box, Grid, TextField } from "@mui/material";
+import { Box, Grid, TextField } from "@mui/material";
 
-import { LIBRRAIAN_URL } from "../../utils/Constants";
+import { addLibrarian, updateLibrarian } from "../../slices/librarianSlice";
 
-const LibrarianForm = ({
-  isOpen,
-  handleClose,
-  updateLibrariansData,
-  toUpdate,
-  isUpdate,
-}) => {
-  const [error, setError] = useState("");
+const LibrarianForm = ({ isOpen, handleClose, toUpdate, isUpdate }) => {
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      let request_data = {
-        username: data.get("username"),
-        email: data.get("email"),
-      };
-      if (isUpdate) {
-        request_data["id"] = toUpdate.id;
-        await axiosInstance.patch(
-          `${LIBRRAIAN_URL}${toUpdate.id}/`,
-          request_data
-        );
-      } else {
-        request_data["password"] = data.get("password");
-        await axiosInstance.post(LIBRRAIAN_URL, request_data);
-      }
-      handleClose();
-      updateLibrariansData();
-    } catch (error) {
-      setError(error);
+    let request_data = {
+      username: data.get("username"),
+      email: data.get("email"),
+    };
+    if (isUpdate) {
+      request_data["id"] = toUpdate.id;
+      dispatch(updateLibrarian(request_data));
+    } else {
+      request_data["password"] = data.get("password");
+      dispatch(addLibrarian(request_data));
     }
+    handleClose();
   };
 
   return (
@@ -112,11 +98,6 @@ const LibrarianForm = ({
               </Button>
             </Grid>
           </Grid>
-          {error && (
-            <Alert severity="error" sx={{ mt: 1 }}>
-              {error}
-            </Alert>
-          )}
         </DialogActions>
       </Box>
     </Dialog>
@@ -124,7 +105,6 @@ const LibrarianForm = ({
 };
 
 LibrarianForm.propTypes = {
-  updateLibrariansData: PropTypes.func,
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,

@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -7,7 +8,6 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { Box, Grid, InputLabel, NativeSelect, TextField } from "@mui/material";
 
-import { useDispatch } from "react-redux";
 import { addAuthor, updateAuthor } from "../../slices/authorSlice";
 
 const AuthorForm = ({ isOpen, handleClose, authorToUpdate, isUpdate }) => {

@@ -1,39 +1,28 @@
-import React, { useState } from "react";
-import axiosInstance from "../../axios";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import {
-  Alert,
-  Box,
-  Grid,
-  InputLabel,
-  NativeSelect,
-  TextField,
-} from "@mui/material";
+import { Box, Grid, InputLabel, NativeSelect, TextField } from "@mui/material";
 
-import { TICKET_URL } from "../../utils/Constants";
+import { updateTicket } from "../../slices/ticketSlice";
 
-const UpdateTicketForm = ({ isOpen, handleClose, updateTickets, ticketId }) => {
-  const [error, setError] = useState("");
+const UpdateTicketForm = ({ isOpen, handleClose, ticketId }) => {
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      await axiosInstance.patch(`${TICKET_URL}${ticketId}/`, {
-        id: ticketId,
-        status: data.get("status"),
-        response_message: data.get("response_message"),
-      });
-      handleClose();
-      updateTickets();
-    } catch (error) {
-      setError(error);
-    }
+    let request_data = {
+      id: ticketId,
+      status: data.get("status"),
+      response_message: data.get("response_message"),
+    };
+    dispatch(updateTicket(request_data));
+    handleClose();
   };
 
   return (
@@ -88,11 +77,6 @@ const UpdateTicketForm = ({ isOpen, handleClose, updateTickets, ticketId }) => {
               </Button>
             </Grid>
           </Grid>
-          {error && (
-            <Alert severity="error" sx={{ mt: 1 }}>
-              {error}
-            </Alert>
-          )}
         </DialogActions>
       </Box>
     </Dialog>
@@ -100,7 +84,6 @@ const UpdateTicketForm = ({ isOpen, handleClose, updateTickets, ticketId }) => {
 };
 
 UpdateTicketForm.propTypes = {
-  updateTickets: PropTypes.func,
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   ticketId: PropTypes.number,
