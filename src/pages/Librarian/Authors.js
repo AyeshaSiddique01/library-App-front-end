@@ -13,7 +13,7 @@ const defaultTheme = createTheme();
 
 const Authors = () => {
   const [author, setAuthor] = useState([]);
-  const [isAddingAuthorModalOpen, setIsAddingAuthorModalOpen] = useState(false);
+  const [isAddAuthorModalOpen, setisAddAuthorModalOpen] = useState(false);
 
   const getAuthor = async () => {
     try {
@@ -36,7 +36,7 @@ const Authors = () => {
             variant="contained"
             color="secondary"
             size="small"
-            onClick={() => setIsAddingAuthorModalOpen(true)}
+            onClick={() => setisAddAuthorModalOpen(true)}
           >
             Add new Author
           </Button>
@@ -48,8 +48,8 @@ const Authors = () => {
         </Grid>
       </Container>
       <AuthorForm
-        isOpen={isAddingAuthorModalOpen}
-        handleClose={() => setIsAddingAuthorModalOpen(false)}
+        isOpen={isAddAuthorModalOpen}
+        handleClose={() => setisAddAuthorModalOpen(false)}
         updateAuthors={getAuthor}
       />
     </ThemeProvider>

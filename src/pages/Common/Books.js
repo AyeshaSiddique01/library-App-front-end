@@ -19,7 +19,7 @@ const LibrarianBooks = () => {
   let { search } = useLocation();
   const query = new URLSearchParams(search);
   const name = query.get("search");
-  const [isAddingBookModalOpen, setIsAddingBookModalOpen] = useState(false);
+  const [isAddBookModalOpen, setisAddBookModalOpen] = useState(false);
 
   const getBooks = async () => {
     try {
@@ -47,14 +47,14 @@ const LibrarianBooks = () => {
                 variant="contained"
                 color="secondary"
                 size="small"
-                onClick={() => setIsAddingBookModalOpen(true)}
+                onClick={() => setisAddBookModalOpen(true)}
               >
                 Add new Book
               </Button>
             </Grid>
             <BookForm
-              isOpen={isAddingBookModalOpen}
-              handleClose={() => setIsAddingBookModalOpen(false)}
+              isOpen={isAddBookModalOpen}
+              handleClose={() => setisAddBookModalOpen(false)}
               updateBooksData={getBooks}
             />
           </>
