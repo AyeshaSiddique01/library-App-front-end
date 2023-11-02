@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,12 +15,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { LOGIN_URL } from "../../utils/Constants";
+import { UserContext } from "../../context";
 
 const defaultTheme = createTheme();
 
 const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { resetRole } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +35,7 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem("access_token", response.data.access);
         navigate("/");
+        resetRole();
         return;
       }
       if (response.status === 401) {

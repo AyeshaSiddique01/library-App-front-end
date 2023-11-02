@@ -70,7 +70,7 @@ const Author = ({ author, updateAuthors }) => {
             <AuthorForm
               open={isUpdateAuthorModalOpen}
               handleClose={() => setIsUpdateAuthorModalOpen(false)}
-              updateAuthor={updateAuthors}
+              updateAuthors={updateAuthors}
               authorToUpdate={author}
               isUpdate={true}
             />

@@ -14,7 +14,7 @@ const defaultTheme = createTheme();
 
 const Tickets = () => {
   const [tickets, setTickets] = useState([]);
-  const userRole = useContext(UserContext);
+  const {userRole} = useContext(UserContext);
   const [isAddingTicketModalOpen, setIsAddingTicketModalOpen] = useState(false);
 
   const getTickets = async () => {

@@ -24,32 +24,32 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }
   const [error, setError] = useState("");
   const [authors, setAuthors] = useState([]);
   const [authorsId, setAuthorsId] = React.useState([]);
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(fileInputRef.current.files);
+    // console.log(fileInputRef.current.files);
     try {
       if (isUpdate) {
-        await axiosInstance.put(`${BOOK_URL}${bookToUpdate.id}/`, {
+        await axiosInstance.patch(`${BOOK_URL}${bookToUpdate.id}/`, {
           id: bookToUpdate.id,
           name: data.get("name"),
-          image: fileInputRef.current.files[0],
+          // image: fileInputRef.current.files[0],
           publisher: data.get("publisher"),
           inventory: data.get("inventory"),
         });
       } else {
         await axiosInstance.post(BOOK_URL, {
           name: data.get("name"),
-          image: fileInputRef.current.files[0],
+          // image: fileInputRef.current.files[0],
           publisher: data.get("publisher"),
           inventory: data.get("inventory"),
           author: authorsId,
         });
       }
-      handleClose();
       updateBooksData();
+      handleClose();
     } catch (error) {
       setError(error);
     }
@@ -84,7 +84,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }
             defaultValue={isUpdate ? bookToUpdate.name : ""}
             autoFocus
           />
-          <InputLabel variant="standard" htmlFor="uncontrolled-native">
+          {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
             Image
           </InputLabel>
           <Input
@@ -97,7 +97,7 @@ const BookForm = ({ open, handleClose, updateBooksData, bookToUpdate, isUpdate }
             name="image"
             type="file"
             autoFocus
-          />
+          /> */}
           <TextField
             margin="normal"
             required

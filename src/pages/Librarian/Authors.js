@@ -43,14 +43,14 @@ const Authors = () => {
         </Grid>
         <Grid container spacing={4}>
           {author.map((card) => (
-            <Author author={card} updateAuthor={getAuthor} />
+            <Author author={card} updateAuthors={getAuthor} />
           ))}
         </Grid>
       </Container>
       <AuthorForm
         open={isAddingAuthorModalOpen}
         handleClose={() => setIsAddingAuthorModalOpen(false)}
-        updateAuthor={getAuthor}
+        updateAuthors={getAuthor}
       />
     </ThemeProvider>
   );

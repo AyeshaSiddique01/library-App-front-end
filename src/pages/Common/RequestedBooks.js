@@ -13,7 +13,7 @@ const defaultTheme = createTheme();
 
 const RequestedBooks = () => {
   const [bookRequests, setBookRequests] = useState([]);
-  const userRole = useContext(UserContext);
+  const {userRole} = useContext(UserContext);
 
   const getUserBookRequests = async () => {
     try {

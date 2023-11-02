@@ -17,7 +17,7 @@ import {
 
 import { AUTHOR_URL } from "../../utils/Constants";
 
-const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate, isUpdate }) => {
+const AuthorForm = ({ open, handleClose, updateAuthors, authorToUpdate, isUpdate }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -25,7 +25,7 @@ const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate, isUpdate 
     const data = new FormData(event.currentTarget);
     try {
       if (isUpdate) {
-        await axiosInstance.put(`${AUTHOR_URL}${authorToUpdate.id}/`, {
+        await axiosInstance.patch(`${AUTHOR_URL}${authorToUpdate.id}/`, {
           id: authorToUpdate.id,
           name: data.get("name"),
           gender: data.get("gender"),
@@ -38,8 +38,8 @@ const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate, isUpdate 
           email: data.get("email"),
         });
       }
+      updateAuthors();
       handleClose();
-      updateAuthor();
     } catch (error) {
       setError(error);
     }
@@ -124,7 +124,7 @@ const AuthorForm = ({ open, handleClose, updateAuthor, authorToUpdate, isUpdate 
 };
 
 AuthorForm.propTypes = {
-  updateAuthor: PropTypes.func,
+  updateAuthors: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,

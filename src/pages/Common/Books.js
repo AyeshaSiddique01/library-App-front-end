@@ -15,7 +15,7 @@ const defaultTheme = createTheme();
 
 const LibrarianBooks = () => {
   const [books, setBooks] = useState([]);
-  const userRole = useContext(UserContext);
+  const { userRole } = useContext(UserContext);
   let { search } = useLocation();
   const query = new URLSearchParams(search);
   const name = query.get("search");

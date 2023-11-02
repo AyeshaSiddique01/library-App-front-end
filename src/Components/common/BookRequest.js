@@ -77,6 +77,14 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
           </Grid>
           <Grid container>
             <Grid item xs={7}>
+              <b>Requested Status</b>
+            </Grid>
+            <Grid item xs={5}>
+              {request.status}
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={7}>
               <b>Issued Date</b>
             </Grid>
             <Grid item xs={5}>

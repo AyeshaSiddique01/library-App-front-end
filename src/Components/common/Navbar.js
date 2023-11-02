@@ -49,11 +49,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const userRole = useContext(UserContext);
+  const { userRole, clearRole } = useContext(UserContext);
 
   const logout = () => {
     if (localStorage.getItem("access_token")) {
       localStorage.clear();
+      clearRole();
       navigate("/login");
     }
   };
@@ -66,7 +67,7 @@ const Navbar = () => {
             className="navbar-brand"
             href={
               userRole.includes("admin") && !userRole.includes("librarian")
-                ? " "
+                ? "/librarians"
                 : "/"
             }
           >
