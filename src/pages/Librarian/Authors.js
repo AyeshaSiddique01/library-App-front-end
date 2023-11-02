@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from "react";
-import axiosInstance from "../../axios";
+import React, { useState } from "react";
+import { useSelector } from 'react-redux'
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { AUTHOR_URL } from "../../utils/Constants";
 import Author from "../../Components/Librarian/Author";
 import AuthorForm from "../../Components/Librarian/AuthorForm";
 
 const defaultTheme = createTheme();
 
 const Authors = () => {
-  const [author, setAuthor] = useState([]);
+  const authors = useSelector((state) => state.author.value)
   const [isAddAuthorModalOpen, setisAddAuthorModalOpen] = useState(false);
-
-  const getAuthor = async () => {
-    try {
-      const response = await axiosInstance.get(AUTHOR_URL);
-      setAuthor(response.data);
-    } catch (error) {
-      console.log("Error loading data");
-    }
-  };
-
-  useEffect(() => {
-    getAuthor();
-  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -42,15 +28,14 @@ const Authors = () => {
           </Button>
         </Grid>
         <Grid container spacing={4}>
-          {author.map((author) => (
-            <Author author={author} updateAuthors={getAuthor} />
+          {authors.map((author) => (
+            <Author author={author} />
           ))}
         </Grid>
       </Container>
       <AuthorForm
         isOpen={isAddAuthorModalOpen}
         handleClose={() => setisAddAuthorModalOpen(false)}
-        updateAuthors={getAuthor}
       />
     </ThemeProvider>
   );

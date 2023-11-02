@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,20 +6,14 @@ import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 
-import { AUTHOR_URL } from "../../utils/Constants";
 import AuthorForm from "./AuthorForm";
+import { useDispatch } from "react-redux";
+import { deleteAuthor } from "../../slices/authorSlice";
 
-const Author = ({ author, updateAuthors }) => {
+
+const Author = ({ author }) => {
   const [isUpdateAuthorModalOpen, setIsUpdateAuthorModalOpen] = useState(false);
-
-  const handleDeleteAuthor = async () => {
-    try {
-      await axiosInstance.delete(`${AUTHOR_URL}${author.id}/`);
-      updateAuthors();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+  const dispatch = useDispatch();
 
   return (
     <Grid item key={author.id} lg={6}>
@@ -70,7 +63,6 @@ const Author = ({ author, updateAuthors }) => {
             <AuthorForm
               isOpen={isUpdateAuthorModalOpen}
               handleClose={() => setIsUpdateAuthorModalOpen(false)}
-              updateAuthors={updateAuthors}
               authorToUpdate={author}
               isUpdate
             />
@@ -80,7 +72,7 @@ const Author = ({ author, updateAuthors }) => {
               variant="contained"
               color="error"
               size="small"
-              onClick={handleDeleteAuthor}
+              onClick={() => dispatch(deleteAuthor(author.id))}
             >
               Delete
             </Button>
@@ -92,7 +84,6 @@ const Author = ({ author, updateAuthors }) => {
 };
 
 Author.propTypes = {
-  updateAuthors: PropTypes.func,
   author: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

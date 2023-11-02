@@ -1,54 +1,33 @@
-import React, { useState } from "react";
-import axiosInstance from "../../axios";
+import React from "react";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import {
-  Alert,
-  Box,
-  Grid,
-  InputLabel,
-  NativeSelect,
-  TextField,
-} from "@mui/material";
+import { Box, Grid, InputLabel, NativeSelect, TextField } from "@mui/material";
 
-import { AUTHOR_URL } from "../../utils/Constants";
+import { useDispatch } from "react-redux";
+import { addAuthor, updateAuthor } from "../../slices/authorSlice";
 
-const AuthorForm = ({
-  isOpen,
-  handleClose,
-  updateAuthors,
-  authorToUpdate,
-  isUpdate,
-}) => {
-  const [error, setError] = useState("");
+const AuthorForm = ({ isOpen, handleClose, authorToUpdate, isUpdate }) => {
+  const dispatch = useDispatch();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      let request_data = {
-        name: data.get("name"),
-        gender: data.get("gender"),
-        email: data.get("email"),
-      };
-      if (isUpdate) {
-        request_data["id"] = authorToUpdate.id;
-        await axiosInstance.patch(
-          `${AUTHOR_URL}${authorToUpdate.id}/`,
-          request_data
-        );
-      } else {
-        await axiosInstance.post(AUTHOR_URL, request_data);
-      }
-      updateAuthors();
-      handleClose();
-    } catch (error) {
-      setError(error);
+    let request_data = {
+      name: data.get("name"),
+      gender: data.get("gender"),
+      email: data.get("email"),
+    };
+    if (isUpdate) {
+      request_data["id"] = authorToUpdate.id;
+      dispatch(updateAuthor(request_data));
+    } else {
+      dispatch(addAuthor(request_data));
     }
+    handleClose();
   };
 
   return (
@@ -116,11 +95,6 @@ const AuthorForm = ({
               </Button>
             </Grid>
           </Grid>
-          {error && (
-            <Alert severity="error" sx={{ mt: 1 }}>
-              {error}
-            </Alert>
-          )}
         </DialogActions>
       </Box>
     </Dialog>
@@ -128,7 +102,6 @@ const AuthorForm = ({
 };
 
 AuthorForm.propTypes = {
-  updateAuthors: PropTypes.func,
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,
