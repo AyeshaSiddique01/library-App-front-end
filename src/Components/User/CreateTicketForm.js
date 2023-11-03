@@ -1,30 +1,27 @@
-import React, { useState } from "react";
-import axiosInstance from "../../axios";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import { Alert, Box, Grid, TextField } from "@mui/material";
+import { Box, Grid, TextField } from "@mui/material";
 
-import { TICKET_URL } from "../../utils/Constants";
+import { addTicket } from "../../slices/ticketSlice";
 
-const TicketForm = ({ isOpen, handleClose, updateTickets }) => {
-  const [error, setError] = useState("");
+const TicketForm = ({ isOpen, handleClose }) => {
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      await axiosInstance.post(TICKET_URL, {
+    dispatch(
+      addTicket({
         request_message: data.get("message"),
-      });
-      updateTickets();
-      handleClose();
-    } catch (error) {
-      setError(error);
-    }
+      })
+    );
+    handleClose();
   };
 
   return (
@@ -67,11 +64,6 @@ const TicketForm = ({ isOpen, handleClose, updateTickets }) => {
               </Button>
             </Grid>
           </Grid>
-          {error && (
-            <Alert severity="error" sx={{ mt: 1 }}>
-              {error}
-            </Alert>
-          )}
         </DialogActions>
       </Box>
     </Dialog>
@@ -79,7 +71,6 @@ const TicketForm = ({ isOpen, handleClose, updateTickets }) => {
 };
 
 TicketForm.propTypes = {
-  updateTickets: PropTypes.func,
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
 };
