@@ -1,4 +1,3 @@
-import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,47 +6,12 @@ import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
 
-import { BOOK_REQUEST_URL } from "../../utils/Constants";
+import {deleteBookRequest, updateBookRequest } from "../../slices/bookRequestSlice";
 
-const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
-  const handleUpdateStatus = async (req_status) => {
-    try {
-      await axiosInstance.patch(`${BOOK_REQUEST_URL}${request.id}/`, {
-        id: request.id,
-        status: req_status,
-      });
-      updateRequestsData();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
-
-  const handleReturnBook = async () => {
-    try {
-      await axiosInstance.patch(
-        `${BOOK_REQUEST_URL}${request.id}/`,
-        {
-          id: request.id,
-          status: "returned",
-        }
-      );
-      updateRequestsData();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
-
-  const handleDeleterequest = async () => {
-    try {
-      await axiosInstance.delete(
-        `${BOOK_REQUEST_URL}${request.id}/`
-      );
-      updateRequestsData();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+const BookRequest = ({ request, isLibrarian }) => {
+  const dispatch = useDispatch();
 
   return (
     <Grid item key={request.id} xs={12} sm={6} md={4}>
@@ -109,7 +73,14 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
                     variant="contained"
                     color="secondary"
                     size="small"
-                    onClick={() => handleUpdateStatus("issued")}
+                    onClick={() =>
+                      dispatch(
+                        updateBookRequest({
+                          id: request.id,
+                          status: "issued",
+                        })
+                      )
+                    }
                     disabled={request.status === "pending" ? false : true}
                   >
                     Accept
@@ -120,7 +91,14 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
                     variant="contained"
                     color="error"
                     size="small"
-                    onClick={() => handleUpdateStatus("rejected")}
+                    onClick={() =>
+                      dispatch(
+                        updateBookRequest({
+                          id: request.id,
+                          status: "rejected",
+                        })
+                      )
+                    }
                     disabled={request.status === "pending" ? false : true}
                   >
                     Reject
@@ -147,7 +125,7 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
                       variant="contained"
                       color="error"
                       size="small"
-                      onClick={handleDeleterequest}
+                      onClick={() => dispatch(deleteBookRequest(request.id))}
                     >
                       Delete
                     </Button>
@@ -158,7 +136,14 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
                   variant="contained"
                   color="secondary"
                   size="small"
-                  onClick={handleReturnBook}
+                  onClick={() =>
+                    dispatch(
+                      updateBookRequest({
+                        id: request.id,
+                        status: "returned",
+                      })
+                    )
+                  }
                 >
                   Return
                 </Button>
@@ -179,7 +164,7 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
                       variant="contained"
                       color="error"
                       size="small"
-                      onClick={handleDeleterequest}
+                      onClick={() => dispatch(deleteBookRequest(request.id))}
                     >
                       Delete
                     </Button>
@@ -196,7 +181,6 @@ const BookRequest = ({ request, updateRequestsData, isLibrarian }) => {
 
 BookRequest.propTypes = {
   isLibrarian: PropTypes.bool,
-  updateRequestsData: PropTypes.func,
   request: PropTypes.shape({
     id: PropTypes.number.isRequired,
     issued_date: PropTypes.string.isRequired,

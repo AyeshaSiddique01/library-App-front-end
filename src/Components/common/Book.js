@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -10,22 +9,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils/Constants";
 import BookForm from "./BookForm";
-import { deleteBook, updateBook } from "../../slices/bookSlice";
+import { deleteBook } from "../../slices/bookSlice";
+import { addBookRequest } from "../../slices/bookRequestSlice";
 
 const Book = ({ book, updateBooksData, isLibrarian }) => {
   const [isUpdateBookModalOpen, setIsUpdateBookModalOpen] = useState(false);
   const dispatch = useDispatch();
-
-  const handleRequestBook = async () => {
-    try {
-      await axiosInstance.post(BOOK_REQUEST_URL, { book: book.id });
-      updateBooksData();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
 
   return (
     <Grid item key={book.id} xs={12} sm={6} md={4}>
@@ -108,7 +98,7 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
                   variant="contained"
                   color="secondary"
                   size="small"
-                  onClick={handleRequestBook}
+                  onClick={() => dispatch(addBookRequest({ book: book.id }))}
                 >
                   Request
                 </Button>
