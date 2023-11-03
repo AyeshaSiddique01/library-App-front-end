@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
@@ -6,11 +6,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
 import {
-  Alert,
   Box,
   Grid,
-  Input,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -18,41 +17,30 @@ import {
   TextField,
 } from "@mui/material";
 
-import { AUTHOR_URL, BOOK_URL } from "../../utils/Constants";
+import { AUTHOR_URL } from "../../utils/Constants";
+import { addBook, updateBook } from "../../slices/bookSlice";
 
-const BookForm = ({
-  isOpen,
-  handleClose,
-  updateBooksData,
-  bookToUpdate,
-  isUpdate,
-}) => {
-  const [error, setError] = useState("");
+const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
   const [authors, setAuthors] = useState([]);
   const [authorsId, setAuthorsId] = React.useState([]);
-  // const fileInputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      let request_data = {
-        name: data.get("name"),
-        publisher: data.get("publisher"),
-        inventory: data.get("inventory"),
-      };
-      if (isUpdate) {
-        request_data["id"] = bookToUpdate.id
-        await axiosInstance.patch(`${BOOK_URL}${bookToUpdate.id}/`, request_data);
-      } else {
-        request_data["author"] = authorsId
-        await axiosInstance.post(BOOK_URL, request_data);
-      }
-      updateBooksData();
-      handleClose();
-    } catch (error) {
-      setError(error);
+    let request_data = {
+      name: data.get("name"),
+      publisher: data.get("publisher"),
+      inventory: data.get("inventory"),
+    };
+    if (isUpdate) {
+      request_data["id"] = bookToUpdate.id;
+      dispatch(updateBook(request_data));
+    } else {
+      request_data["author"] = authorsId;
+      dispatch(addBook(request_data));
     }
+    handleClose();
   };
 
   const getAuthor = async () => {
@@ -84,20 +72,6 @@ const BookForm = ({
             defaultValue={isUpdate ? bookToUpdate.name : ""}
             autoFocus
           />
-          {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            Image
-          </InputLabel>
-          <Input
-            margin="normal"
-            required
-            fullWidth
-            inputRef={fileInputRef}
-            id="image"
-            label="image"
-            name="image"
-            type="file"
-            autoFocus
-          /> */}
           <TextField
             margin="normal"
             required
@@ -161,11 +135,6 @@ const BookForm = ({
               </Button>
             </Grid>
           </Grid>
-          {error && (
-            <Alert severity="error" sx={{ mt: 1 }}>
-              {error}
-            </Alert>
-          )}
         </DialogActions>
       </Box>
     </Dialog>
@@ -173,7 +142,6 @@ const BookForm = ({
 };
 
 BookForm.propTypes = {
-  updateBooksData: PropTypes.func,
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   isUpdate: PropTypes.bool,

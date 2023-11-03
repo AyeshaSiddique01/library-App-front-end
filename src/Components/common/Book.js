@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import axiosInstance from "../../axios";
 import { PropTypes } from "prop-types";
 import Button from "@mui/material/Button";
@@ -11,18 +12,11 @@ import Typography from "@mui/material/Typography";
 
 import { BOOK_URL, BOOK_REQUEST_URL } from "../../utils/Constants";
 import BookForm from "./BookForm";
+import { deleteBook, updateBook } from "../../slices/bookSlice";
 
 const Book = ({ book, updateBooksData, isLibrarian }) => {
   const [isUpdateBookModalOpen, setIsUpdateBookModalOpen] = useState(false);
-
-  const handleDeleteBook = async () => {
-    try {
-      await axiosInstance.delete(`${BOOK_URL}${book.id}/`);
-      updateBooksData();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+  const dispatch = useDispatch();
 
   const handleRequestBook = async () => {
     try {
@@ -47,14 +41,16 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
           <Typography gutterBottom variant="h5" component="h2">
             {book.name}
           </Typography>
-          <Grid container>
-            <Grid item xs={4}>
-              <b>Book</b>
+          {book.author && (
+            <Grid container>
+              <Grid item xs={4}>
+                <b>Book Author</b>
+              </Grid>
+              <Grid item xs={8}>
+                {book.author.map((a) => `${a.name}, `)}
+              </Grid>
             </Grid>
-            <Grid item xs={8}>
-              {book.author.map((a) => `${a.name}, `)}
-            </Grid>
-          </Grid>
+          )}
           <Grid container>
             <Grid item xs={4}>
               <b>Publisher</b>
@@ -63,6 +59,16 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
               {book.publisher}
             </Grid>
           </Grid>
+          {isLibrarian && (
+            <Grid container>
+              <Grid item xs={4}>
+                <b>Inventory</b>
+              </Grid>
+              <Grid item xs={8}>
+                {book.inventory}
+              </Grid>
+            </Grid>
+          )}
         </CardContent>
         <CardActions>
           {isLibrarian ? (
@@ -89,7 +95,7 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
                   variant="contained"
                   color="secondary"
                   size="small"
-                  onClick={handleDeleteBook}
+                  onClick={() => dispatch(deleteBook(book.id))}
                 >
                   Delete
                 </Button>

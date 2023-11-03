@@ -7,6 +7,8 @@ import { Button, Typography } from "@mui/material";
 
 import NavbarIcon from "./NavbarIcon";
 import { UserContext } from "../../context";
+import { useDispatch } from "react-redux";
+import { filterBooks } from "../../slices/bookSlice";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -50,7 +52,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = () => {
   const navigate = useNavigate();
   const { userRole, clearRole } = useContext(UserContext);
-
+  const dispatch = useDispatch();
+  
   const logout = () => {
     if (localStorage.getItem("access_token")) {
       localStorage.clear();
@@ -97,7 +100,8 @@ const Navbar = () => {
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
                 onChange={(e) => {
-                  navigate(`/books?search=${e.target.value}`);
+                  dispatch(filterBooks(e.target.value))
+                  navigate(`/books`);
                 }}
               />
             </Search>
