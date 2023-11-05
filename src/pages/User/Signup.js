@@ -25,22 +25,21 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      if (data.get("confirmPassword") !== data.get("password")) {
-        setError("Confirm password doesn't match password");
-        return;
-      }
-      const response = await axios.post(USER_URL, {
+
+    if (data.get("confirmPassword") !== data.get("password")) {
+      setError("Confirm password doesn't match password");
+      return;
+    }
+    await axios
+      .post(USER_URL, {
         username: data.get("username"),
         password: data.get("password"),
         email: data.get("email"),
-      });
-      localStorage.setItem("access_token", response.data.access_token);
-      navigate("/");
-      return;
-    } catch (error) {
-      setError(error);
-    }
+      })
+      .then((response) => {
+        navigate("/login");
+      })
+      .catch((error) => setError(error.response.data.username[0]));
   };
 
   return (
@@ -124,7 +123,7 @@ const Signup = () => {
             <Grid container>
               <Grid item>
                 <Link href="/login" variant="body2">
-                  {"Already have an account? Login"}
+                  Already have an account? Login
                 </Link>
               </Grid>
             </Grid>

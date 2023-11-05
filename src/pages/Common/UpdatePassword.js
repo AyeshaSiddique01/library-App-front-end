@@ -12,7 +12,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 import { UPDATE_PASSWORD } from "../../utils/Constants";
 
@@ -20,25 +19,25 @@ const defaultTheme = createTheme();
 
 const UpdatePassword = () => {
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      if (data.get("confirmPassword") !== data.get("password")) {
-        setError("Confirm password and password doesn't match");
-        return;
-      }
-      await axios.post(UPDATE_PASSWORD, {
+
+    if (data.get("confirmPassword") !== data.get("password")) {
+      setError("Confirm password and password doesn't match");
+      return;
+    }
+    await axios
+      .post(UPDATE_PASSWORD, {
         username: data.get("username"),
         password: data.get("password"),
+      })
+      .then((res) => {
+        res.data["error"] && setIsError(true);
+        setError(res.data["error"] || res.data["message"]);
       });
-      navigate("/");
-      return;
-    } catch (error) {
-      setError(error);
-    }
   };
 
   return (
@@ -105,14 +104,14 @@ const UpdatePassword = () => {
               Update Password
             </Button>
             {error && (
-              <Alert severity="error" sx={{ mt: 1 }}>
+              <Alert severity={isError ? "error" : "success"} sx={{ mt: 1 }}>
                 {error}
               </Alert>
             )}
             <Grid container>
               <Grid item>
                 <Link href="/login" variant="body2">
-                  {"Remember Password? Login"}
+                  Remember Password? Login
                 </Link>
               </Grid>
             </Grid>

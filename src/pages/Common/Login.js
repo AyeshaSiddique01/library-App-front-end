@@ -10,7 +10,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -20,32 +19,26 @@ import { UserContext } from "../../context";
 const defaultTheme = createTheme();
 
 const Login = () => {
-  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const { resetRole } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      const response = await axios.post(LOGIN_URL, {
+    await axios
+      .post(LOGIN_URL, {
         username: data.get("username"),
         password: data.get("password"),
-      });
-      if (response.status === 200) {
-        localStorage.setItem("access_token", response.data.access);
+      })
+      .then((res) => {
+        localStorage.setItem("access_token", res.data.access);
         navigate("/");
         resetRole();
-        return;
-      }
-      if (response.status === 401) {
-        setError("Unauthorized: Invalid credentials");
-        return;
-      }
-      setError("An error occurred while logging in.");
-    } catch (error) {
-      setError(error);
-    }
+      })
+      .catch((error) => {
+        setIsError(true);
+      });
   };
 
   return (
@@ -101,10 +94,19 @@ const Login = () => {
             >
               Login
             </Button>
-            {error && (
-              <Alert severity="error" sx={{ mt: 1 }}>
-                {error}
-              </Alert>
+            {isError && (
+              <Typography
+                severity="errorMessage"
+                sx={{
+                  mt: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "red",
+                }}
+              >
+                Invalid Credentials
+              </Typography>
             )}
             <Grid container>
               <Grid item xs>
@@ -114,7 +116,7 @@ const Login = () => {
               </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
