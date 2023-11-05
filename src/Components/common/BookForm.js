@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axiosInstance from "../../axios";
+import React from "react";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Grid,
@@ -17,11 +16,10 @@ import {
   TextField,
 } from "@mui/material";
 
-import { AUTHOR_URL } from "../../utils/Constants";
 import { addBook, updateBook } from "../../slices/bookSlice";
 
 const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
-  const [authors, setAuthors] = useState([]);
+  const authors = useSelector((state) => state.author.authors);
   const [authorsId, setAuthorsId] = React.useState([]);
   const dispatch = useDispatch();
 
@@ -42,19 +40,6 @@ const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
     }
     handleClose();
   };
-
-  const getAuthor = async () => {
-    try {
-      const response = await axiosInstance.get(AUTHOR_URL);
-      setAuthors(response.data);
-    } catch (error) {
-      console.log("Error loading data");
-    }
-  };
-
-  useEffect(() => {
-    getAuthor();
-  }, []);
 
   return (
     <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
