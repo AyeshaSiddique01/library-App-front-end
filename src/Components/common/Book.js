@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-const Book = ({ book, updateBooksData, isLibrarian }) => {
+const Book = ({ book, isLibrarian }) => {
   const navigate = useNavigate();
 
   return (
@@ -62,61 +62,6 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
             </Grid>
           )}
         </CardContent>
-        {/* <CardActions>
-          {isLibrarian ? (
-            <>
-              <Grid container justifyContent="flex-end">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="small"
-                  onClick={() => setIsUpdateBookModalOpen(true)}
-                >
-                  Update
-                </Button>
-                <BookForm
-                  isOpen={isUpdateBookModalOpen}
-                  handleClose={() => setIsUpdateBookModalOpen(false)}
-                  updateBooksData={updateBooksData}
-                  bookToUpdate={book}
-                  isUpdate
-                />
-              </Grid>
-              <Grid>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="small"
-                  onClick={() => dispatch(deleteBook(book.id))}
-                >
-                  Delete
-                </Button>
-              </Grid>
-            </>
-          ) : (
-            <Grid container justifyContent="flex-end">
-              {book.inventory > 0 ? (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="small"
-                  onClick={() => dispatch(addBookRequest({ book: book.id }))}
-                >
-                  Request
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="small"
-                  disabled
-                >
-                  Not Available
-                </Button>
-              )}
-            </Grid>
-          )}
-        </CardActions> */}
       </Card>
     </Grid>
   );
@@ -124,7 +69,6 @@ const Book = ({ book, updateBooksData, isLibrarian }) => {
 
 Book.propTypes = {
   isLibrarian: PropTypes.bool,
-  updateBooksData: PropTypes.func,
   book: PropTypes.shape({
     id: PropTypes.number,
     image: PropTypes.string,
