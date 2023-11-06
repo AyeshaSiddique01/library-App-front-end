@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const [userRole, setUserRole] = useState([]);
 
   const fetchUserRole = async () => {
+    setUserRole([]);
     const roles = await getUserRole();
     setUserRole(roles);
   };
