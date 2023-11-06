@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import CircularIndeterminate from "../Components/Common/Spinner";
 import Librarians from "../pages/Admin/Librarians";
+const BookDetails = lazy(()=> import("../Components/Common/BookDetails"));
 const Authors = lazy(() => import("../pages/Librarian/Authors"));
 const Footer = lazy(() => import("../Components/Common/Footer"));
 const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
@@ -104,6 +105,16 @@ const Routing = () => (
           <Suspense fallback={<CircularIndeterminate />}>
             <ProtectedRoute>
               <Librarians />
+            </ProtectedRoute>
+          </Suspense>
+        }
+      />
+      <Route
+        path="/book_details"
+        element={
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute>
+              <BookDetails />
             </ProtectedRoute>
           </Suspense>
         }
