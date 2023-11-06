@@ -20,42 +20,34 @@ const bookSlice = createSlice({
   initialState,
   reducers: {
     filterBooks: (state, action) => {
-      if (action.payload) {
-        state.books = state.books.filter((book) =>
-        book.name.toLowerCase().includes(action.payload.toLowerCase())
-        );
-        return;
-      }
-      state.books = initialState.books;
+      action.payload &&
+        (state.books = state.books.filter((book) =>
+          book.name.toLowerCase().includes(action.payload.toLowerCase())
+        ));
     },
     addBook: (state, action) => {
       state.books.push(action.payload);
-      try {
-        axiosInstance.post(BOOK_URL, action.payload);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .post(BOOK_URL, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
     deleteBook: (state, action) => {
       state.books = state.books.filter((book) => book.id !== action.payload);
-      try {
-        axiosInstance.delete(`${BOOK_URL}${action.payload}/`);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .delete(`${BOOK_URL}${action.payload}/`)
+        .catch((error) => console.log("error: ", error));
     },
     updateBook: (state, action) => {
-      try {
-        axiosInstance.patch(`${BOOK_URL}${action.payload.id}/`, action.payload);
-      } catch (error) {
-        console.log("error: ", error);
-      }
       state.books = state.books.map((book) =>
         book.id === action.payload.id ? action.payload : book
       );
+      axiosInstance
+        .patch(`${BOOK_URL}${action.payload.id}/`, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
   },
 });
 
-export const { filterBooks, addBook, deleteBook, updateBook } = bookSlice.actions;
+export const { filterBooks, addBook, deleteBook, updateBook, getBookById } =
+  bookSlice.actions;
 export default bookSlice.reducer;

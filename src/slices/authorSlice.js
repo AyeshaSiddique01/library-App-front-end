@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../axios";
 import { AUTHOR_URL } from "../utils/Constants";
 
-
 const fetchAuthor = async () => {
   try {
     const response = await axiosInstance.get(AUTHOR_URL);
@@ -23,34 +22,25 @@ const authorSlice = createSlice({
   reducers: {
     addAuthor: (state, action) => {
       state.authors.push(action.payload);
-      try {
-        axiosInstance.post(AUTHOR_URL, action.payload);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .post(AUTHOR_URL, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
     deleteAuthor: (state, action) => {
       state.authors = state.authors.filter(
         (author) => author.id !== action.payload
       );
-      try {
-        axiosInstance.delete(`${AUTHOR_URL}${action.payload}/`);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .delete(`${AUTHOR_URL}${action.payload}/`)
+        .catch((error) => console.log("error: ", error));
     },
     updateAuthor: (state, action) => {
       state.authors = state.authors.map((author) =>
         author.id === action.payload.id ? action.payload : author
       );
-      try {
-        axiosInstance.patch(
-          `${AUTHOR_URL}${action.payload.id}/`,
-          action.payload
-        );
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .patch(`${AUTHOR_URL}${action.payload.id}/`, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
   },
 });

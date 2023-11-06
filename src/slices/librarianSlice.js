@@ -21,37 +21,29 @@ const librarianSlice = createSlice({
   reducers: {
     addLibrarian: (state, action) => {
       state.librarians.push(action.payload);
-      try {
-        axiosInstance.post(LIBRRAIAN_URL, action.payload);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .post(LIBRRAIAN_URL, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
     deleteLibrarian: (state, action) => {
       state.librarians = state.librarians.filter(
         (librarian) => librarian.id !== action.payload
       );
-      try {
-        axiosInstance.delete(`${LIBRRAIAN_URL}${action.payload}/`);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .delete(`${LIBRRAIAN_URL}${action.payload}/`)
+        .catch((error) => console.log("error: ", error));
     },
     updateLibrarian: (state, action) => {
       state.librarians = state.librarians.map((librarian) =>
         librarian.id === action.payload.id ? action.payload : librarian
       );
-      try {
-        axiosInstance.patch(
-          `${LIBRRAIAN_URL}${action.payload.id}/`,
-          action.payload
-        );
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .patch(`${LIBRRAIAN_URL}${action.payload.id}/`, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
   },
 });
 
-export const { addLibrarian, deleteLibrarian, updateLibrarian } = librarianSlice.actions;
+export const { addLibrarian, deleteLibrarian, updateLibrarian } =
+  librarianSlice.actions;
 export default librarianSlice.reducer;

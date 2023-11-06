@@ -31,11 +31,9 @@ const bookRequestsSlice = createSlice({
       state.bookRequests = state.bookRequests.filter(
         (bookRequest) => bookRequest.id !== action.payload
       );
-      try {
-        axiosInstance.delete(`${BOOK_REQUEST_URL}${action.payload}/`);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .delete(`${BOOK_REQUEST_URL}${action.payload}/`)
+        .catch((error) => console.log("error: ", error));
     },
     updateBookRequest: (state, action) => {
       const { id, status } = action.payload;
@@ -53,14 +51,9 @@ const bookRequestsSlice = createSlice({
           ? { ...bookRequest, ...updatedRequest }
           : bookRequest
       );
-      try {
-        axiosInstance.patch(
-          `${BOOK_REQUEST_URL}${action.payload.id}/`,
-          action.payload
-        );
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .patch(`${BOOK_REQUEST_URL}${action.payload.id}/`, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
   },
   extraReducers: (builder) => {

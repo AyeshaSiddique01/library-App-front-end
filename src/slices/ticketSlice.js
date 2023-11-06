@@ -21,34 +21,25 @@ const ticketSlice = createSlice({
   reducers: {
     addTicket: (state, action) => {
       state.tickets.push(action.payload);
-      try {
-        axiosInstance.post(TICKET_URL, action.payload);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .post(TICKET_URL, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
     deleteTicket: (state, action) => {
       state.tickets = state.tickets.filter(
         (ticket) => ticket.id !== action.payload
       );
-      try {
-        axiosInstance.delete(`${TICKET_URL}${action.payload}/`);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .delete(`${TICKET_URL}${action.payload}/`)
+        .catch((error) => console.log("error: ", error));
     },
     updateTicket: (state, action) => {
       state.tickets = state.tickets.map((ticket) =>
         ticket.id === action.payload.id ? action.payload : ticket
       );
-      try {
-        axiosInstance.patch(
-          `${TICKET_URL}${action.payload.id}/`,
-          action.payload
-        );
-      } catch (error) {
-        console.log("error: ", error);
-      }
+      axiosInstance
+        .patch(`${TICKET_URL}${action.payload.id}/`, action.payload)
+        .catch((error) => console.log("error: ", error));
     },
   },
 });
