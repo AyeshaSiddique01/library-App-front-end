@@ -52,7 +52,7 @@ const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          {(ticket.status === "pending" && isLibrarian) ? (
+          {ticket.status === "pending" && isLibrarian ? (
             <Grid container justifyContent="flex-end">
               <Button
                 variant="contained"
@@ -63,17 +63,19 @@ const Ticket = ({ ticket, updateTickets, isLibrarian }) => {
                 Add response
               </Button>
             </Grid>
-          ) : !isLibrarian && (
-            <Grid container justifyContent="flex-end">
-              <Button
-                variant="contained"
-                color="error"
-                size="small"
-                onClick={() => dispatch(deleteTicket(ticket.id))}
-              >
-                Delete
-              </Button>
-            </Grid>
+          ) : (
+            !isLibrarian && (
+              <Grid container justifyContent="flex-end">
+                <Button
+                  variant="contained"
+                  color="error"
+                  size="small"
+                  onClick={() => dispatch(deleteTicket(ticket.id))}
+                >
+                  Delete
+                </Button>
+              </Grid>
+            )
           )}
         </CardActions>
       </Card>

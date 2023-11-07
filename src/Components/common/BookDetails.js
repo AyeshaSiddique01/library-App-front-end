@@ -46,16 +46,6 @@ const BookDetails = () => {
           flexDirection: "column",
         }}
       >
-        {/* <CardMedia>
-          <ImageListItem key={book.image}>
-            <img
-              srcSet={`${book.image}?w=10&h=10&fit=crop&auto=format&dpr=2 2x`}
-              src={`${book.image}?w=10&h=10&fit=crop&auto=format`}
-              alt={book.name}
-              loading="lazy"
-            />
-          </ImageListItem>
-        </CardMedia> */}
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h5" component="h2">
             {book.name}

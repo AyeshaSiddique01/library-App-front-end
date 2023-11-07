@@ -12,7 +12,7 @@ const defaultTheme = createTheme();
 
 const RequestedBooks = () => {
   const bookRequests = useSelector((state) => state.bookRequest.bookRequests);
-  const {userRole} = useContext(UserContext);
+  const { userRole } = useContext(UserContext);
 
   return (
     <ThemeProvider theme={defaultTheme}>

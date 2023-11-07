@@ -24,7 +24,7 @@ const AuthorForm = ({ isOpen, handleClose, authorToUpdate, isUpdate }) => {
       (emailError = "Enterr valid email");
 
     setEmailHelperText(emailError);
-    setEmailError(!!emailError );
+    setEmailError(!!emailError);
   };
 
   const handleSubmit = (event) => {

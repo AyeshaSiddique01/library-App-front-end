@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useSelector } from "react-redux";
 
 import Ticket from "../../Components/Common/Ticket";
 import TicketForm from "../../Components/User/CreateTicketForm";
@@ -12,8 +12,8 @@ import { UserContext } from "../../context";
 const defaultTheme = createTheme();
 
 const Tickets = () => {
-  const tickets = useSelector((state) => state.ticket.tickets)
-  const {userRole} = useContext(UserContext);
+  const tickets = useSelector((state) => state.ticket.tickets);
+  const { userRole } = useContext(UserContext);
   const [isAddTicketModalOpen, setisAddTicketModalOpen] = useState(false);
 
   return (

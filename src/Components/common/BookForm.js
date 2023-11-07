@@ -6,7 +6,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid, InputLabel, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Grid,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TextField,
+} from "@mui/material";
 
 import { addBook, updateBook } from "../../slices/bookSlice";
 
@@ -26,9 +34,6 @@ const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
   );
 
   const handleButton = () => {
-    console.log(bookInfo.name);
-    console.log(bookInfo.publisher);
-    console.log(bookInfo.inventory);
     let request_data = {
       name: bookInfo.name,
       publisher: bookInfo.publisher,

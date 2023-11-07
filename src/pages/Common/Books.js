@@ -39,10 +39,7 @@ const LibrarianBooks = () => {
         )}
         <Grid container spacing={4}>
           {books.map((book) => (
-            <Book
-              book={book}
-              isLibrarian={userRole.includes("librarian")}
-            />
+            <Book book={book} isLibrarian={userRole.includes("librarian")} />
           ))}
         </Grid>
       </Container>

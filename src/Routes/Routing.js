@@ -2,15 +2,15 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import CircularIndeterminate from "../Components/Common/Spinner";
-import Librarians from "../pages/Admin/Librarians";
-const BookDetails = lazy(()=> import("../Components/Common/BookDetails"));
-const Authors = lazy(() => import("../pages/Librarian/Authors"));
-const Footer = lazy(() => import("../Components/Common/Footer"));
-const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
-const Login = lazy(() => import("../pages/Common/Login"));
-const Signup = lazy(() => import("../pages/User/Signup"));
-const UpdatePassword = lazy(() => import("../pages/Common/UpdatePassword"));
 
+const Librarians = lazy(() => import("../pages/Admin/Librarians"));
+const Authors = lazy(() => import("../pages/Librarian/Authors"));
+const ProtectedRoute = lazy(() => import("./ProtectedRoutes"));
+const Signup = lazy(() => import("../pages/User/Signup"));
+const BookDetails = lazy(() => import("../Components/Common/BookDetails"));
+const Footer = lazy(() => import("../Components/Common/Footer"));
+const Login = lazy(() => import("../pages/Common/Login"));
+const UpdatePassword = lazy(() => import("../pages/Common/UpdatePassword"));
 const Home = lazy(() => import("../pages/Common/Home"));
 const Books = lazy(() => import("../pages/Common/Books"));
 const RequestedBooks = lazy(() => import("../pages/Common/RequestedBooks"));

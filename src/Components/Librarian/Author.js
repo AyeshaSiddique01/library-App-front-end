@@ -10,7 +10,6 @@ import AuthorForm from "./AuthorForm";
 import { useDispatch } from "react-redux";
 import { deleteAuthor } from "../../slices/authorSlice";
 
-
 const Author = ({ author }) => {
   const [isUpdateAuthorModalOpen, setIsUpdateAuthorModalOpen] = useState(false);
   const dispatch = useDispatch();

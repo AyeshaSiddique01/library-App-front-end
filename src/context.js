@@ -20,14 +20,16 @@ export const UserProvider = ({ children }) => {
 
   const clearRole = () => {
     setUserRole([]);
-  }
+  };
 
   useEffect(() => {
     fetchUserRole();
   }, []);
 
   return (
-    <UserContext.Provider value={{userRole, clearRole, resetRole}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ userRole, clearRole, resetRole }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

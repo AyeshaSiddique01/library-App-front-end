@@ -53,7 +53,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { userRole, clearRole } = useContext(UserContext);
   const dispatch = useDispatch();
-  
+
   const logout = () => {
     if (localStorage.getItem("access_token")) {
       localStorage.clear();
@@ -100,7 +100,7 @@ const Navbar = () => {
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
                 onChange={(e) => {
-                  dispatch(filterBooks(e.target.value))
+                  dispatch(filterBooks(e.target.value));
                   navigate(`/books`);
                 }}
               />
