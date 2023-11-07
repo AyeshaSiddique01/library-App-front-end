@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
@@ -12,6 +12,20 @@ import { addAuthor, updateAuthor } from "../../slices/authorSlice";
 
 const AuthorForm = ({ isOpen, handleClose, authorToUpdate, isUpdate }) => {
   const dispatch = useDispatch();
+  const [email, setEmail] = useState(isUpdate ? authorToUpdate.email : "");
+  const [emailError, setEmailError] = useState(false);
+  const [emailHelperText, setEmailHelperText] = useState("");
+
+  const validateEmail = (e) => {
+    const email = e.target.value;
+    setEmail(e.target.value);
+    let emailError = "";
+    !email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/) &&
+      (emailError = "Enterr valid email");
+
+    setEmailHelperText(emailError);
+    setEmailError(!!emailError );
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,12 +64,14 @@ const AuthorForm = ({ isOpen, handleClose, authorToUpdate, isUpdate }) => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Author email"
             name="email"
-            autoComplete="email"
-            defaultValue={isUpdate ? authorToUpdate.email : ""}
-            autoFocus
+            type="email"
+            id="email"
+            label="Author Email"
+            error={emailError}
+            helperText={emailHelperText}
+            value={email}
+            onChange={validateEmail}
           />
           <InputLabel variant="standard" htmlFor="uncontrolled-native">
             Gender
