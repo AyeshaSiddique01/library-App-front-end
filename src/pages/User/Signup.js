@@ -19,27 +19,83 @@ import { USER_URL } from "../../utils/Constants";
 const defaultTheme = createTheme();
 
 const Signup = () => {
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [userHelperText, setUserHelperText] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [userError, setUserError] = useState({
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const specialChar = [".", "@", "#", "$", "!", "*"];
+
+  const validateEmail = (e) => {
+    const email = e.target.value;
+    setUserInfo({ ...userInfo, email: email });
+    let emailError = "";
+    !email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/) &&
+      (emailError = "Enterr valid email");
+
+    setUserHelperText({ ...userHelperText, email: emailError });
+    setUserError({ ...userError, email: !!emailError });
+  };
+
+  const validatePassword = (e) => {
+    const newPassword = e.target.value;
+    setUserInfo({ ...userInfo, password: newPassword });
+    let passwordError = "";
+
+    if (!newPassword.match(/[A-Z]/)) {
+      passwordError = "Password should have an uppercase letter";
+    } else if (!specialChar.some((ch) => newPassword.includes(ch))) {
+      passwordError = `Password should have special character (${specialChar})`;
+    } else if (!newPassword.match(/[0-9]/)) {
+      passwordError = "Password should have a number";
+    }
+
+    setUserHelperText({ ...userHelperText, password: passwordError });
+    setUserError({ ...userError, password: !!passwordError });
+  };
+
+  const validateConfirmPassword = (e) => {
+    const newConfirmPassword = e.target.value;
+    setUserInfo({ ...userInfo, confirmPassword: newConfirmPassword });
+    let confirmPasswordError = "";
+
+    userInfo.password !== newConfirmPassword &&
+      (confirmPasswordError = "Confirm password doesn't match the password");
+
+    setUserHelperText({
+      ...userHelperText,
+      confirmPassword: confirmPasswordError,
+    });
+    setUserError({ ...userError, confirmPassword: !!confirmPasswordError });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    if (data.get("confirmPassword") !== data.get("password")) {
-      setError("Confirm password doesn't match password");
-      return;
-    }
-    await axios
-      .post(USER_URL, {
-        username: data.get("username"),
-        password: data.get("password"),
-        email: data.get("email"),
-      })
-      .then((response) => {
-        navigate("/login");
-      })
-      .catch((error) => setError(error.response.data.username[0]));
+    Object.values(userError).every((state) => !state)
+      ? await axios
+          .post(USER_URL, {
+            username: userInfo.username,
+            password: userInfo.password,
+            email: userInfo.email,
+          })
+          .then(() => {
+            navigate("/login");
+          })
+          .catch((error) => setError(error.response.data.username[0]))
+      : setError("Enter valid data");
   };
 
   return (
@@ -60,54 +116,62 @@ const Signup = () => {
           <Typography component="h1" variant="h5">
             Signup
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
+              type="text"
               id="username"
               label="Username"
               name="username"
               autoComplete="username"
-              autoFocus
+              value={userInfo.username}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, username: e.target.value })
+              }
             />
             <TextField
               margin="normal"
               required
               fullWidth
+              name="email"
+              type="email"
               id="email"
               label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
+              error={userError.email}
+              helperText={userHelperText.email}
+              value={userInfo.email}
+              onChange={validateEmail}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              label="Password"
+              error={userError.password}
+              helperText={userHelperText.password}
+              value={userInfo.password}
+              onChange={validatePassword}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="confirmPassword"
-              label="Confirm Password"
               type="password"
+              error={userError.confirmPassword}
               id="confirmPassword"
-              autoComplete="current-password"
+              label="Confirm Password"
+              helperText={userHelperText.confirmPassword}
+              value={userInfo.confirmPassword}
+              onChange={validateConfirmPassword}
             />
             <Button
-              type="submit"
+              onClick={handleSubmit}
               fullWidth
               variant="contained"
               color="secondary"
