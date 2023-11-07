@@ -7,7 +7,6 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 import BookForm from "./BookForm";
@@ -47,7 +46,16 @@ const BookDetails = () => {
           flexDirection: "column",
         }}
       >
-        <CardMedia component="div" sx={{ pt: "56.25%" }} image={book.image} />
+        {/* <CardMedia>
+          <ImageListItem key={book.image}>
+            <img
+              srcSet={`${book.image}?w=10&h=10&fit=crop&auto=format&dpr=2 2x`}
+              src={`${book.image}?w=10&h=10&fit=crop&auto=format`}
+              alt={book.name}
+              loading="lazy"
+            />
+          </ImageListItem>
+        </CardMedia> */}
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h5" component="h2">
             {book.name}

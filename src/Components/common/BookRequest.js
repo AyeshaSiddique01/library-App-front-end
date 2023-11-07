@@ -22,11 +22,7 @@ const BookRequest = ({ request, isLibrarian }) => {
           flexDirection: "column",
         }}
       >
-        <CardMedia
-          component="div"
-          sx={{ pt: "56.25%" }}
-          image={request.book.image}
-        />
+        <CardMedia component="div" sx={{ objectFit:"fill", height: "500px" }} image={request.book.image} />
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h5" component="h2">
             {request.book.name}

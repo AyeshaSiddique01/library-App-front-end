@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { Button, CardActions } from "@mui/material";
+
+import BookForm from "./BookForm";
+import { deleteBook } from "../../slices/bookSlice";
+import { addBookRequest } from "../../slices/bookRequestSlice";
 
 const Book = ({ book, isLibrarian }) => {
   const navigate = useNavigate();
+  const [isUpdateBookModalOpen, setIsUpdateBookModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <Grid
@@ -17,9 +25,7 @@ const Book = ({ book, isLibrarian }) => {
       xs={12}
       sm={6}
       md={4}
-      onClick={() =>
-        navigate(`/book_details?id=${book.id}`)
-      }
+      onClick={() => navigate(`/book_details?id=${book.id}`)}
     >
       <Card
         sx={{
@@ -28,7 +34,11 @@ const Book = ({ book, isLibrarian }) => {
           flexDirection: "column",
         }}
       >
-        <CardMedia component="div" sx={{ pt: "56.25%" }} image={book.image} />
+        <CardMedia
+          component="div"
+          sx={{ objectFit: "fill", height: "500px" }}
+          image={book.image}
+        />
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h5" component="h2">
             {book.name}
@@ -62,6 +72,71 @@ const Book = ({ book, isLibrarian }) => {
             </Grid>
           )}
         </CardContent>
+        <CardActions>
+          {isLibrarian ? (
+            <>
+              <Grid container justifyContent="flex-end">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setIsUpdateBookModalOpen(true);
+                  }}
+                >
+                  Update
+                </Button>
+                <BookForm
+                  onClick={(event) => event.stopPropagation()}
+                  isOpen={isUpdateBookModalOpen}
+                  handleClose={() => setIsUpdateBookModalOpen(false)}
+                  bookToUpdate={book}
+                  isUpdate
+                />
+              </Grid>
+              <Grid>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    dispatch(deleteBook(book.id));
+                    navigate("/books");
+                  }}
+                >
+                  Delete
+                </Button>
+              </Grid>
+            </>
+          ) : (
+            <Grid container justifyContent="flex-end">
+              {book.inventory > 0 ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    dispatch(addBookRequest({ book: book.id }));
+                  }}
+                >
+                  Request
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  disabled
+                >
+                  Not Available
+                </Button>
+              )}
+            </Grid>
+          )}
+        </CardActions>
       </Card>
     </Grid>
   );

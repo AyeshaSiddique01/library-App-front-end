@@ -39,10 +39,15 @@ const bookSlice = createSlice({
     },
     updateBook: (state, action) => {
       state.books = state.books.map((book) =>
-        book.id === action.payload.id ? action.payload : book
+        book.id === action.payload.id ? { ...book, ...action.payload } : book
       );
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
       axiosInstance
-        .patch(`${BOOK_URL}${action.payload.id}/`, action.payload)
+        .patch(`${BOOK_URL}${action.payload.id}/`, action.payload, config)
         .catch((error) => console.log("error: ", error));
     },
   },

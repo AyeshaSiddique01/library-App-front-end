@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -6,30 +6,33 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Box,
-  Grid,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box, Grid, InputLabel, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
 
 import { addBook, updateBook } from "../../slices/bookSlice";
 
 const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
   const authors = useSelector((state) => state.author.authors);
-  const [authorsId, setAuthorsId] = React.useState([]);
+  const [authorsId, setAuthorsId] = useState([]);
   const dispatch = useDispatch();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const [bookInfo, setBookInfo] = useState(
+    isUpdate
+      ? {
+          name: bookToUpdate.name,
+          publisher: bookToUpdate.publisher,
+          inventory: bookToUpdate.inventory,
+        }
+      : { name: "", publisher: "", inventory: 0 }
+  );
+
+  const handleButton = () => {
+    console.log(bookInfo.name);
+    console.log(bookInfo.publisher);
+    console.log(bookInfo.inventory);
     let request_data = {
-      name: data.get("name"),
-      publisher: data.get("publisher"),
-      inventory: data.get("inventory"),
+      name: bookInfo.name,
+      publisher: bookInfo.publisher,
+      inventory: bookInfo.inventory,
     };
     if (isUpdate) {
       request_data["id"] = bookToUpdate.id;
@@ -40,11 +43,19 @@ const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
     }
     handleClose();
   };
-
   return (
-    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+      fullWidth
+      maxWidth="sm"
+      onClick={(event) => {
+        event.stopPropagation();
+        event.preventDefault();
+      }}
+    >
       <DialogTitle>{isUpdate ? "Update Book" : "Add new Book"}</DialogTitle>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box component="form" noValidate sx={{ mt: 1 }}>
         <DialogContent>
           <TextField
             margin="normal"
@@ -54,7 +65,8 @@ const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
             id="name"
             name="name"
             autoComplete="name"
-            defaultValue={isUpdate ? bookToUpdate.name : ""}
+            value={bookInfo.name}
+            onChange={(e) => setBookInfo({ ...bookInfo, name: e.target.value })}
             autoFocus
           />
           <TextField
@@ -65,7 +77,10 @@ const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
             label="publisher"
             name="publisher"
             autoComplete="publisher"
-            defaultValue={isUpdate ? bookToUpdate.publisher : ""}
+            value={bookInfo.publisher}
+            onChange={(e) =>
+              setBookInfo({ ...bookInfo, publisher: e.target.value })
+            }
             autoFocus
           />
           <TextField
@@ -76,34 +91,41 @@ const BookForm = ({ isOpen, handleClose, bookToUpdate, isUpdate }) => {
             label="inventory"
             name="inventory"
             autoComplete="inventory"
-            defaultValue={isUpdate ? bookToUpdate.inventory : ""}
+            value={bookInfo.inventory}
+            onChange={(e) =>
+              setBookInfo({ ...bookInfo, inventory: e.target.value })
+            }
             autoFocus
           />
-          <InputLabel id="demo-multiple-name-label">Author Name</InputLabel>
-          <Select
-            name="authors"
-            labelId="demo-multiple-name-label"
-            id="demo-multiple-name"
-            multiple
-            value={authorsId}
-            onChange={(event) => setAuthorsId(event.target.value)}
-            input={<OutlinedInput label="Author Name" />}
-          >
-            {authors.map((a) => (
-              <MenuItem key={a.id} value={a.id}>
-                {a.name}
-              </MenuItem>
-            ))}
-          </Select>
+          {!isUpdate && (
+            <>
+              <InputLabel id="demo-multiple-name-label">Author Name</InputLabel>
+              <Select
+                name="authors"
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                multiple
+                value={authorsId}
+                onChange={(event) => setAuthorsId(event.target.value)}
+                input={<OutlinedInput label="Author Name" />}
+              >
+                {authors.map((a) => (
+                  <MenuItem key={a.id} value={a.id}>
+                    {a.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </>
+          )}
         </DialogContent>
         <DialogActions>
           <Grid container justifyContent="flex-end" spacing={1}>
             <Grid item sx={6}>
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 color="secondary"
+                onClick={handleButton}
               >
                 {isUpdate ? "Update" : "Add"}
               </Button>
