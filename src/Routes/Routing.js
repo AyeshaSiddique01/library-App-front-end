@@ -11,6 +11,7 @@ const BookDetails = lazy(() => import("../Components/Common/BookDetails"));
 const Footer = lazy(() => import("../Components/Common/Footer"));
 const Login = lazy(() => import("../pages/Common/Login"));
 const UpdatePassword = lazy(() => import("../pages/Common/UpdatePassword"));
+const GenerateEmail = lazy(() => import("../pages/Common/GenerateEmail"));
 const Home = lazy(() => import("../pages/Common/Home"));
 const Books = lazy(() => import("../pages/Common/Books"));
 const RequestedBooks = lazy(() => import("../pages/Common/RequestedBooks"));
@@ -45,6 +46,16 @@ const Routing = () => (
           <Suspense fallback={<CircularIndeterminate />}>
             <ProtectedRoute isProtected={false}>
               <Login />
+            </ProtectedRoute>
+          </Suspense>
+        }
+      />
+      <Route
+        path="/generate_email"
+        element={
+          <Suspense fallback={<CircularIndeterminate />}>
+            <ProtectedRoute isProtected={false}>
+              <GenerateEmail />
             </ProtectedRoute>
           </Suspense>
         }

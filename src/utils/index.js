@@ -6,6 +6,6 @@ export const getUserRole = async () => {
     const response = await axiosInstance.get(GET_USER_ROLE);
     return response.data;
   } catch (error) {
-    console.log("Error loading role of user");
+    return [];
   }
 };

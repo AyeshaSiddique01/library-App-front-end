@@ -110,7 +110,7 @@ const Login = () => {
             )}
             <Grid container>
               <Grid item xs>
-                <Link href="/update_password" variant="body2">
+                <Link href="/generate_email" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

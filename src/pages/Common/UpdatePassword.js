@@ -33,9 +33,10 @@ const UpdatePassword = () => {
       .post(UPDATE_PASSWORD, {
         username: data.get("username"),
         password: data.get("password"),
+        otp: data.get("otp")
       })
       .then((res) => {
-        res.data["error"] && setIsError(true);
+        res.data["error"] ? setIsError(true) : setIsError(false);
         setError(res.data["error"] || res.data["message"]);
       });
   };
@@ -92,6 +93,16 @@ const UpdatePassword = () => {
               label="Confirm Password"
               type="password"
               id="confirmPassword"
+              autoComplete="current-password"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="otp"
+              label="OTP"
+              type="text"
+              id="otp"
               autoComplete="current-password"
             />
             <Button
