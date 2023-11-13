@@ -90,6 +90,7 @@ const Navbar = () => {
             {userRole.includes("admin") && (
               <NavbarIcon link="/librarians" name="Librarians" />
             )}
+            <NavbarIcon link="/update_password" name="Update Password" />
           </ul>
           {!userRole.includes("admin") && (
             <Search>

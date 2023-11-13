@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Alert from "@mui/material/Alert";
 
 import { UPDATE_PASSWORD } from "../../utils/Constants";
+import axiosInstance from "../../axios";
 
 const defaultTheme = createTheme();
 
@@ -25,15 +20,15 @@ const UpdatePassword = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if (data.get("confirmPassword") !== data.get("password")) {
+    if (data.get("confirmPassword") !== data.get("newPassword")) {
       setError("Confirm password and password doesn't match");
       return;
     }
-    await axios
+    await axiosInstance
       .post(UPDATE_PASSWORD, {
         username: data.get("username"),
-        password: data.get("password"),
-        otp: data.get("otp")
+        old_password: data.get("oldPassword"),
+        new_password: data.get("newPassword"),
       })
       .then((res) => {
         res.data["error"] ? setIsError(true) : setIsError(false);
@@ -43,7 +38,7 @@ const UpdatePassword = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container sx={{ py: 8 }} maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -53,12 +48,6 @@ const UpdatePassword = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Update Password
-          </Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -79,10 +68,20 @@ const UpdatePassword = () => {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
+              name="oldPassword"
+              label="Old Password"
               type="password"
-              id="password"
+              id="oldPassword"
+              autoComplete="current-password"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="newPassword"
+              label="New Password"
+              type="password"
+              id="newPassword"
               autoComplete="current-password"
             />
             <TextField
@@ -93,16 +92,6 @@ const UpdatePassword = () => {
               label="Confirm Password"
               type="password"
               id="confirmPassword"
-              autoComplete="current-password"
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="otp"
-              label="OTP"
-              type="text"
-              id="otp"
               autoComplete="current-password"
             />
             <Button
@@ -119,13 +108,6 @@ const UpdatePassword = () => {
                 {error}
               </Alert>
             )}
-            <Grid container>
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Remember Password? Login
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

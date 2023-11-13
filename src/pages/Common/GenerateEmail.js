@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,10 +19,10 @@ const defaultTheme = createTheme();
 
 const GenerateEmail = () => {
   const [error, setError] = useState("");
-  const [email, setEmail] = useState("")
-  const [helperText, setHelperText] = useState("")
-  const [emailError, setEmailError] = useState(false)
-  const navigate = useNavigate();
+  const [isError, setIsError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [helperText, setHelperText] = useState("");
+  const [emailError, setEmailError] = useState(false);
 
   const validateEmail = (e) => {
     const email = e.target.value;
@@ -36,15 +37,19 @@ const GenerateEmail = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    ! emailError
+    !emailError
       ? await axios
           .post(GENERATE_EMAIL, {
             email: email,
           })
           .then(() => {
-            navigate("/update_password");
+            setIsError(false);
+            setError("New password has been sent on this email");
           })
-          .catch((error) => setError("Email doesn't exist"))
+          .catch(() => {
+            setIsError(true);
+            setError("Email doesn't exist");
+          })
       : setError("Enter valid data");
   };
 
@@ -66,11 +71,7 @@ const GenerateEmail = () => {
           <Typography component="h1" variant="h5">
             Update Password
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -91,13 +92,20 @@ const GenerateEmail = () => {
               color="secondary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Get OTP 
+              Get OTP
             </Button>
             {error && (
-              <Alert severity={!!error ? "error" : "success"} sx={{ mt: 1 }}>
+              <Alert severity={isError ? "error" : "success"} sx={{ mt: 1 }}>
                 {error}
               </Alert>
             )}
+            <Grid container>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Back to login
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

@@ -64,7 +64,7 @@ const Routing = () => (
         path="/update_password"
         element={
           <Suspense fallback={<CircularIndeterminate />}>
-            <ProtectedRoute isProtected={false}>
+            <ProtectedRoute>
               <UpdatePassword />
             </ProtectedRoute>
           </Suspense>
